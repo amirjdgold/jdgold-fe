@@ -1,0 +1,22 @@
+/* Design canvas is 1512px wide; FigmaHome scales it to fit the viewport (see FigmaHome.tsx). */
+.figma-home-root {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.figma-home-canvas {
+  width: 1512px !important;
+  max-width: none !important;
+  min-width: 1512px !important;
+  flex-shrink: 0;
+  transform-origin: top left;
+  will-change: transform;
+}
+
+/* Panel pages (About / Factory / License) always use the desktop composition;
+   mobile/tablet only see a scaled-down version of that same layout. */
+.figma-panel-page {
+  width: 100%;
+  min-width: 0;
+}
