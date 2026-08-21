@@ -1,4 +1,4 @@
-/** Backend origin for production (Cloudflare → Vercel). Empty in local Vite (proxy). */
+/** Backend origin for production deployments. Empty in local Vite (proxy). */
 export const API_BASE = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, '') ?? '';
 
 /** Prefix API/upload paths with VITE_API_URL when set. */

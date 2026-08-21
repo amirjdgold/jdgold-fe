@@ -3,14 +3,14 @@ import { apiFetch, rewriteUploadUrls } from '@/lib/api';
 import type { PageDocument } from '@/types/pageContent';
 
 export function usePageContent(slug: string) {
-  const [page, setPage] = useState<PageDocument | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<{
+    slug: string;
+    page: PageDocument | null;
+    error: string | null;
+  }>({ slug, page: null, error: null });
 
   useEffect(() => {
     let cancelled = false;
-    setLoading(true);
-    setError(null);
 
     apiFetch(`/api/pages/${encodeURIComponent(slug)}`)
       .then((r) => {
@@ -18,16 +18,18 @@ export function usePageContent(slug: string) {
         return r.json();
       })
       .then((data: PageDocument) => {
-        if (!cancelled) setPage(rewriteUploadUrls(data));
+        if (!cancelled) {
+          setResult({ slug, page: rewriteUploadUrls(data), error: null });
+        }
       })
       .catch((e: unknown) => {
         if (!cancelled) {
-          setPage(null);
-          setError(e instanceof Error ? e.message : 'Failed to load page');
+          setResult({
+            slug,
+            page: null,
+            error: e instanceof Error ? e.message : 'Failed to load page',
+          });
         }
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
       });
 
     return () => {
@@ -35,5 +37,13 @@ export function usePageContent(slug: string) {
     };
   }, [slug]);
 
-  return { page, loading, error };
+  if (result.slug !== slug) {
+    return { page: null, loading: true, error: null };
+  }
+
+  return {
+    page: result.page,
+    loading: result.page === null && result.error === null,
+    error: result.error,
+  };
 }

@@ -1,6 +1,6 @@
 # jdgold-fe
 
-Vite + React site. Deploy on **Cloudflare Pages**. API on Vercel.
+Vite + React site. Deploy the frontend and API on **Vercel** as separate projects.
 
 ## Local
 
@@ -11,26 +11,26 @@ npm run dev
 
 Leave `VITE_API_URL` empty locally (Vite proxies `/api` → `http://localhost:3001`).
 
-## Deploy to Cloudflare Pages (dashboard)
+## Deploy to Vercel
 
-1. Cloudflare Dashboard → **Workers & Pages** → **Create** → **Pages** → Connect to Git
-2. Select repo `amirjdgold/jdgold-fe`
-3. Build settings:
+1. In the Vercel dashboard, choose **Add New → Project** and import the frontend repository.
+2. Configure the project:
 
 | Setting | Value |
 |---------|--------|
 | Framework preset | Vite |
 | Build command | `npm run build` |
-| Build output directory | `dist` |
+| Output directory | `dist` |
 | Root directory | `/` (repo root) |
 
-4. Environment variables (Production):
+3. Add this environment variable for Production and any Preview environments that should use the deployed API:
 
 | Name | Value |
 |------|--------|
 | `VITE_API_URL` | your Vercel API origin, e.g. `https://jdgold-be.vercel.app` (no trailing slash) |
 
-5. Save and deploy
-6. Copy the `*.pages.dev` URL → set it as `CORS_ORIGINS` on the Vercel backend, then redeploy backend (or just update env)
+   `VITE_API_URL` is a Vite build-time variable. Changing it in Vercel does not update an existing static bundle; redeploy the frontend after every change.
+4. Deploy the project.
+5. Add the frontend's Vercel URL to `CORS_ORIGINS` on the backend and redeploy the backend if that value changed.
 
-SPA routing is handled by `public/_redirects`.
+`vercel.json` serves existing static files from `dist` first, then falls back to `index.html` for client-side routes.
