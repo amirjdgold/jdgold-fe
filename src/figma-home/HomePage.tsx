@@ -1,9 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useId, type ReactNode } from 'react';
-import { NAV_ITEMS } from '@/pages/navItems';
-import { AboutSection } from '@/pages/AboutPage';
-import { FactorySection } from '@/pages/FactoryPage';
-import { LicenseSection } from '@/pages/LicensePage';
+import { useId, type ReactNode } from 'react';
+import { HOME_NAV_ITEMS } from '@/pages/navItems';
 import svgPaths from './svg-paths';
 import type {
   BuildingTrustSection,
@@ -221,6 +218,7 @@ function Contact() {
 }
 
 const NAV_ICONS: Record<string, ReactNode> = {
+  Home: <DashboardSquare />,
   'About Us': <DashboardSquare />,
   'Product & Services': <Copy />,
   'Management Gallery': <Image />,
@@ -235,7 +233,7 @@ function Frame11() {
     <div className="relative shrink-0 self-stretch rounded-[16px] bg-[#010100]">
       <div className="flex size-full flex-col items-center justify-center overflow-clip rounded-[inherit]">
         <nav className="relative flex size-full flex-col content-stretch items-center justify-evenly gap-[12px] px-[12px] py-[24px]">
-          {NAV_ITEMS.map((item) => (
+          {HOME_NAV_ITEMS.map((item) => (
             <SideNavItem
               key={item.to}
               to={item.to}
@@ -264,39 +262,18 @@ function Frame12({ gallery }: { gallery?: HomeRightGallery | null }) {
 function Frame8({
   members,
   homeRightGallery,
-  getInTouch,
 }: {
   members: TeamMember[];
   homeRightGallery?: HomeRightGallery | null;
-  getInTouch?: GetInTouchSection | null;
 }) {
-  const { pathname } = useLocation();
-  const showAbout = pathname === '/about';
-  const showFactory = pathname === '/factory';
-  const showLicense = pathname === '/license';
-  const showPanel = showAbout || showFactory || showLicense;
-
-  useEffect(() => {
-    if (!showPanel) return;
-    document.getElementById('home-main-panel')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [showPanel]);
-
   return (
     <div id="home-main-panel" className="relative w-full shrink-0">
       <div className="relative w-full bg-[#000000] px-[20px] py-[10px]">
-        {showAbout ? (
-          <AboutSection teamMembers={members} getInTouch={getInTouch} />
-        ) : showFactory ? (
-          <FactorySection />
-        ) : showLicense ? (
-          <LicenseSection />
-        ) : (
-          <div className="relative flex w-full content-stretch items-stretch gap-[12px]">
-            <Frame9 members={members} />
-            <Frame11 />
-            <Frame12 gallery={homeRightGallery} />
-          </div>
-        )}
+        <div className="relative flex w-full content-stretch items-stretch gap-[12px]">
+          <Frame9 members={members} />
+          <Frame11 />
+          <Frame12 gallery={homeRightGallery} />
+        </div>
       </div>
     </div>
   );
@@ -366,8 +343,6 @@ export default function HomePage({
   getInTouchSection,
 }: HomePageProps) {
   const members = resolveTeamMembers(teamMembers);
-  const { pathname } = useLocation();
-  const showPanel = pathname === '/about' || pathname === '/factory' || pathname === '/license';
 
   return (
     <div
@@ -377,21 +352,16 @@ export default function HomePage({
       <Frame8
         members={members}
         homeRightGallery={homeRightGallery}
-        getInTouch={getInTouchSection}
       />
-      {!showPanel ? (
-        <>
-          <SectionBrands whyChoose={whyChooseSection} />
-          <BuildingTrustGoldSection content={buildingTrustSection} />
-          <GoldProductsSectionView content={goldProductsSection} />
-          <GoldRefiningProcessSectionView content={goldRefiningProcessSection} />
-          <RefiningGallerySectionView content={refiningGallerySection} />
-          <IndustriesWeServeSectionView content={industriesWeServeSection} />
-          <MiningExtractionSectionView content={miningExtractionSection} />
-          <GlobalShippingSectionView content={globalShippingSection} />
-          <SectionBrands5 getInTouch={getInTouchSection} />
-        </>
-      ) : null}
+      <SectionBrands whyChoose={whyChooseSection} />
+      <BuildingTrustGoldSection content={buildingTrustSection} />
+      <GoldProductsSectionView content={goldProductsSection} />
+      <GoldRefiningProcessSectionView content={goldRefiningProcessSection} />
+      <RefiningGallerySectionView content={refiningGallerySection} />
+      <IndustriesWeServeSectionView content={industriesWeServeSection} />
+      <MiningExtractionSectionView content={miningExtractionSection} />
+      <GlobalShippingSectionView content={globalShippingSection} />
+      <SectionBrands5 getInTouch={getInTouchSection} />
     </div>
   );
 }

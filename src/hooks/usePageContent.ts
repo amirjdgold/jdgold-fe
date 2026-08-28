@@ -1,29 +1,39 @@
-import { useEffect, useState } from 'react';
-import { apiFetch, rewriteUploadUrls } from '@/lib/api';
+import { useCallback, useEffect, useState } from 'react';
+import { getPage } from '@/lib/api';
+import { mapApiPageToDocument } from '@/lib/mapApiPage';
+import { toUserFacingError } from '@/lib/userFacingError';
 import type { PageDocument } from '@/types/pageContent';
 
 export function usePageContent(slug: string) {
   const [page, setPage] = useState<PageDocument | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [retryCount, setRetryCount] = useState(0);
+
+  const retry = useCallback(() => {
+    setRetryCount((n) => n + 1);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
     setLoading(true);
     setError(null);
 
-    apiFetch(`/api/pages/${encodeURIComponent(slug)}`)
-      .then((r) => {
-        if (!r.ok) throw new Error(r.status === 404 ? 'Page not found' : String(r.status));
-        return r.json();
-      })
-      .then((data: PageDocument) => {
-        if (!cancelled) setPage(rewriteUploadUrls(data));
+    getPage(slug)
+      .then((data) => {
+        if (!cancelled) {
+          setPage(mapApiPageToDocument(data));
+        }
       })
       .catch((e: unknown) => {
         if (!cancelled) {
           setPage(null);
-          setError(e instanceof Error ? e.message : 'Failed to load page');
+          setError(
+            toUserFacingError(
+              e,
+              'Something went wrong while loading this page. Please try again.',
+            ),
+          );
         }
       })
       .finally(() => {
@@ -33,7 +43,7 @@ export function usePageContent(slug: string) {
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [slug, retryCount]);
 
-  return { page, loading, error };
+  return { page, loading, error, retry };
 }

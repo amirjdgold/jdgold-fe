@@ -59,6 +59,9 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
+    /* clip (not hidden) avoids creating nested scroll containers that trap touchpad wheel */
+    overflow-x: clip;
+    max-width: 100%;
   }
 
   body {
