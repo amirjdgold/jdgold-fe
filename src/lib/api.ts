@@ -6,7 +6,7 @@ import type { SiteContent } from '@/hooks/useSiteContent';
  * API root from VITE_API_URL.
  * - Empty → relative `/api` (Vite proxy in local dev)
  * - `http://localhost:5000/api` → used as-is
- * - `https://api.example.com` → `/api` appended
+ * - `https://api.example.com` → `/api` appended (Vercel origin-only env)
  */
 const rawEnv = (import.meta.env.VITE_API_URL as string | undefined)?.trim() ?? '';
 const trimmed = rawEnv.replace(/\/$/, '');
