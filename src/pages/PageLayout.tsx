@@ -28,6 +28,7 @@ export default function PageLayout({
               <NavLink
                 key={item.to}
                 to={item.to}
+                end={item.to === '/'}
                 className={({ isActive }: { isActive: boolean }) =>
                   [
                     "whitespace-nowrap rounded-[10px] px-[12px] py-[6px] font-['Alice:Regular',sans-serif] text-[18px] no-underline transition-colors",

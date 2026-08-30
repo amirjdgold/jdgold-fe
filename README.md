@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Leave `VITE_API_URL` empty locally (Vite proxies `/api` → `http://localhost:3001`).
+Leave `VITE_API_URL` empty locally (Vite proxies `/api` → backend), or set e.g. `VITE_API_URL=http://localhost:3001/api`.
 
 ## Deploy to Vercel
 
@@ -27,7 +27,7 @@ Leave `VITE_API_URL` empty locally (Vite proxies `/api` → `http://localhost:30
 
 | Name | Value |
 |------|--------|
-| `VITE_API_URL` | your Vercel API origin, e.g. `https://jdgold-be.vercel.app` (no trailing slash) |
+| `VITE_API_URL` | your Vercel API root, e.g. `https://jdgold-be.vercel.app/api` (no trailing slash) |
 
    `VITE_API_URL` is a Vite build-time variable. Changing it in Vercel does not update an existing static bundle; redeploy the frontend after every change.
 4. Deploy the project.

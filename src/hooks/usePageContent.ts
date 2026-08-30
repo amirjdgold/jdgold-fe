@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
-import { apiFetch, rewriteUploadUrls } from '@/lib/api';
+import { useCallback, useEffect, useState } from 'react';
+import { getPage } from '@/lib/api';
+import { mapApiPageToDocument } from '@/lib/mapApiPage';
+import { toUserFacingError } from '@/lib/userFacingError';
 import type { PageDocument } from '@/types/pageContent';
 
 export function usePageContent(slug: string) {
@@ -8,18 +10,20 @@ export function usePageContent(slug: string) {
     page: PageDocument | null;
     error: string | null;
   }>({ slug, page: null, error: null });
+  const [retryCount, setRetryCount] = useState(0);
+
+  const retry = useCallback(() => {
+    setResult((prev) => ({ ...prev, page: null, error: null }));
+    setRetryCount((n) => n + 1);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
 
-    apiFetch(`/api/pages/${encodeURIComponent(slug)}`)
-      .then((r) => {
-        if (!r.ok) throw new Error(r.status === 404 ? 'Page not found' : String(r.status));
-        return r.json();
-      })
-      .then((data: PageDocument) => {
+    getPage(slug)
+      .then((data) => {
         if (!cancelled) {
-          setResult({ slug, page: rewriteUploadUrls(data), error: null });
+          setResult({ slug, page: mapApiPageToDocument(data), error: null });
         }
       })
       .catch((e: unknown) => {
@@ -27,7 +31,10 @@ export function usePageContent(slug: string) {
           setResult({
             slug,
             page: null,
-            error: e instanceof Error ? e.message : 'Failed to load page',
+            error: toUserFacingError(
+              e,
+              'Something went wrong while loading this page. Please try again.',
+            ),
           });
         }
       });
@@ -35,15 +42,16 @@ export function usePageContent(slug: string) {
     return () => {
       cancelled = true;
     };
-  }, [slug]);
+  }, [slug, retryCount]);
 
   if (result.slug !== slug) {
-    return { page: null, loading: true, error: null };
+    return { page: null, loading: true, error: null, retry };
   }
 
   return {
     page: result.page,
     loading: result.page === null && result.error === null,
     error: result.error,
+    retry,
   };
 }

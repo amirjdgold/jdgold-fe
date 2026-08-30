@@ -7,10 +7,7 @@ export default function HomeView() {
 
   return (
     <>
-      <Hero
-        slides={siteContent?.hero?.slides}
-        branding={siteContent?.hero?.branding}
-      />
+      <Hero branding={siteContent?.hero?.branding} />
       <FigmaHome
         teamMembers={siteContent?.teamManagement?.members}
         homeRightGallery={siteContent?.homeRightGallery}

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { apiFetch, rewriteUploadUrls } from '@/lib/api';
+import { getSiteContent } from '@/lib/api';
 
 export type HeroSlide =
   | { type: 'video'; src: string }
@@ -195,10 +195,9 @@ export function useSiteContent() {
 
   useEffect(() => {
     let cancelled = false;
-    apiFetch('/api/content')
-      .then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
-      .then((data: SiteContent) => {
-        if (!cancelled) setContent(rewriteUploadUrls(data));
+    getSiteContent()
+      .then((data) => {
+        if (!cancelled) setContent(data);
       })
       .catch(() => {
         if (!cancelled) setContent(null);

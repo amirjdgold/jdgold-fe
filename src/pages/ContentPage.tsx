@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import PageContentError from '@/components/content/PageContentError';
+import PageContentLoader from '@/components/content/PageContentLoader';
 import { usePageContent } from '@/hooks/usePageContent';
 import AboutPageView, { type AboutContent } from '@/pages/AboutPageView';
 import LicensesPageView, { type LicensesContent } from '@/pages/LicensesPageView';
@@ -9,24 +10,21 @@ type ContentPageProps = {
 };
 
 export default function ContentPage({ slug }: ContentPageProps) {
-  const { page, loading, error } = usePageContent(slug);
+  const { page, loading, error, retry } = usePageContent(slug);
 
   if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0a0502] text-[#c09038]">
-        Loading…
-      </div>
-    );
+    return <PageContentLoader />;
   }
 
   if (error || !page) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-[#0a0502] text-white">
-        <p className="text-[#c09038]">{error || 'Page not found'}</p>
-        <Link to="/" className="text-sm underline">
-          Back to Home
-        </Link>
-      </div>
+      <PageContentError
+        message={
+          error ||
+          'This content is currently unavailable.'
+        }
+        onRetry={retry}
+      />
     );
   }
 
@@ -43,11 +41,9 @@ export default function ContentPage({ slug }: ContentPageProps) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-[#0a0502] text-white">
-      <p className="text-[#c09038]">Unknown page layout</p>
-      <Link to="/" className="text-sm underline">
-        Back to Home
-      </Link>
-    </div>
+    <PageContentError
+      message="This page could not be displayed."
+      onRetry={retry}
+    />
   );
 }
