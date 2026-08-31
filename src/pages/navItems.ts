@@ -10,7 +10,6 @@ export const NAV_ITEMS: NavItem[] = [
 
 /** Full side navigation on the home screen. */
 export const HOME_NAV_ITEMS: NavItem[] = [
-  { to: '/', label: 'Home' },
   { to: '/about', label: 'About Us' },
   { to: '/products', label: 'Product & Services' },
   { to: '/management', label: 'Management Gallery' },

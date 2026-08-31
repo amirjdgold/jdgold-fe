@@ -1,45 +1,29 @@
 import { useId } from 'react';
+import SafeImage from '@/components/SafeImage';
 import type { GoldRefiningProcessSection } from '@/hooks/useSiteContent';
-import {
-  imgDivCardElevated,
-  imgFrame6,
-  imgFrame7,
-  imgFrame12,
-  imgFrame24,
-  imgFrame27,
-} from './assetMap';
 import svgPaths from './svg-paths';
 
 export const REFINING_PROCESS_STEP_COUNT = 6;
 
 const DEFAULTS: GoldRefiningProcessSection = {
   heading: 'Our Gold Refining Process',
-  steps: [
-    { step: '01', title: 'Raw Material', image: imgFrame27, imageAlt: 'Raw material' },
-    { step: '02', title: 'Melting', image: imgFrame6, imageAlt: 'Melting' },
-    { step: '03', title: 'Refining', image: imgFrame12, imageAlt: 'Refining' },
-    { step: '04', title: 'Casting', image: imgFrame7, imageAlt: 'Casting' },
-    { step: '05', title: 'Quality Check', image: imgFrame24, imageAlt: 'Quality check' },
-    { step: '06', title: 'Packaging', image: imgDivCardElevated, imageAlt: 'Packaging' },
-  ],
+  steps: [],
 };
 
 export function resolveGoldRefiningProcessSection(
   cms?: GoldRefiningProcessSection | null,
 ): GoldRefiningProcessSection {
   const raw = (cms || {}) as Partial<GoldRefiningProcessSection>;
-  const steps = (raw.steps ?? []).slice(0, REFINING_PROCESS_STEP_COUNT);
-  while (steps.length < REFINING_PROCESS_STEP_COUNT) {
-    const i = steps.length;
-    steps.push({ ...DEFAULTS.steps[i] });
-  }
+  const steps = (raw.steps ?? [])
+    .filter((step) => step?.title?.trim())
+    .slice(0, REFINING_PROCESS_STEP_COUNT);
   return {
     heading: (raw.heading || '').trim() || DEFAULTS.heading,
     steps: steps.map((s, i) => ({
-      step: (s.step || '').trim() || DEFAULTS.steps[i].step,
-      title: (s.title || '').trim() || DEFAULTS.steps[i].title,
-      image: (s.image || '').trim() || DEFAULTS.steps[i].image,
-      imageAlt: (s.imageAlt || '').trim() || DEFAULTS.steps[i].imageAlt,
+      step: (s.step || '').trim() || String(i + 1).padStart(2, '0'),
+      title: s.title.trim(),
+      image: (s.image || '').trim(),
+      imageAlt: (s.imageAlt || '').trim() || undefined,
     })),
   };
 }
@@ -114,7 +98,7 @@ function ProcessStepCard({
     <div className="relative min-w-px flex-[1_0_0] self-stretch rounded-[20px]">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[20px]">
         <div className="absolute inset-0 rounded-[20px] bg-[#100b02]" />
-        <img
+        <SafeImage
           alt={imageAlt || ''}
           className="absolute size-full max-w-none rounded-[20px] object-cover opacity-24"
           src={image}

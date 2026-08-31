@@ -1,35 +1,27 @@
 import { useId } from 'react';
+import SafeImage from '@/components/SafeImage';
 import type { BuildingTrustSection } from '@/hooks/useSiteContent';
-import { imgFrame6, imgFrame12, imgFrame21, imgFrame24, imgFrame25 } from './assetMap';
 import svgPaths from './svg-paths';
 
 export const BUILDING_TRUST_SLOT_COUNT = 5;
 
 const DEFAULTS: BuildingTrustSection = {
   heading: 'Building Trust in Gold',
-  slots: [
-    { image: imgFrame6, alt: 'Gold production' },
-    { image: imgFrame24, alt: 'Gold weighed' },
-    { image: imgFrame25, alt: 'Dubai refinery' },
-    { image: imgFrame21, alt: 'Gold pellets' },
-    { image: imgFrame12, alt: 'JD Gold operations' },
-  ],
+  slots: [],
 };
 
 export function resolveBuildingTrustSection(
   cms?: BuildingTrustSection | null,
 ): BuildingTrustSection {
   const raw = (cms || {}) as Partial<BuildingTrustSection>;
-  const slots = (raw.slots ?? []).slice(0, BUILDING_TRUST_SLOT_COUNT);
-  while (slots.length < BUILDING_TRUST_SLOT_COUNT) {
-    const i = slots.length;
-    slots.push({ ...DEFAULTS.slots[i] });
-  }
+  const slots = (raw.slots ?? [])
+    .filter((slot) => slot?.image?.trim())
+    .slice(0, BUILDING_TRUST_SLOT_COUNT);
   return {
     heading: (raw.heading || '').trim() || DEFAULTS.heading,
-    slots: slots.map((s, i) => ({
-      image: (s.image || '').trim() || DEFAULTS.slots[i].image,
-      alt: (s.alt || '').trim() || DEFAULTS.slots[i].alt,
+    slots: slots.map((s) => ({
+      image: s.image.trim(),
+      alt: (s.alt || '').trim() || undefined,
     })),
   };
 }
@@ -90,7 +82,7 @@ function TrustHeading({ title }: { title: string }) {
 function TrustImageSlot({ image, alt }: { image: string; alt?: string }) {
   return (
     <div className="relative min-w-px flex-[1_0_0] h-[200px] rounded-[16px]">
-      <img
+      <SafeImage
         alt={alt || ''}
         className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
         src={image}

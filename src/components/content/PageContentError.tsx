@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import SafeImage from '@/components/SafeImage';
 import { cn } from '@/lib/utils';
 
 type PageContentErrorProps = {
@@ -24,9 +25,8 @@ export default function PageContentError({
       )}
       role="alert"
     >
-      <img
-        src="/images/jd-gold-logo.png"
-        alt="JD Gold"
+      <SafeImage
+        alt="Media unavailable"
         className="h-16 w-auto opacity-90"
       />
       <div className="max-w-md space-y-2">

@@ -1,41 +1,26 @@
 import { useId } from 'react';
+import SafeImage from '@/components/SafeImage';
 import type { GoldProductsSection } from '@/hooks/useSiteContent';
-import {
-  imgFrame22,
-  imgFrame23,
-  imgFrame26,
-  imgFrame27,
-  imgFrame7,
-} from './assetMap';
 import svgPaths from './svg-paths';
 
 export const GOLD_PRODUCTS_COUNT = 6;
 
 const DEFAULTS: GoldProductsSection = {
   heading: 'Our Gold Products',
-  products: [
-    { label: 'Gold Bars (999.9)', image: imgFrame22, imageAlt: 'Gold bars 999.9' },
-    { label: 'Gold Bullion', image: imgFrame26, imageAlt: 'Gold bullion' },
-    { label: 'Gold Nuggets', image: imgFrame27, imageAlt: 'Gold nuggets' },
-    { label: 'Gold Granules', image: imgFrame7, imageAlt: 'Gold granules' },
-    { label: 'Gold Dust', image: imgFrame23, imageAlt: 'Gold dust' },
-    { label: 'Gold Bars (999.9)', image: imgFrame22, imageAlt: 'Gold bars 999.9' },
-  ],
+  products: [],
 };
 
 export function resolveGoldProductsSection(cms?: GoldProductsSection | null): GoldProductsSection {
   const raw = (cms || {}) as Partial<GoldProductsSection>;
-  const products = (raw.products ?? []).slice(0, GOLD_PRODUCTS_COUNT);
-  while (products.length < GOLD_PRODUCTS_COUNT) {
-    const i = products.length;
-    products.push({ ...DEFAULTS.products[i] });
-  }
+  const products = (raw.products ?? [])
+    .filter((product) => product?.image?.trim())
+    .slice(0, GOLD_PRODUCTS_COUNT);
   return {
     heading: (raw.heading || '').trim() || DEFAULTS.heading,
-    products: products.map((p, i) => ({
-      label: (p.label || '').trim() || DEFAULTS.products[i].label,
-      image: (p.image || '').trim() || DEFAULTS.products[i].image,
-      imageAlt: (p.imageAlt || '').trim() || DEFAULTS.products[i].imageAlt,
+    products: products.map((p) => ({
+      label: (p.label || '').trim(),
+      image: p.image.trim(),
+      imageAlt: (p.imageAlt || '').trim() || undefined,
     })),
   };
 }
@@ -105,7 +90,7 @@ function ProductCard({
   return (
     <div className="flex min-w-px flex-[1_0_0] flex-row items-center self-stretch">
       <div className="relative h-full min-w-px flex-[1_0_0] rounded-[16px]">
-        <img
+        <SafeImage
           alt={imageAlt || label}
           className="pointer-events-none absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
           src={image}

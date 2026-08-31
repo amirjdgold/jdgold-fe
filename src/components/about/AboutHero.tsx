@@ -40,11 +40,13 @@ export default function AboutHero({
 
       <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-10 md:grid-cols-[1.15fr_0.95fr] md:gap-10 md:px-6 md:py-14">
         <div className="flex flex-col items-center text-center md:items-start md:text-left">
-          <SafeImage
-            src={logoSrc}
-            alt="JD Gold"
-            className="mb-3 h-20 w-auto md:h-24"
-          />
+          {logoSrc ? (
+            <SafeImage
+              src={logoSrc}
+              alt="JD Gold"
+              className="mb-3 h-20 w-auto md:h-24"
+            />
+          ) : null}
           <p className="font-['Alice:Regular',Georgia,serif] text-2xl tracking-[0.18em] text-[#c09038] md:text-3xl">
             JD GOLD
           </p>

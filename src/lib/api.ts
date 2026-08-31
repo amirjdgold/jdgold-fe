@@ -170,13 +170,27 @@ export async function getSiteContent(): Promise<SiteContent> {
   return data;
 }
 
-/** Rewrite `/uploads…` strings in CMS JSON so media loads from the API host. */
+/** Resolve API-managed upload paths while preserving absolute/external URLs. */
+export function resolveCmsAssetUrl(value: string): string {
+  const path = value.trim();
+  if (!path) return path;
+  if (/^(?:https?:)?\/\//i.test(path) || /^(?:data|blob):/i.test(path)) {
+    return path;
+  }
+  const uploadPath = path.startsWith('uploads/') ? `/${path}` : path;
+  if (!uploadPath.startsWith('/uploads')) return path;
+  return ASSET_ORIGIN ? `${ASSET_ORIGIN}${uploadPath}` : uploadPath;
+}
+
+/** Rewrite upload strings in CMS JSON so media loads from the API host. */
 export function rewriteUploadUrls<T>(data: T): T {
-  if (!ASSET_ORIGIN) return data;
   return JSON.parse(
     JSON.stringify(data, (_key, value) => {
-      if (typeof value === 'string' && value.startsWith('/uploads')) {
-        return `${ASSET_ORIGIN}${value}`;
+      if (
+        typeof value === 'string' &&
+        (value.startsWith('/uploads') || value.startsWith('uploads/'))
+      ) {
+        return resolveCmsAssetUrl(value);
       }
       return value;
     }),

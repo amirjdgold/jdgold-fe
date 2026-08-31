@@ -1,6 +1,6 @@
 import { useId, type ReactNode } from 'react';
+import SafeImage from '@/components/SafeImage';
 import type { WhyChooseSection } from '@/hooks/useSiteContent';
-import { imgFrame22 } from './assetMap';
 import svgPaths from './svg-paths';
 
 export const WHY_CHOOSE_FEATURE_COUNT = 5;
@@ -26,14 +26,12 @@ const DEFAULTS: WhyChooseSection = {
     title: 'Mission',
     body: 'To deliver world-class gold products and services with integrity, innovation, and a commitment to excellence, ensuring long-term value for our clients.',
   },
-  missionImage: imgFrame22,
-  missionImageAlt: 'JD Gold mission',
+  missionImage: '',
   vision: {
     title: 'Vision',
     body: 'To be a global leader in the gold industry, setting new standards in quality, trust, and technological advancement.',
   },
-  visionIcon: '/images/why-choose-vision-icon.png',
-  visionIconAlt: 'Vision',
+  visionIcon: '',
 };
 
 export function resolveWhyChooseSection(cms?: WhyChooseSection | null): WhyChooseSection {
@@ -64,14 +62,14 @@ export function resolveWhyChooseSection(cms?: WhyChooseSection | null): WhyChoos
       title: (raw.mission?.title || '').trim() || DEFAULTS.mission.title,
       body: (raw.mission?.body || '').trim() || DEFAULTS.mission.body,
     },
-    missionImage: (raw.missionImage || '').trim() || DEFAULTS.missionImage,
-    missionImageAlt: (raw.missionImageAlt || '').trim() || DEFAULTS.missionImageAlt,
+    missionImage: (raw.missionImage || '').trim(),
+    missionImageAlt: (raw.missionImageAlt || '').trim() || undefined,
     vision: {
       title: (raw.vision?.title || '').trim() || DEFAULTS.vision.title,
       body: (raw.vision?.body || '').trim() || DEFAULTS.vision.body,
     },
-    visionIcon: (raw.visionIcon || '').trim() || DEFAULTS.visionIcon,
-    visionIconAlt: (raw.visionIconAlt || '').trim() || DEFAULTS.visionIconAlt,
+    visionIcon: (raw.visionIcon || '').trim(),
+    visionIconAlt: (raw.visionIconAlt || '').trim() || undefined,
   };
 }
 
@@ -365,7 +363,7 @@ function CenteredIconBadge({
     >
       <div className="relative size-[24px]">
         {iconSrc ? (
-          <img src={iconSrc} alt={iconAlt || ''} className="size-full object-contain" />
+          <SafeImage src={iconSrc} alt={iconAlt || ''} className="size-full object-contain" />
         ) : (
           fallback
         )}
@@ -430,14 +428,14 @@ export function WhyChooseBrandsSection({ content }: { content?: WhyChooseSection
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]" />
             <MissionBlock title={data.mission.title} body={data.mission.body} />
           </div>
-          <div className="pointer-events-none relative h-[300px] w-[615px] shrink-0 rounded-[16px]">
-            <img
+          {data.missionImage ? <div className="pointer-events-none relative h-[300px] w-[615px] shrink-0 rounded-[16px]">
+            <SafeImage
               alt={data.missionImageAlt || ''}
               className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
               src={data.missionImage}
             />
             <div aria-hidden="true" className="absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]" />
-          </div>
+          </div> : null}
           <div className="relative min-w-px flex-[1_0_0] self-stretch rounded-[20px] bg-[#100b02] drop-shadow-[0px_2px_4px_rgba(0,0,0,0.04)]">
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]" />
             <VisionBlock

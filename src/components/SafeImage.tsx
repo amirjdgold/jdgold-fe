@@ -1,8 +1,10 @@
 import { useState, type ImgHTMLAttributes } from 'react';
 import { cn } from '@/lib/utils';
 
-export const DEFAULT_IMAGE_FALLBACK = '/images/jd-gold-logo.png';
-export const PRODUCT_IMAGE_FALLBACK = '/images/product-cast-gold-bars.png';
+/** The only bundled content-media fallback. Keep this asset deliberately tiny. */
+export const DEFAULT_IMAGE_FALLBACK = '/images/media-fallback.svg';
+/** @deprecated Use DEFAULT_IMAGE_FALLBACK. */
+export const PRODUCT_IMAGE_FALLBACK = DEFAULT_IMAGE_FALLBACK;
 
 type SafeImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> & {
   src?: string | null;
@@ -17,7 +19,7 @@ type SafeImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> & {
 
 /**
  * Image that never shows the browser's broken-image icon.
- * Missing or failed sources fall back to a local JD Gold asset
+ * Missing or failed sources fall back to a tiny neutral local asset
  * (unless `hideIfEmpty` is set).
  */
 export default function SafeImage({
@@ -30,7 +32,8 @@ export default function SafeImage({
   ...rest
 }: SafeImageProps) {
   const trimmed = typeof src === 'string' ? src.trim() : '';
-  const [failed, setFailed] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const failed = Boolean(trimmed) && failedSrc === trimmed;
 
   if ((!trimmed || failed) && hideIfEmpty) {
     return null;
@@ -51,7 +54,7 @@ export default function SafeImage({
           event.currentTarget.style.visibility = 'hidden';
           return;
         }
-        setFailed(true);
+        setFailedSrc(trimmed);
       }}
     />
   );

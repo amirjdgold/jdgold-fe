@@ -1,12 +1,6 @@
 import type { ComponentType } from 'react';
+import SafeImage from '@/components/SafeImage';
 import type { GetInTouchSection } from '@/hooks/useSiteContent';
-import {
-  imgFrame33,
-  imgFrame34,
-  imgFrame35,
-  imgFrame36,
-  imgFrame37,
-} from './assetMap';
 import svgPaths from './svg-paths';
 
 export const GET_IN_TOUCH_TOP_IMAGE_COUNT = 3;
@@ -18,34 +12,26 @@ const TOP_IMAGE_CLASSES = [
 ] as const;
 
 const DEFAULTS: GetInTouchSection = {
-  heading: 'Get in Touch',
-  topImages: [
-    { image: imgFrame33, alt: 'Gallery' },
-    { image: imgFrame34, alt: 'Gallery' },
-    { image: imgFrame35, alt: 'License' },
-  ],
-  leftImage: imgFrame36,
-  leftImageAlt: 'Hong Kong license',
-  rightImage: imgFrame37,
-  rightImageAlt: 'USA license',
-  phone: '+92 300 1234567',
-  whatsapp: '+86 18340320420',
-  email: 'info@jdgold.com',
-  address: 'Suite #01, Gold Tower, Main Boulevard, Karachi, Pakistan',
+  heading: '',
+  topImages: [],
+  leftImage: '',
+  rightImage: '',
+  phone: '',
+  whatsapp: '',
+  email: '',
+  address: '',
 };
 
 export function resolveGetInTouchSection(cms?: GetInTouchSection | null): GetInTouchSection {
   const raw = (cms || {}) as Partial<GetInTouchSection>;
-  const topImages = (raw.topImages ?? []).slice(0, GET_IN_TOUCH_TOP_IMAGE_COUNT);
-  while (topImages.length < GET_IN_TOUCH_TOP_IMAGE_COUNT) {
-    const i = topImages.length;
-    topImages.push({ ...DEFAULTS.topImages[i] });
-  }
+  const topImages = (raw.topImages ?? [])
+    .filter((slot) => slot?.image?.trim())
+    .slice(0, GET_IN_TOUCH_TOP_IMAGE_COUNT);
   return {
     heading: (raw.heading || '').trim() || DEFAULTS.heading,
-    topImages: topImages.map((s, i) => ({
-      image: (s.image || '').trim() || DEFAULTS.topImages[i].image,
-      alt: (s.alt || '').trim() || DEFAULTS.topImages[i].alt,
+    topImages: topImages.map((s) => ({
+      image: s.image.trim(),
+      alt: (s.alt || '').trim() || undefined,
     })),
     leftImage: (raw.leftImage || '').trim() || DEFAULTS.leftImage,
     leftImageAlt: (raw.leftImageAlt || '').trim() || DEFAULTS.leftImageAlt,
@@ -116,10 +102,10 @@ function TopGalleryImage({
     <div className="relative h-[200px] min-w-px flex-[1_0_0] rounded-[16px]">
       {needsOverflow ? (
         <div className="absolute inset-0 overflow-hidden rounded-[16px]">
-          <img alt={alt || ''} className={imgClass} src={image} />
+          <SafeImage alt={alt || ''} className={imgClass} src={image} />
         </div>
       ) : (
-        <img alt={alt || ''} className={imgClass} src={image} />
+        <SafeImage alt={alt || ''} className={imgClass} src={image} />
       )}
       <div
         aria-hidden="true"
@@ -172,8 +158,8 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
           ))}
         </div>
         <div className="relative flex w-full shrink-0 items-start gap-[12px]">
-          <div className="pointer-events-none relative min-w-px flex-[1_0_0] self-stretch rounded-[16px]">
-            <img
+          {data.leftImage ? <div className="pointer-events-none relative min-w-px flex-[1_0_0] self-stretch rounded-[16px]">
+            <SafeImage
               alt={data.leftImageAlt || ''}
               className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
               src={data.leftImage}
@@ -182,7 +168,7 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
             />
-          </div>
+          </div> : null}
           <div className="relative min-w-px flex-[1_0_0] rounded-[20px] bg-[#100b02] drop-shadow-[0px_2px_4px_rgba(0,0,0,0.04)]">
             <div
               aria-hidden="true"
@@ -193,7 +179,7 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
                 <p className="leading-[23px]">{data.heading}</p>
               </div>
               <div className="relative flex w-full shrink-0 flex-col items-start gap-[12px]">
-                {CONTACT_ROWS.map(({ Icon, key }) => (
+                {CONTACT_ROWS.filter(({ key }) => contactValues[key]).map(({ Icon, key }) => (
                   <ContactRow
                     key={key}
                     Icon={Icon}
@@ -204,9 +190,9 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
               </div>
             </div>
           </div>
-          <div className="pointer-events-none relative min-w-px flex-[1_0_0] self-stretch rounded-[16px]">
+          {data.rightImage ? <div className="pointer-events-none relative min-w-px flex-[1_0_0] self-stretch rounded-[16px]">
             <div className="absolute inset-0 overflow-hidden rounded-[16px]">
-              <img
+              <SafeImage
                 alt={data.rightImageAlt || ''}
                 className="absolute top-[-50.06%] left-[-0.06%] h-[200.12%] w-[196.01%] max-w-none"
                 src={data.rightImage}
@@ -216,7 +202,7 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
             />
-          </div>
+          </div> : null}
         </div>
       </div>
     </div>

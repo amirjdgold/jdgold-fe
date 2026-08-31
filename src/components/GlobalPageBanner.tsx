@@ -6,7 +6,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from '@/components/ui/carousel';
-import SafeImage, { PRODUCT_IMAGE_FALLBACK } from '@/components/SafeImage';
+import SafeMedia from '@/components/SafeMedia';
 import { useGlobalBanner, type BannerSlide } from '@/hooks/useGlobalBanner';
 import { cn } from '@/lib/utils';
 
@@ -76,14 +76,16 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
                     ? 'object-contain'
                     : 'object-cover object-center';
                   const media = (
-                    <SafeImage
+                    <SafeMedia
                       src={slide.src}
+                      kind={slide.kind}
                       alt={slide.alt}
-                      fallbackSrc={PRODUCT_IMAGE_FALLBACK}
+                      posterSrc={slide.posterSrc}
                       className={cn(
                         'absolute inset-0 h-full w-full select-none',
                         fitClass,
                       )}
+                      controls={slide.kind === 'video'}
                     />
                   );
                   return (
@@ -102,7 +104,7 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
                             : 'h-[100px] opacity-95 sm:h-[130px]',
                         )}
                       >
-                        {slide.href ? (
+                        {slide.href && slide.kind === 'image' ? (
                           <a
                             href={slide.href}
                             className="absolute inset-0 block"
@@ -111,7 +113,17 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
                             {media}
                           </a>
                         ) : (
-                          media
+                          <>
+                            {media}
+                            {slide.href ? (
+                              <a
+                                href={slide.href}
+                                className="absolute bottom-2 right-2 rounded bg-black/75 px-2 py-1 text-xs text-white underline"
+                              >
+                                Learn more
+                              </a>
+                            ) : null}
+                          </>
                         )}
                       </div>
                     </CarouselItem>

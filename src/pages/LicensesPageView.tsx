@@ -106,11 +106,13 @@ export default function LicensesPageView({ content }: { content: LicensesContent
       {/* Page hero — below GlobalPageBanner from PageShell */}
       <section className="mx-auto grid max-w-6xl items-center gap-6 px-4 py-8 sm:gap-8 sm:py-10 md:grid-cols-[1.15fr_1fr] md:gap-10 md:px-6 md:py-12">
         <div className="flex min-w-0 flex-col items-center text-center md:items-start md:text-left">
-          <SafeImage
-            src={content.logoSrc}
-            alt="JD Gold"
-            className="mb-5 h-12 w-auto md:h-14"
-          />
+          {content.logoSrc ? (
+            <SafeImage
+              src={content.logoSrc}
+              alt="JD Gold"
+              className="mb-5 h-12 w-auto md:h-14"
+            />
+          ) : null}
           <h1 className="break-words font-['Alice:Regular',Georgia,serif] text-[1.45rem] leading-tight tracking-[0.04em] text-[#c09038] uppercase sm:text-[1.75rem] md:text-4xl md:leading-snug">
             {content.heading || 'JD GOLD LICENSE & OFFICES'}
           </h1>

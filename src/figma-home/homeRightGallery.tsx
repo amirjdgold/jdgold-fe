@@ -1,25 +1,6 @@
 import { useId, type ReactNode } from 'react';
+import SafeImage from '@/components/SafeImage';
 import type { HomeGallerySection, HomeGallerySlot, HomeRightGallery } from '@/hooks/useSiteContent';
-import {
-  imgFrame4,
-  imgFrame6,
-  imgFrame7,
-  imgFrame9,
-  imgFrame10,
-  imgFrame11,
-  imgFrame12,
-  imgFrame13,
-  imgFrame18,
-  imgFrame19,
-  imgFrame20,
-  imgFrame21,
-  imgFrame22,
-  imgFrame23,
-  imgFrame28,
-  imgFrame29,
-  imgFrame30,
-  imgFrame31,
-} from './assetMap';
 import svgPaths from './svg-paths';
 
 export const GALLERY_SECTION_KEYS = [
@@ -43,49 +24,23 @@ export const GALLERY_SLOT_COUNTS: Record<GallerySectionKey, number> = {
 
 type SectionDefaults = {
   title: string;
-  images: string[];
-  alts: string[];
 };
 
 const DEFAULTS: Record<GallerySectionKey, SectionDefaults> = {
   staff: {
     title: 'Staff',
-    images: [imgFrame9, imgFrame10, imgFrame11, imgFrame12, imgFrame28, imgFrame29],
-    alts: [
-      'Staff gallery 1',
-      'Staff gallery 2',
-      'Staff gallery 3',
-      'Staff gallery 4',
-      'Staff gallery 5',
-      'Staff gallery 6',
-    ],
   },
   refinery: {
     title: 'Refinery',
-    images: [imgFrame6, imgFrame12, imgFrame13, imgFrame29, imgFrame30, imgFrame31],
-    alts: ['Refinery 1', 'Refinery 2', 'Refinery 3', 'Refinery 4', 'Refinery 5', 'Refinery 6'],
   },
   licenseOffice: {
     title: 'License & Office',
-    images: [imgFrame18, imgFrame19, imgFrame20],
-    alts: ['License & office 1', 'License & office 2', 'License & office 3'],
   },
   jewelryFactory: {
     title: 'Jewelry Factory',
-    images: [imgFrame4, imgFrame21, imgFrame4, imgFrame6, imgFrame10, imgFrame11],
-    alts: [
-      'Jewelry factory 1',
-      'Jewelry factory 2',
-      'Jewelry factory 3',
-      'Jewelry factory 4',
-      'Jewelry factory 5',
-      'Jewelry factory 6',
-    ],
   },
   products: {
     title: 'Products',
-    images: [imgFrame22, imgFrame23, imgFrame7, imgFrame19, imgFrame20, imgFrame21],
-    alts: ['Product 1', 'Product 2', 'Product 3', 'Product 4', 'Product 5', 'Product 6'],
   },
 };
 
@@ -95,21 +50,15 @@ function normalizeSection(
 ): HomeGallerySection {
   const d = DEFAULTS[key];
   const count = GALLERY_SLOT_COUNTS[key];
-  const slots: HomeGallerySlot[] = (raw?.slots ?? []).slice(0, count);
-  while (slots.length < count) {
-    const i = slots.length;
-    slots.push({ image: d.images[i], alt: d.alts[i] });
-  }
-  for (let i = 0; i < count; i++) {
-    const im = (slots[i].image || '').trim();
-    if (!im) slots[i] = { image: d.images[i], alt: slots[i].alt || d.alts[i] };
-  }
+  const slots: HomeGallerySlot[] = (raw?.slots ?? [])
+    .filter((slot) => slot?.image?.trim())
+    .slice(0, count);
   const title = (raw?.title || '').trim() || d.title;
   return {
     title,
-    slots: slots.map((s, i) => ({
-      image: (s.image || '').trim() || d.images[i],
-      alt: (s.alt || '').trim() || d.alts[i],
+    slots: slots.map((s) => ({
+      image: s.image.trim(),
+      alt: (s.alt || '').trim() || undefined,
     })),
   };
 }
@@ -128,7 +77,7 @@ export function resolveHomeRightGallery(cms?: HomeRightGallery | null): HomeRigh
 function GalleryThumb({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="relative h-[160px] min-w-px flex-[1_0_0] rounded-[16px]">
-      <img
+      <SafeImage
         alt={alt}
         className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
         src={src}

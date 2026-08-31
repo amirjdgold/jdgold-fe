@@ -1,35 +1,27 @@
 import { useId } from 'react';
+import SafeImage from '@/components/SafeImage';
 import type { MiningExtractionSection } from '@/hooks/useSiteContent';
-import { imgFrame6, imgFrame12, imgFrame21, imgFrame24, imgFrame25 } from './assetMap';
 import svgPaths from './svg-paths';
 
 export const MINING_EXTRACTION_SLOT_COUNT = 5;
 
 const DEFAULTS: MiningExtractionSection = {
   heading: 'Mining & Extraction',
-  slots: [
-    { image: imgFrame6, alt: 'Mining operations' },
-    { image: imgFrame24, alt: 'Gold weighed' },
-    { image: imgFrame25, alt: 'Dubai refinery' },
-    { image: imgFrame21, alt: 'Gold pellets' },
-    { image: imgFrame12, alt: 'Extraction process' },
-  ],
+  slots: [],
 };
 
 export function resolveMiningExtractionSection(
   cms?: MiningExtractionSection | null,
 ): MiningExtractionSection {
   const raw = (cms || {}) as Partial<MiningExtractionSection>;
-  const slots = (raw.slots ?? []).slice(0, MINING_EXTRACTION_SLOT_COUNT);
-  while (slots.length < MINING_EXTRACTION_SLOT_COUNT) {
-    const i = slots.length;
-    slots.push({ ...DEFAULTS.slots[i] });
-  }
+  const slots = (raw.slots ?? [])
+    .filter((slot) => slot?.image?.trim())
+    .slice(0, MINING_EXTRACTION_SLOT_COUNT);
   return {
     heading: (raw.heading || '').trim() || DEFAULTS.heading,
-    slots: slots.map((s, i) => ({
-      image: (s.image || '').trim() || DEFAULTS.slots[i].image,
-      alt: (s.alt || '').trim() || DEFAULTS.slots[i].alt,
+    slots: slots.map((s) => ({
+      image: s.image.trim(),
+      alt: (s.alt || '').trim() || undefined,
     })),
   };
 }
@@ -90,7 +82,7 @@ function MiningHeading({ title }: { title: string }) {
 function MiningImageSlot({ image, alt }: { image: string; alt?: string }) {
   return (
     <div className="relative h-[200px] min-w-px flex-[1_0_0] rounded-[16px]">
-      <img
+      <SafeImage
         alt={alt || ''}
         className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
         src={image}

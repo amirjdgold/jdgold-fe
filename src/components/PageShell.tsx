@@ -15,12 +15,17 @@ export default function PageShell({ children, logoSrc }: PageShellProps) {
       <header className="sticky top-0 z-40 border-b border-[#c09038]/30 bg-[#0a0502]/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:gap-4 md:px-6">
           <Link to="/" className="flex shrink-0 items-center gap-3">
-            <SafeImage
-              src={logoSrc || '/images/jd-gold-logo-nav.png'}
-              fallbackSrc="/images/jd-gold-logo-nav.png"
-              alt="JD Gold"
-              className="h-8 w-auto sm:h-9 md:h-10"
-            />
+            {logoSrc ? (
+              <SafeImage
+                src={logoSrc}
+                alt="JD Gold"
+                className="h-8 w-auto sm:h-9 md:h-10"
+              />
+            ) : (
+              <span className="font-['Alice:Regular',Georgia,serif] text-sm tracking-[0.12em] text-[#c09038]">
+                JD GOLD
+              </span>
+            )}
           </Link>
           <nav
             aria-label="Primary"

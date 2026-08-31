@@ -1,6 +1,6 @@
 import { useId } from 'react';
+import SafeImage from '@/components/SafeImage';
 import type { IndustriesWeServeSection } from '@/hooks/useSiteContent';
-import { imgFrame31, imgFrame32 } from './assetMap';
 import svgPaths from './svg-paths';
 
 export const INDUSTRIES_COUNT = 6;
@@ -10,10 +10,8 @@ const ROW_CLASSES = ['row-1', 'row-1', 'row-1', 'row-2', 'row-2', 'row-2'] as co
 
 const DEFAULTS: IndustriesWeServeSection = {
   heading: 'Industries We Serve',
-  leftImage: imgFrame31,
-  leftImageAlt: 'Industries we serve',
-  rightImage: imgFrame32,
-  rightImageAlt: 'Industries we serve',
+  leftImage: '',
+  rightImage: '',
   industries: [
     { label: 'Jewelry & Fashion' },
     { label: 'Banking & Financial Institutions' },
@@ -35,10 +33,10 @@ export function resolveIndustriesWeServeSection(
   }
   return {
     heading: (raw.heading || '').trim() || DEFAULTS.heading,
-    leftImage: (raw.leftImage || '').trim() || DEFAULTS.leftImage,
-    leftImageAlt: (raw.leftImageAlt || '').trim() || DEFAULTS.leftImageAlt,
-    rightImage: (raw.rightImage || '').trim() || DEFAULTS.rightImage,
-    rightImageAlt: (raw.rightImageAlt || '').trim() || DEFAULTS.rightImageAlt,
+    leftImage: (raw.leftImage || '').trim(),
+    leftImageAlt: (raw.leftImageAlt || '').trim() || undefined,
+    rightImage: (raw.rightImage || '').trim(),
+    rightImageAlt: (raw.rightImageAlt || '').trim() || undefined,
     industries: industries.map((item, i) => ({
       label: (item.label || '').trim() || DEFAULTS.industries[i].label,
     })),
@@ -130,9 +128,9 @@ export function IndustriesWeServeSectionView({
       <div className="relative flex size-full flex-col items-start gap-[12px] bg-[#100b02] px-[20px] py-[10px]">
         <IndustriesHeading title={data.heading} />
         <div className="relative flex w-full shrink-0 items-center gap-[12px]">
-          <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
+          {data.leftImage ? <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
             <div className="pointer-events-none relative h-full min-w-px flex-[1_0_0] rounded-[16px]">
-              <img
+              <SafeImage
                 alt={data.leftImageAlt || ''}
                 className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
                 src={data.leftImage}
@@ -142,16 +140,16 @@ export function IndustriesWeServeSectionView({
                 className="absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
               />
             </div>
-          </div>
+          </div> : null}
           <div className="relative grid w-[768px] shrink-0 grid-cols-[repeat(3,minmax(0,1fr))] grid-rows-[repeat(2,fit-content(100%))] gap-x-[12px] gap-y-[12px]">
             {data.industries.map((industry, i) => (
               <IndustryCard key={i} label={industry.label} index={i} />
             ))}
           </div>
-          <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
+          {data.rightImage ? <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
             <div className="pointer-events-none relative h-full min-w-px flex-[1_0_0] rounded-[16px]">
               <div className="absolute inset-0 overflow-hidden rounded-[16px]">
-                <img
+                <SafeImage
                   alt={data.rightImageAlt || ''}
                   className="absolute top-[-114.35%] left-[-153.82%] h-[328.7%] w-[407.65%] max-w-none"
                   src={data.rightImage}
@@ -162,7 +160,7 @@ export function IndustriesWeServeSectionView({
                 className="absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
               />
             </div>
-          </div>
+          </div> : null}
         </div>
       </div>
     </div>

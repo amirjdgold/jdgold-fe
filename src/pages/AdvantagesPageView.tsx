@@ -4,7 +4,7 @@ import AdvantageSection, {
 } from '@/components/advantages/AdvantageSection';
 import AchievementCard from '@/components/advantages/AchievementCard';
 import { MottoIcon } from '@/components/advantages/AdvantageIcons';
-import SafeImage, { PRODUCT_IMAGE_FALLBACK } from '@/components/SafeImage';
+import SafeImage from '@/components/SafeImage';
 
 export type { AdvantageBlock };
 
@@ -63,11 +63,13 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
         />
         <div className="relative mx-auto grid max-w-6xl items-center gap-6 px-4 py-8 sm:gap-8 sm:py-10 md:px-6 md:py-12 lg:grid-cols-[200px_1fr_280px] lg:gap-6">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <SafeImage
-              src={content.logoSrc}
-              alt="JD Gold"
-              className="h-16 w-auto sm:h-20 md:h-24"
-            />
+            {content.logoSrc ? (
+              <SafeImage
+                src={content.logoSrc}
+                alt="JD Gold"
+                className="h-16 w-auto sm:h-20 md:h-24"
+              />
+            ) : null}
             <p className="mt-3 font-['Alice:Regular',Georgia,serif] text-lg tracking-[0.2em] text-[#c09038] md:text-xl">
               JD GOLD
             </p>
@@ -86,14 +88,13 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
             </p>
           </div>
 
-          <div className="relative mx-auto h-36 w-full max-w-[280px] overflow-hidden rounded-2xl border border-[#c09038]/70 shadow-[0_0_28px_rgba(192,144,56,0.22)] sm:h-40 md:h-48 lg:mx-0 lg:h-56 lg:max-w-none">
+          {content.heroImage ? <div className="relative mx-auto h-36 w-full max-w-[280px] overflow-hidden rounded-2xl border border-[#c09038]/70 shadow-[0_0_28px_rgba(192,144,56,0.22)] sm:h-40 md:h-48 lg:mx-0 lg:h-56 lg:max-w-none">
             <SafeImage
-              src={content.heroImage || PRODUCT_IMAGE_FALLBACK}
+              src={content.heroImage}
               alt={content.heroImageAlt || 'JD GOLD Fine Gold bar and coins'}
-              fallbackSrc={PRODUCT_IMAGE_FALLBACK}
               className="absolute inset-0 size-full object-cover object-center"
             />
-          </div>
+          </div> : null}
         </div>
       </section>
 
@@ -148,11 +149,13 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
             ))}
 
             <div className="flex flex-col items-center text-center sm:col-span-2 lg:col-span-1 lg:pl-4">
-              <SafeImage
-                src={content.logoSrc}
-                alt="JD Gold"
-                className="mb-2 h-14 w-auto"
-              />
+              {content.logoSrc ? (
+                <SafeImage
+                  src={content.logoSrc}
+                  alt="JD Gold"
+                  className="mb-2 h-14 w-auto"
+                />
+              ) : null}
               {content.footerLogoTagline ? (
                 <p className="max-w-[180px] text-[10px] leading-relaxed tracking-[0.1em] text-[#d4af37]/90 uppercase">
                   {content.footerLogoTagline}

@@ -1,44 +1,7 @@
+import SafeImage from '@/components/SafeImage';
 import type { TeamMember } from '@/hooks/useSiteContent';
 
 export const MAX_TEAM_MEMBERS = 7;
-
-export const DEFAULT_TEAM_MEMBERS: TeamMember[] = [
-  {
-    id: 'member-1',
-    name: 'Syed Abdi Hussain',
-    designation: 'Designation',
-    image: '/images/management-lead-1.png',
-    imageAlt: 'Syed Abdi Hussain',
-  },
-  {
-    id: 'member-2',
-    name: 'Syed Amir Abdi Bukhari',
-    designation: 'Designation',
-    image: '/images/management-lead-2.png',
-    imageAlt: 'Syed Amir Abdi Bukhari',
-  },
-  {
-    id: 'member-3',
-    name: "Ma'am Dilara Ahmad",
-    designation: 'Designation',
-    image: '/images/management-lead-3.png',
-    imageAlt: "Ma'am Dilara Ahmad",
-  },
-  {
-    id: 'member-4',
-    name: 'Rana Nazar',
-    designation: 'Designation',
-    image: '/images/management-lead-4.png',
-    imageAlt: 'Rana Nazar',
-  },
-  {
-    id: 'member-5',
-    name: 'Malik Ijaz Ahmad',
-    designation: 'Designation',
-    image: '/images/management-lead-5.png',
-    imageAlt: 'Malik Ijaz Ahmad',
-  },
-];
 
 function isValidMember(m: TeamMember): boolean {
   return Boolean(
@@ -48,8 +11,7 @@ function isValidMember(m: TeamMember): boolean {
 
 export function resolveTeamMembers(cms?: TeamMember[]): TeamMember[] {
   const fromCms = (cms ?? []).filter(isValidMember).slice(0, MAX_TEAM_MEMBERS);
-  if (fromCms.length > 0) return fromCms;
-  return DEFAULT_TEAM_MEMBERS.slice(0, MAX_TEAM_MEMBERS);
+  return fromCms;
 }
 
 function TeamMemberOverlay({
@@ -77,7 +39,7 @@ export function TeamMemberCard({ member }: { member: TeamMember }) {
   const alt = member.imageAlt?.trim() || member.name;
   return (
     <div className="relative h-full min-h-0 w-full overflow-hidden rounded-[16px] border-2 border-solid border-[#c09038] bg-[#010100]">
-      <img
+      <SafeImage
         alt={alt}
         className="absolute inset-0 size-full max-w-none object-cover object-center pointer-events-none"
         src={member.image}

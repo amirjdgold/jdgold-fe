@@ -1,28 +1,17 @@
 import { useEffect, useMemo, useRef } from 'react';
 import GlobalPageBanner from '@/components/GlobalPageBanner';
+import SafeImage from '@/components/SafeImage';
 import type { HeroBranding } from '@/hooks/useSiteContent';
 import { cn } from '@/lib/utils';
-
-const DEFAULT_BRANDING: HeroBranding = {
-  logoSrc: '/images/jd-gold-logo.png',
-  logoAlt: 'JD Gold',
-  title: 'JD GOLD',
-  subtitle: 'Refinery & Jewelry Factory',
-};
 
 function normalizeBranding(
   prop: Partial<HeroBranding> | null | undefined,
 ): HeroBranding {
-  if (!prop) return DEFAULT_BRANDING;
-  const logoSrc = prop.logoSrc?.trim();
-  const title = prop.title?.trim();
-  const subtitle = prop.subtitle?.trim();
-  if (!logoSrc || !title || !subtitle) return DEFAULT_BRANDING;
   return {
-    logoSrc,
-    logoAlt: prop.logoAlt?.trim() || DEFAULT_BRANDING.logoAlt,
-    title,
-    subtitle,
+    logoSrc: prop?.logoSrc?.trim() || undefined,
+    logoAlt: prop?.logoAlt?.trim() || undefined,
+    title: prop?.title?.trim() || undefined,
+    subtitle: prop?.subtitle?.trim() || undefined,
   };
 }
 
@@ -79,19 +68,18 @@ const Hero = ({ branding: brandingProp }: HeroProps) => {
         aria-label="JD Gold header and media strip"
       >
         <div className="container-custom min-w-0 overflow-hidden pb-1 pt-0">
-          <div className="flex h-11 w-full items-center justify-center px-3 py-0.5 sm:h-12">
-            <img
-              src={branding.logoSrc}
-              alt={
-                branding.logoAlt ||
-                branding.title ||
-                DEFAULT_BRANDING.logoAlt
-              }
-              className="mx-auto h-full w-auto max-w-[min(100%,220px)] object-contain object-center sm:max-w-[260px]"
-            />
-          </div>
-
-          <HeroGoldLine />
+          {branding.logoSrc ? (
+            <>
+              <div className="flex h-11 w-full items-center justify-center px-3 py-0.5 sm:h-12">
+                <SafeImage
+                  src={branding.logoSrc}
+                  alt={branding.logoAlt || branding.title || ''}
+                  className="mx-auto h-full w-auto max-w-[min(100%,220px)] object-contain object-center sm:max-w-[260px]"
+                />
+              </div>
+              <HeroGoldLine />
+            </>
+          ) : null}
 
           <GlobalPageBanner embedded />
         </div>

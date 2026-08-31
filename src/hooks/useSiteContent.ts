@@ -16,10 +16,10 @@ export type HeroSlide =
     };
 
 export type HeroBranding = {
-  logoSrc: string;
+  logoSrc?: string;
   logoAlt?: string;
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
 };
 
 export type TeamMember = {

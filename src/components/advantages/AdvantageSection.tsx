@@ -40,18 +40,6 @@ function resolveSideItems(block: AdvantageBlock) {
   return [];
 }
 
-function resolveBlockImage(block: AdvantageBlock): AdvantageBlock {
-  if (!isPricingBlock(block)) return block;
-  const oddFlyer = block.image?.includes('hero-slide-pricing');
-  return {
-    ...block,
-    image: oddFlyer ? '/images/product-cast-gold-bars.png' : block.image,
-    imageAlt: block.imageAlt || 'JD Gold bars — fair market pricing',
-    imageFit: 'cover',
-    imageObjectPosition: 'center',
-  };
-}
-
 function BlockCopy({ block }: { block: AdvantageBlock }) {
   return (
     <div className="flex h-full min-h-[240px] min-w-0 flex-col justify-center border-b border-[#c09038]/35 p-4 sm:min-h-[280px] sm:p-5 lg:min-h-0 lg:border-b-0 lg:border-r lg:p-6">
@@ -132,7 +120,7 @@ type AdvantageSectionProps = {
  * Supports image-first (left) or copy-first layouts via `block.imageFirst`.
  */
 export default function AdvantageSection({ block: raw }: AdvantageSectionProps) {
-  const block = resolveBlockImage(raw);
+  const block = raw;
   const imageFirst = Boolean(block.imageFirst);
   const sideItems = resolveSideItems(block);
   const imageEl = <BlockImage block={block} />;

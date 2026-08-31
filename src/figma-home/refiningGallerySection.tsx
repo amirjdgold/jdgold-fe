@@ -1,29 +1,19 @@
+import SafeImage from '@/components/SafeImage';
 import type { RefiningGallerySection } from '@/hooks/useSiteContent';
-import { imgFrame28, imgFrame29, imgFrame30 } from './assetMap';
 
 export const REFINING_GALLERY_SLOT_COUNT = 3;
-
-const DEFAULTS: RefiningGallerySection = {
-  slots: [
-    { image: imgFrame28, alt: 'Refining gallery 1' },
-    { image: imgFrame29, alt: 'Refining gallery 2' },
-    { image: imgFrame30, alt: 'Refining gallery 3' },
-  ],
-};
 
 export function resolveRefiningGallerySection(
   cms?: RefiningGallerySection | null,
 ): RefiningGallerySection {
   const raw = (cms || {}) as Partial<RefiningGallerySection>;
-  const slots = (raw.slots ?? []).slice(0, REFINING_GALLERY_SLOT_COUNT);
-  while (slots.length < REFINING_GALLERY_SLOT_COUNT) {
-    const i = slots.length;
-    slots.push({ ...DEFAULTS.slots[i] });
-  }
+  const slots = (raw.slots ?? [])
+    .filter((slot) => slot?.image?.trim())
+    .slice(0, REFINING_GALLERY_SLOT_COUNT);
   return {
-    slots: slots.map((s, i) => ({
-      image: (s.image || '').trim() || DEFAULTS.slots[i].image,
-      alt: (s.alt || '').trim() || DEFAULTS.slots[i].alt,
+    slots: slots.map((s) => ({
+      image: s.image.trim(),
+      alt: (s.alt || '').trim() || undefined,
     })),
   };
 }
@@ -31,7 +21,7 @@ export function resolveRefiningGallerySection(
 function GalleryImageSlot({ image, alt }: { image: string; alt?: string }) {
   return (
     <div className="relative min-w-px flex-[1_0_0] h-[200px] rounded-[16px]">
-      <img
+      <SafeImage
         alt={alt || ''}
         className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
         src={image}

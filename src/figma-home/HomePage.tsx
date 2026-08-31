@@ -218,7 +218,6 @@ function Contact() {
 }
 
 const NAV_ICONS: Record<string, ReactNode> = {
-  Home: <DashboardSquare />,
   'About Us': <DashboardSquare />,
   'Product & Services': <Copy />,
   'Management Gallery': <Image />,
