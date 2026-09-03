@@ -22,24 +22,24 @@ export default function AboutCommitment({
   if (!heading && !body && !commitments.length && !footerImage) return null;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-10 md:px-6">
+    <section className="mx-auto w-full px-6 py-10">
       <div
         className={`grid items-center gap-8 ${
-          footerImage ? 'md:grid-cols-[1.15fr_0.95fr]' : ''
+          footerImage ? 'grid-cols-[1.15fr_0.95fr]' : ''
         }`}
       >
         <div>
           {heading ? (
-            <SectionTitle className="mb-3 uppercase">{heading}</SectionTitle>
+            <SectionTitle className="mb-3 !text-3xl uppercase">{heading}</SectionTitle>
           ) : null}
           {body ? (
-            <p className="mb-8 max-w-xl text-sm leading-relaxed text-[#e5e5e5] md:text-base">
+            <p className="mb-8 max-w-xl text-base leading-relaxed text-[#e5e5e5]">
               {body}
             </p>
           ) : null}
 
           {commitments.length ? (
-            <div className="grid grid-cols-2 gap-5 sm:grid-cols-4">
+            <div className="grid grid-cols-4 gap-5">
               {commitments.map((c) => (
                 <div key={c.title} className="flex flex-col items-center gap-2 text-center">
                   <CommitIcon icon={c.icon} />
@@ -58,7 +58,7 @@ export default function AboutCommitment({
         </div>
 
         {footerImage ? (
-          <div className="relative min-h-[200px] overflow-hidden rounded-sm border border-[#c09038]/60 md:min-h-[260px]">
+          <div className="relative min-h-[260px] overflow-hidden rounded-sm border border-[#c09038]/60">
             <SafeImage
               src={footerImage}
               alt=""

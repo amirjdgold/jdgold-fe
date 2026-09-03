@@ -10,18 +10,15 @@ export default function AboutPillars({ pillars }: { pillars: AboutPillar[] }) {
   if (!pillars.length) return null;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-8 md:px-6 md:py-10">
+    <section className="mx-auto w-full px-6 py-10">
       <div className="overflow-hidden rounded-sm border border-[#c09038]">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-4">
           {pillars.map((p, index) => (
             <div
               key={p.title}
               className={[
-                'bg-[#120a04]/90 p-5 text-center sm:p-6',
-                index > 0 ? 'border-t border-[#c09038] lg:border-t-0 lg:border-l' : '',
-                index === 1 ? 'sm:border-t-0 sm:border-l' : '',
-                index === 2 ? 'sm:border-t lg:border-t-0' : '',
-                index === 3 ? 'sm:border-l' : '',
+                'bg-[#120a04]/90 p-6 text-center',
+                index > 0 ? 'border-l border-[#c09038]' : '',
               ].join(' ')}
             >
               <div className="mb-3 flex justify-center">

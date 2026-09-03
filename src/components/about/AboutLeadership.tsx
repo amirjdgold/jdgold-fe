@@ -19,26 +19,26 @@ export default function AboutLeadership({
   if (!leaders.length) return null;
 
   return (
-    <section className="mx-auto max-w-6xl px-4 py-6 md:px-6">
-      <div className="mb-6 flex items-center gap-2 sm:mb-8 sm:gap-4">
+    <section className="mx-auto w-full px-6 py-6">
+      <div className="mb-8 flex items-center gap-4">
         <div className="h-px min-w-[1rem] flex-1 bg-gradient-to-r from-transparent via-[#c09038] to-[#c09038]" />
-        <SectionTitle className="min-w-0 max-w-[min(100%,18rem)] text-center uppercase sm:max-w-none">
+        <SectionTitle className="min-w-0 text-center !text-3xl uppercase">
           {heading || 'OUR LEADERSHIP'}
         </SectionTitle>
         <div className="h-px min-w-[1rem] flex-1 bg-gradient-to-l from-transparent via-[#c09038] to-[#c09038]" />
       </div>
 
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-0">
+      <div className="grid grid-cols-3 gap-0">
         {leaders.map((leader, index) => (
           <article
             key={leader.name}
             className={[
-              'min-w-0 overflow-hidden md:px-3 lg:px-4',
-              index > 0 ? 'md:border-l md:border-[#c09038]/70' : '',
+              'min-w-0 overflow-hidden px-4',
+              index > 0 ? 'border-l border-[#c09038]/70' : '',
             ].join(' ')}
           >
             {leader.image ? (
-              <div className="relative mx-auto aspect-[3/4] max-w-sm overflow-hidden rounded-sm border border-[#c09038]/50 bg-black md:max-w-none">
+              <div className="relative mx-auto aspect-[3/4] overflow-hidden rounded-sm border border-[#c09038]/50 bg-black">
                 <SafeImage
                   src={leader.image}
                   alt={leader.imageAlt || leader.name}
@@ -50,7 +50,7 @@ export default function AboutLeadership({
               <p className="font-['Alice:Regular',Georgia,serif] text-[11px] tracking-[0.16em] text-[#c09038] uppercase">
                 {leader.title}
               </p>
-              <h3 className="break-words font-['Alice:Regular',Georgia,serif] text-base text-[#c09038] sm:text-lg md:text-xl">
+              <h3 className="break-words font-['Alice:Regular',Georgia,serif] text-xl text-[#c09038]">
                 {leader.name}
               </h3>
               {leader.experience ? (

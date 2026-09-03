@@ -143,7 +143,7 @@ export function SideItemIcon({ icon, title }: { icon?: string; title: string }) 
 }
 
 export function MottoIcon({ icon }: { icon?: string }) {
-  const common = 'h-10 w-10 text-[#c09038] md:h-11 md:w-11';
+  const common = 'h-11 w-11 text-[#c09038]';
   switch (icon) {
     case 'shield':
       return (
