@@ -1,6 +1,9 @@
 import PageShell from '@/components/PageShell';
+import ScaledCanvas from '@/components/ScaledCanvas';
 import LicenseOfficeCard from '@/components/LicenseOfficeCard';
 import SafeImage from '@/components/SafeImage';
+import { ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export type LicenseDetail = {
   label: string;
@@ -40,7 +43,7 @@ export type LicensesContent = {
 };
 
 function FooterPointIcon({ icon }: { icon?: string }) {
-  const common = 'h-10 w-10 shrink-0 text-[#c09038] md:h-11 md:w-11';
+  const common = 'h-11 w-11 shrink-0 text-[#c09038]';
   switch (icon) {
     case 'shield':
       return (
@@ -103,25 +106,33 @@ export default function LicensesPageView({ content }: { content: LicensesContent
 
   return (
     <PageShell logoSrc={content.logoSrc}>
-      {/* Page hero — below GlobalPageBanner from PageShell */}
-      <section className="mx-auto grid max-w-6xl items-center gap-6 px-4 py-8 sm:gap-8 sm:py-10 md:grid-cols-[1.15fr_1fr] md:gap-10 md:px-6 md:py-12">
-        <div className="flex min-w-0 flex-col items-center text-center md:items-start md:text-left">
+      <ScaledCanvas>
+      <section className="relative mx-auto grid w-full grid-cols-[1.15fr_1fr] items-center gap-10 px-6 py-12">
+        <Link
+          to="/"
+          aria-label="Back to home"
+          className="absolute top-6 left-6 z-10 inline-flex items-center gap-1.5 rounded-sm border border-[#c09038]/70 bg-[#0a0502]/85 px-3 py-1.5 text-sm tracking-wide text-[#c09038] backdrop-blur-sm transition hover:border-[#c09038] hover:bg-[#c09038]/20 hover:text-white"
+        >
+          <ArrowLeft className="size-4" aria-hidden />
+          Back
+        </Link>
+        <div className="flex min-w-0 flex-col items-start pt-8 text-left">
           {content.logoSrc ? (
             <SafeImage
               src={content.logoSrc}
               alt="JD Gold"
-              className="mb-5 h-12 w-auto md:h-14"
+              className="mb-5 h-14 w-auto"
             />
           ) : null}
-          <h1 className="break-words font-['Alice:Regular',Georgia,serif] text-[1.45rem] leading-tight tracking-[0.04em] text-[#c09038] uppercase sm:text-[1.75rem] md:text-4xl md:leading-snug">
+          <h1 className="break-words font-['Alice:Regular',Georgia,serif] text-4xl leading-snug tracking-[0.04em] text-[#c09038] uppercase">
             {content.heading || 'JD GOLD LICENSE & OFFICES'}
           </h1>
-          <p className="mt-3 max-w-xl text-[11px] tracking-[0.14em] text-white uppercase sm:tracking-[0.16em] md:text-sm md:tracking-[0.18em]">
+          <p className="mt-3 max-w-xl text-sm tracking-[0.18em] text-white uppercase">
             {content.subtitle || 'GLOBAL LICENSES. WORLDWIDE OFFICES. TRUSTED EVERYWHERE.'}
           </p>
         </div>
         {content.heroImage ? (
-          <div className="relative h-40 overflow-hidden rounded-2xl border border-[#c09038] shadow-[0_0_24px_rgba(192,144,56,0.18)] sm:h-44 md:h-56 lg:h-60">
+          <div className="relative h-60 overflow-hidden rounded-2xl border border-[#c09038] shadow-[0_0_24px_rgba(192,144,56,0.18)]">
             <SafeImage
               src={content.heroImage}
               alt={content.heroImageAlt || 'JD GOLD Fine Gold 999.9 bar'}
@@ -134,7 +145,7 @@ export default function LicensesPageView({ content }: { content: LicensesContent
       {offices.length ? (
         <>
           <GoldFlourishDivider />
-          <div className="mx-auto max-w-6xl space-y-8 px-4 py-8 md:px-6 md:py-10">
+          <div className="mx-auto w-full space-y-8 px-6 py-10">
             {offices.map((office, index) => (
               <div key={`${office.country}-${office.number ?? index}`}>
                 <LicenseOfficeCard office={office} index={index} />
@@ -151,13 +162,13 @@ export default function LicensesPageView({ content }: { content: LicensesContent
 
       {footerPoints.length ? (
         <section className="border-t border-[#c09038]/40 bg-[#0a0502]">
-          <div className="mx-auto grid max-w-6xl gap-6 px-4 py-10 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4 md:gap-6 md:px-6">
+          <div className="mx-auto grid w-full grid-cols-4 gap-6 px-6 py-10">
             {footerPoints.map((point) => (
               <div key={point.title} className="flex flex-col items-center text-center">
                 <div className="mb-3">
                   <FooterPointIcon icon={point.icon} />
                 </div>
-                <h3 className="mb-2 break-words font-['Alice:Regular',Georgia,serif] text-base tracking-[0.06em] text-[#c09038] uppercase md:text-lg">
+                <h3 className="mb-2 break-words font-['Alice:Regular',Georgia,serif] text-lg tracking-[0.06em] text-[#c09038] uppercase">
                   {point.title}
                 </h3>
                 <p className="max-w-[220px] text-xs leading-relaxed text-[#e5e5e5]/90">
@@ -170,12 +181,13 @@ export default function LicensesPageView({ content }: { content: LicensesContent
       ) : null}
 
       <footer className="border-t border-[#c09038]/30 bg-[#100b02]">
-        <div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-5 md:px-6">
+        <div className="mx-auto flex w-full flex-col items-center px-6 py-5">
           <p className="text-center font-['Alice:Regular',Georgia,serif] text-sm text-[#c09038]">
             © {new Date().getFullYear()} JD Gold. All Rights Reserved.
           </p>
         </div>
       </footer>
+      </ScaledCanvas>
     </PageShell>
   );
 }

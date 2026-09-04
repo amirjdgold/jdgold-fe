@@ -1,3 +1,5 @@
+import { ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import SafeImage from '@/components/SafeImage';
 
 type AboutHeroProps = {
@@ -38,20 +40,28 @@ export default function AboutHero({
         </div>
       ) : null}
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 py-10 md:grid-cols-[1.15fr_0.95fr] md:gap-10 md:px-6 md:py-14">
-        <div className="flex flex-col items-center text-center md:items-start md:text-left">
+      <div className="relative grid w-full grid-cols-[1.15fr_0.95fr] items-center gap-10 px-6 py-14">
+        <Link
+          to="/"
+          aria-label="Back to home"
+          className="absolute top-6 left-6 z-10 inline-flex items-center gap-1.5 rounded-sm border border-[#c09038]/70 bg-[#0a0502]/85 px-3 py-1.5 text-sm tracking-wide text-[#c09038] backdrop-blur-sm transition hover:border-[#c09038] hover:bg-[#c09038]/20 hover:text-white"
+        >
+          <ArrowLeft className="size-4" aria-hidden />
+          Back
+        </Link>
+        <div className="flex flex-col items-start text-left">
           {logoSrc ? (
             <SafeImage
               src={logoSrc}
               alt="JD Gold"
-              className="mb-3 h-20 w-auto md:h-24"
+              className="mb-3 h-24 w-auto"
             />
           ) : null}
-          <p className="font-['Alice:Regular',Georgia,serif] text-2xl tracking-[0.18em] text-[#c09038] md:text-3xl">
+          <p className="font-['Alice:Regular',Georgia,serif] text-3xl tracking-[0.18em] text-[#c09038]">
             JD GOLD
           </p>
           {brandTagline ? (
-            <p className="mt-2 text-sm tracking-wide text-[#e8d5a8]/90 md:text-base">
+            <p className="mt-2 text-base tracking-wide text-[#e8d5a8]/90">
               {brandTagline}
             </p>
           ) : null}
@@ -59,11 +69,11 @@ export default function AboutHero({
           {hasCopy ? (
             <div className="mt-8 w-full max-w-xl">
               {aboutHeading ? (
-                <h1 className="mb-4 break-words font-['Alice:Regular',Georgia,serif] text-2xl tracking-[0.08em] text-[#c09038] uppercase sm:text-3xl md:text-4xl lg:text-[2.75rem]">
+                <h1 className="mb-4 break-words font-['Alice:Regular',Georgia,serif] text-[2.75rem] tracking-[0.08em] text-[#c09038] uppercase">
                   {aboutHeading}
                 </h1>
               ) : null}
-              <div className="space-y-3 text-sm leading-relaxed text-[#f0e2c0] md:text-[15px]">
+              <div className="space-y-3 text-[15px] leading-relaxed text-[#f0e2c0]">
                 {aboutBody ? <p>{aboutBody}</p> : null}
                 {aboutBodySecondary ? <p>{aboutBodySecondary}</p> : null}
               </div>
@@ -72,8 +82,8 @@ export default function AboutHero({
         </div>
 
         {heroImage ? (
-          <div className="relative mx-auto w-full max-w-md md:max-w-none">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-sm border border-[#c09038]/80 shadow-[0_0_40px_rgba(192,144,56,0.28)] md:aspect-[3/4] md:min-h-[420px]">
+          <div className="relative w-full">
+            <div className="relative aspect-[3/4] min-h-[420px] overflow-hidden rounded-sm border border-[#c09038]/80 shadow-[0_0_40px_rgba(192,144,56,0.28)]">
               <SafeImage
                 src={heroImage}
                 alt={heroImageAlt || ''}

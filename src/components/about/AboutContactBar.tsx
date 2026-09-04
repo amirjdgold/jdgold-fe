@@ -37,7 +37,7 @@ export default function AboutContactBar({ contact }: { contact?: AboutContactInf
 
   return (
     <section className="border-t border-[#c09038]/40 bg-[#0a0502]">
-      <div className="mx-auto grid max-w-6xl gap-4 px-4 py-6 text-sm text-[#e5e5e5] sm:grid-cols-2 lg:grid-cols-4 md:px-6">
+      <div className="mx-auto grid w-full grid-cols-4 gap-4 px-6 py-6 text-sm text-[#e5e5e5]">
         {items.map((item) => (
           <div
             key={item.type + item.value}

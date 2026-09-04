@@ -1,4 +1,5 @@
 import PageShell from '@/components/PageShell';
+import ScaledCanvas from '@/components/ScaledCanvas';
 import AboutHero from '@/components/about/AboutHero';
 import AboutPillars from '@/components/about/AboutPillars';
 import AboutLeadership from '@/components/about/AboutLeadership';
@@ -48,52 +49,54 @@ export type AboutContent = {
 export default function AboutPageView({ content }: { content: AboutContent }) {
   return (
     <PageShell logoSrc={content.logoSrc}>
-      <AboutHero
-        logoSrc={content.logoSrc}
-        brandTagline={content.brandTagline}
-        aboutHeading={content.aboutHeading}
-        aboutBody={content.aboutBody}
-        aboutBodySecondary={content.aboutBodySecondary}
-        heroImage={content.heroImage}
-        heroImageAlt={content.heroImageAlt}
-        heroBackgroundImage={content.heroBackgroundImage}
-      />
+      <ScaledCanvas>
+        <AboutHero
+          logoSrc={content.logoSrc}
+          brandTagline={content.brandTagline}
+          aboutHeading={content.aboutHeading}
+          aboutBody={content.aboutBody}
+          aboutBodySecondary={content.aboutBodySecondary}
+          heroImage={content.heroImage}
+          heroImageAlt={content.heroImageAlt}
+          heroBackgroundImage={content.heroBackgroundImage}
+        />
 
-      <AboutPillars pillars={content.pillars || []} />
+        <AboutPillars pillars={content.pillars || []} />
 
-      <AboutLeadership
-        heading={content.leadershipHeading}
-        leaders={content.leaders || []}
-      />
+        <AboutLeadership
+          heading={content.leadershipHeading}
+          leaders={content.leaders || []}
+        />
 
-      <AboutJewelleryDepartment
-        heading={content.jewelleryDeptHeading}
-        managedBy={content.jewelleryDeptManagedBy}
-        body={content.jewelleryDeptBody}
-        images={content.jewelleryDeptImages || []}
-      />
+        <AboutJewelleryDepartment
+          heading={content.jewelleryDeptHeading}
+          managedBy={content.jewelleryDeptManagedBy}
+          body={content.jewelleryDeptBody}
+          images={content.jewelleryDeptImages || []}
+        />
 
-      <AboutJewelleryCollection
-        heading={content.collectionHeading}
-        images={content.collectionImages || []}
-      />
+        <AboutJewelleryCollection
+          heading={content.collectionHeading}
+          images={content.collectionImages || []}
+        />
 
-      <AboutCommitment
-        heading={content.commitmentHeading}
-        body={content.commitmentBody}
-        commitments={content.commitments || []}
-        footerImage={content.footerImage}
-      />
+        <AboutCommitment
+          heading={content.commitmentHeading}
+          body={content.commitmentBody}
+          commitments={content.commitments || []}
+          footerImage={content.footerImage}
+        />
 
-      <AboutContactBar contact={content.contact} />
+        <AboutContactBar contact={content.contact} />
 
-      <footer className="border-t border-[#c09038]/30 bg-[#100b02]">
-        <div className="mx-auto flex max-w-6xl flex-col items-center px-4 py-5 md:px-6">
-          <p className="font-['Alice:Regular',Georgia,serif] text-sm text-[#c09038]">
-            © {new Date().getFullYear()} JD Gold. All Rights Reserved.
-          </p>
-        </div>
-      </footer>
+        <footer className="border-t border-[#c09038]/30 bg-[#100b02]">
+          <div className="mx-auto flex w-full flex-col items-center px-6 py-5">
+            <p className="font-['Alice:Regular',Georgia,serif] text-sm text-[#c09038]">
+              © {new Date().getFullYear()} JD Gold. All Rights Reserved.
+            </p>
+          </div>
+        </footer>
+      </ScaledCanvas>
     </PageShell>
   );
 }

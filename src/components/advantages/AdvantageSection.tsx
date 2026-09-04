@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
 import FeatureList from '@/components/advantages/FeatureList';
 import { SideItemIcon } from '@/components/advantages/AdvantageIcons';
 import SafeImage, { PRODUCT_IMAGE_FALLBACK } from '@/components/SafeImage';
+import { cn } from '@/lib/utils';
 
 export type AdvantageSideItem = { title: string; icon?: string };
 
@@ -40,19 +42,41 @@ function resolveSideItems(block: AdvantageBlock) {
   return [];
 }
 
+export function GoldNumberBadge({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex size-14 shrink-0 items-center justify-center rounded-md border border-[#c09038] bg-[#0c0704] font-['Alice:Regular',Georgia,serif] text-[2rem] leading-none shadow-[0_0_14px_rgba(192,144,56,0.35)]",
+        className,
+      )}
+    >
+      <span
+        className="bg-gradient-to-b from-[#E8C872] via-[#C09038] to-[#8B6914] bg-clip-text text-transparent"
+        style={{ WebkitTextFillColor: 'transparent' }}
+      >
+        {children}
+      </span>
+    </span>
+  );
+}
+
 function BlockCopy({ block }: { block: AdvantageBlock }) {
   return (
-    <div className="flex h-full min-h-[240px] min-w-0 flex-col justify-center border-b border-[#c09038]/35 p-4 sm:min-h-[280px] sm:p-5 lg:min-h-0 lg:border-b-0 lg:border-r lg:p-6">
-      <div className="flex min-w-0 flex-wrap items-baseline gap-2 sm:gap-3">
-        <span className="shrink-0 font-['Alice:Regular',Georgia,serif] text-3xl leading-none text-[#c09038] sm:text-4xl md:text-5xl">
-          {block.number}
-        </span>
-        <h2 className="min-w-0 break-words font-['Alice:Regular',Georgia,serif] text-xl tracking-[0.06em] text-[#c09038] uppercase sm:text-2xl md:text-3xl">
+    <div className="flex h-full min-h-0 min-w-0 flex-col justify-center border-r border-[#c09038]/35 p-6">
+      <div className="flex min-w-0 flex-wrap items-center gap-3">
+        <GoldNumberBadge>{block.number}</GoldNumberBadge>
+        <h2 className="min-w-0 break-words font-['Alice:Regular',Georgia,serif] text-3xl tracking-[0.06em] text-[#c09038] uppercase">
           {block.title}
         </h2>
       </div>
       {block.subtitle ? (
-        <p className="mt-3 text-xs tracking-[0.14em] text-[#d4af37]/95 uppercase md:text-sm">
+        <p className="mt-3 text-sm tracking-[0.14em] text-[#d4af37]/95 uppercase">
           {block.subtitle}
         </p>
       ) : null}
@@ -72,7 +96,7 @@ function BlockImage({
   const fitContain = block.imageFit === 'contain';
   return (
     <div
-      className={`relative h-full min-h-[240px] overflow-hidden border-b border-[#c09038]/35 bg-[#0c0704] sm:min-h-[280px] lg:min-h-0 lg:border-b-0 lg:border-r ${className}`}
+      className={`relative h-full min-h-0 overflow-hidden border-r border-[#c09038]/35 bg-[#0c0704] ${className}`}
     >
       <SafeImage
         src={block.image}
@@ -93,16 +117,16 @@ function BlockSideItems({ items }: { items: AdvantageSideItem[] }) {
   if (!list.length) return null;
 
   return (
-    <div className="grid h-full grid-cols-2 divide-x divide-y divide-[#c09038]/30 lg:flex lg:flex-col lg:divide-x-0">
+    <div className="flex h-full flex-col divide-y divide-[#c09038]/30">
       {list.map((item) => (
         <div
           key={item.title}
-          className="flex flex-col items-center justify-center gap-1.5 px-2 py-4 text-center lg:flex-1 lg:border-b lg:border-[#c09038]/30 lg:px-3 lg:py-2 lg:last:border-b-0"
+          className="flex flex-1 items-center gap-2.5 px-3 py-2 text-left last:border-b-0"
         >
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[#c09038] bg-gradient-to-b from-[#2a1a0a] to-[#120a04] shadow-[0_0_16px_rgba(192,144,56,0.4)]">
             <SideItemIcon icon={item.icon} title={item.title} />
           </div>
-          <p className="max-w-[9rem] text-[10px] font-semibold leading-snug tracking-[0.06em] text-[#c09038] uppercase sm:max-w-[128px] sm:tracking-[0.08em]">
+          <p className="min-w-0 flex-1 text-[10px] font-semibold leading-snug tracking-[0.08em] text-[#c09038] uppercase">
             {item.title}
           </p>
         </div>
@@ -128,7 +152,7 @@ export default function AdvantageSection({ block: raw }: AdvantageSectionProps) 
   const sideEl = <BlockSideItems items={sideItems} />;
 
   return (
-    <article className="grid min-w-0 overflow-hidden rounded-xl border border-[#c09038]/70 bg-[#120a04] lg:min-h-[400px] lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1.15fr)_minmax(0,0.7fr)] lg:items-stretch">
+    <article className="grid min-h-[400px] min-w-0 grid-cols-[minmax(0,1.05fr)_minmax(0,1.15fr)_minmax(0,0.7fr)] items-stretch overflow-hidden rounded-xl border border-[#c09038]/70 bg-[#120a04]">
       {imageFirst ? (
         <>
           {imageEl}

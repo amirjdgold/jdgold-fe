@@ -99,22 +99,26 @@ function SideNavItem({
   to,
   label,
   icon,
+  disabled,
 }: {
   to: string;
   label: string;
   icon: ReactNode;
+  disabled?: boolean;
 }) {
   const { pathname } = useLocation();
-  const active = pathname === to;
-  return (
-    <Link
-      to={to}
-      className={[
-        'content-stretch relative flex shrink-0 flex-col items-center gap-[6px] no-underline transition-opacity',
-        active ? 'opacity-100' : 'opacity-80 hover:opacity-100',
-      ].join(' ')}
-      aria-current={active ? 'page' : undefined}
-    >
+  const active = !disabled && pathname === to;
+  const className = [
+    'content-stretch relative flex shrink-0 flex-col items-center gap-[6px] no-underline',
+    disabled
+      ? 'cursor-not-allowed opacity-40'
+      : active
+        ? 'opacity-100 transition-opacity'
+        : 'opacity-80 transition-opacity hover:opacity-100',
+  ].join(' ');
+
+  const inner = (
+    <>
       <span className="mb-[8px] flex shrink-0">{icon}</span>
       <SideNavDivider />
       <span
@@ -125,6 +129,24 @@ function SideNavItem({
       >
         {label}
       </span>
+    </>
+  );
+
+  if (disabled) {
+    return (
+      <span className={className} aria-disabled="true" title="Coming soon">
+        {inner}
+      </span>
+    );
+  }
+
+  return (
+    <Link
+      to={to}
+      className={className}
+      aria-current={active ? 'page' : undefined}
+    >
+      {inner}
     </Link>
   );
 }
@@ -234,10 +256,11 @@ function Frame11() {
         <nav className="relative flex size-full flex-col content-stretch items-center justify-evenly gap-[12px] px-[12px] py-[24px]">
           {HOME_NAV_ITEMS.map((item) => (
             <SideNavItem
-              key={item.to}
+              key={item.label}
               to={item.to}
               label={item.label}
               icon={NAV_ICONS[item.label]}
+              disabled={item.disabled}
             />
           ))}
         </nav>

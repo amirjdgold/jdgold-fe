@@ -22,7 +22,7 @@ export default function AchievementCard({ item }: { item: AchievementCardData })
         <div className="absolute inset-0 bg-gradient-to-t from-[#120a04] via-transparent to-transparent" />
       </div>
       <div className="space-y-2 p-4">
-        <h3 className="break-words text-center font-['Alice:Regular',Georgia,serif] text-base tracking-[0.06em] text-[#c09038] uppercase sm:text-lg">
+        <h3 className="break-words text-center font-['Alice:Regular',Georgia,serif] text-lg tracking-[0.06em] text-[#c09038] uppercase">
           {item.title}
         </h3>
         {item.points?.length ? (
@@ -30,7 +30,7 @@ export default function AchievementCard({ item }: { item: AchievementCardData })
             {item.points.map((point) => (
               <li
                 key={point}
-                className="flex gap-2 text-[11px] leading-relaxed text-[#d4d4d4] md:text-xs"
+                className="flex gap-2 text-xs leading-relaxed text-[#d4d4d4]"
               >
                 <span className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-[#c09038]" />
                 <span>{point}</span>

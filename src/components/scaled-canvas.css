@@ -1,0 +1,20 @@
+/* Inner pages always compose at a fixed desktop width; phones/tablets
+   see a scaled-down copy of that layout (see ScaledCanvas.tsx). */
+.scaled-canvas-root {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.scaled-canvas {
+  width: var(--scaled-canvas-width, 1152px) !important;
+  max-width: none !important;
+  min-width: var(--scaled-canvas-width, 1152px) !important;
+  flex-shrink: 0;
+  transform-origin: top left;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

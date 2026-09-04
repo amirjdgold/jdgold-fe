@@ -18,7 +18,7 @@ function LocationPinIcon() {
 
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
-    <p className="text-[13px] leading-relaxed md:text-sm">
+    <p className="text-sm leading-relaxed">
       <span className="font-semibold tracking-wide text-[#c09038]">{label}: </span>
       <span className="break-words text-white">{value}</span>
     </p>
@@ -35,12 +35,12 @@ function CountryHeading({
   flagSrc?: string;
 }) {
   return (
-    <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-      <span className="shrink-0 font-['Alice:Regular',Georgia,serif] text-3xl leading-none text-[#c09038] sm:text-4xl md:text-5xl">
+    <div className="flex min-w-0 items-center gap-3">
+      <span className="shrink-0 font-['Alice:Regular',Georgia,serif] text-5xl leading-none text-[#c09038]">
         {number}
       </span>
       {flagSrc ? (
-        <span className="relative inline-flex h-10 w-10 shrink-0 overflow-hidden rounded-full border-2 border-[#c09038] bg-[#1a1008] shadow-[0_0_14px_rgba(192,144,56,0.45)] sm:h-11 sm:w-11 md:h-12 md:w-12">
+        <span className="relative inline-flex h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#c09038] bg-[#1a1008] shadow-[0_0_14px_rgba(192,144,56,0.45)]">
           <SafeImage
             src={flagSrc}
             alt={`${country} flag`}
@@ -49,7 +49,7 @@ function CountryHeading({
           />
         </span>
       ) : null}
-      <h2 className="min-w-0 break-words font-['Alice:Regular',Georgia,serif] text-xl tracking-[0.08em] text-[#c09038] uppercase sm:text-2xl md:text-3xl">
+      <h2 className="min-w-0 break-words font-['Alice:Regular',Georgia,serif] text-3xl tracking-[0.08em] text-[#c09038] uppercase">
         {country}
       </h2>
     </div>
@@ -88,9 +88,7 @@ type LicenseOfficeCardProps = {
 };
 
 /**
- * Reusable country license + office row.
- * Desktop (lg+): certificate | details | office image
- * Mobile / tablet: heading → certificate → details → office image
+ * Country license + office row: certificate | details | office image.
  */
 export default function LicenseOfficeCard({ office, index = 0 }: LicenseOfficeCardProps) {
   const number = office.number ?? index + 1;
@@ -99,33 +97,26 @@ export default function LicenseOfficeCard({ office, index = 0 }: LicenseOfficeCa
     ? parseOfficeLocation(office.officeLocation)
     : null;
 
-  const heading = (
-    <CountryHeading number={number} country={office.country} flagSrc={office.flagSrc} />
-  );
-
   return (
     <article className="min-w-0 overflow-hidden rounded-xl border border-[#c09038]/70 bg-[#120a04]">
-      {/* Mobile / tablet: country heading above the stack */}
-      <div className="border-b border-[#c09038]/35 px-4 py-4 sm:px-5 lg:hidden">{heading}</div>
-
-      <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_minmax(0,1fr)]">
-        {/* Certificate — object-contain so documents stay readable */}
-        <div className="relative min-h-[260px] border-b border-[#c09038]/35 bg-[#1a1008] sm:min-h-[280px] lg:min-h-[300px] lg:border-b-0 lg:border-r">
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)_minmax(0,1fr)]">
+        <div className="relative min-h-[300px] border-r border-[#c09038]/35 bg-[#1a1008]">
           <SafeImage
             src={office.licenseImage}
             alt={office.licenseImageAlt || `${office.country} license certificate`}
-            className="absolute inset-0 size-full object-contain p-3 sm:p-4"
+            className="absolute inset-0 size-full object-contain p-4"
           />
         </div>
 
-        {/* Details */}
-        <div className="flex min-w-0 flex-col justify-center gap-1.5 border-b border-[#c09038]/35 p-4 sm:p-5 lg:border-b-0 lg:border-r lg:p-6">
-          <div className="mb-3 hidden lg:block">{heading}</div>
+        <div className="flex min-w-0 flex-col justify-center gap-1.5 border-r border-[#c09038]/35 p-6">
+          <div className="mb-3">
+            <CountryHeading number={number} country={office.country} flagSrc={office.flagSrc} />
+          </div>
           {details.map((row) => (
             <DetailRow key={`${row.label}-${row.value}`} label={row.label} value={row.value} />
           ))}
           {location ? (
-            <div className="mt-3 flex items-start gap-2 text-[13px] md:text-sm">
+            <div className="mt-3 flex items-start gap-2 text-sm">
               <LocationPinIcon />
               <div className="min-w-0">
                 <p className="font-semibold tracking-wide text-[#c09038]">OFFICE LOCATION</p>
@@ -138,8 +129,7 @@ export default function LicenseOfficeCard({ office, index = 0 }: LicenseOfficeCa
           ) : null}
         </div>
 
-        {/* Office photo — cover preserves aspect within frame */}
-        <div className="relative min-h-[220px] sm:min-h-[240px] lg:min-h-[300px]">
+        <div className="relative min-h-[300px]">
           <SafeImage
             src={office.officeImage}
             alt={office.officeImageAlt || `${office.country} office`}
@@ -147,7 +137,7 @@ export default function LicenseOfficeCard({ office, index = 0 }: LicenseOfficeCa
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           {office.officeLocation ? (
-            <p className="absolute bottom-3 left-3 right-3 break-words font-['Alice:Regular',Georgia,serif] text-sm text-[#c09038]">
+            <p className="absolute right-3 bottom-3 left-3 break-words font-['Alice:Regular',Georgia,serif] text-sm text-[#c09038]">
               {office.officeLocation}
             </p>
           ) : null}
