@@ -11,9 +11,9 @@ export const NAV_ITEMS: NavItem[] = [
 /** Full side navigation on the home screen. */
 export const HOME_NAV_ITEMS: NavItem[] = [
   { to: '/about', label: 'About Us' },
-  { to: '/factories-and-refinery', label: 'Product & Services' },
+  { to: '/products', label: 'Product & Services' },
   { to: '/management', label: 'Management Gallery', disabled: true },
-  { to: '/factories-and-refinery', label: 'Factory & Refinery', disabled: true },
+  { to: '/factories-and-refinery', label: 'Factory & Refinery' },
   { to: '/license-and-offices', label: 'License & Office' },
   { to: '/sales', label: 'Sales & Purchase', disabled: true },
   { to: '/contact', label: 'Contact Us', disabled: true },

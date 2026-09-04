@@ -1,6 +1,7 @@
 import PageShell from '@/components/PageShell';
 import ScaledCanvas from '@/components/ScaledCanvas';
 import AdvantageSection, {
+  GoldNumberBadge,
   type AdvantageBlock,
 } from '@/components/advantages/AdvantageSection';
 import AchievementCard from '@/components/advantages/AchievementCard';
@@ -125,12 +126,12 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
       {achievements.length ? (
         <section className="mx-auto w-full px-6 pb-12">
           <div className="mb-6 text-center">
-            <p className="font-['Alice:Regular',Georgia,serif] text-4xl text-[#c09038]/50">
-              06
-            </p>
-            <h2 className="mt-1 font-['Alice:Regular',Georgia,serif] text-2xl tracking-[0.08em] text-[#c09038] uppercase">
-              Achievements / Projects
-            </h2>
+            <div className="flex items-center justify-center gap-3">
+              <GoldNumberBadge className="size-14 text-[2rem]">06</GoldNumberBadge>
+              <h2 className="whitespace-nowrap font-['Alice:Regular',Georgia,serif] text-2xl tracking-[0.08em] text-[#c09038] uppercase">
+                Achievements / Projects
+              </h2>
+            </div>
             {content.achievementsHeading ? (
               <p className="mx-auto mt-3 max-w-3xl text-sm tracking-[0.08em] text-[#d4af37]/90 uppercase">
                 {content.achievementsHeading}

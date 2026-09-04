@@ -1,6 +1,10 @@
-import { useLayoutEffect, useRef, type ReactNode } from 'react';
+import { useLayoutEffect, useRef, type CSSProperties, type ReactNode } from 'react';
+import './scaled-canvas.css';
 
 export const PAGE_DESIGN_WIDTH = 1152;
+
+const supportsZoom =
+  typeof CSS !== 'undefined' && CSS.supports && CSS.supports('zoom', '0.5');
 
 /** Renders children at a fixed design width and scales the canvas to the viewport. */
 export default function ScaledCanvas({
@@ -21,15 +25,30 @@ export default function ScaledCanvas({
     const applyScale = () => {
       const available = host.clientWidth || window.innerWidth;
       const scale = Math.min(1, available / width);
+      canvas.style.setProperty('--scaled-canvas-width', `${width}px`);
       canvas.style.width = `${width}px`;
       canvas.style.minWidth = `${width}px`;
       canvas.style.maxWidth = 'none';
       canvas.style.transformOrigin = 'top left';
+
+      if (supportsZoom) {
+        // Zoom re-rasters type at the target size, so small copy stays sharp.
+        canvas.style.zoom = String(scale);
+        canvas.style.transform = '';
+        canvas.style.marginLeft = '0';
+        canvas.style.marginRight = '0';
+        host.style.height = '';
+        host.style.overflow = 'hidden';
+        return;
+      }
+
+      canvas.style.zoom = '';
       canvas.style.transform = `scale(${scale})`;
       const scaledWidth = width * scale;
       const marginX = Math.max(0, (available - scaledWidth) / 2);
       canvas.style.marginLeft = `${marginX}px`;
       canvas.style.marginRight = `${marginX}px`;
+      host.style.overflow = 'hidden';
       host.style.height = `${canvas.scrollHeight * scale}px`;
     };
 
@@ -43,6 +62,7 @@ export default function ScaledCanvas({
     observer.observe(host);
     observer.observe(canvas);
     window.addEventListener('resize', applyScale);
+    window.addEventListener('orientationchange', applyScale);
     canvas.querySelectorAll('img').forEach((img) => {
       if (!img.complete) img.addEventListener('load', applyScale, { once: true });
     });
@@ -51,12 +71,22 @@ export default function ScaledCanvas({
       cancelAnimationFrame(raf);
       observer.disconnect();
       window.removeEventListener('resize', applyScale);
+      window.removeEventListener('orientationchange', applyScale);
     };
   }, [width]);
 
+  const canvasStyle = {
+    '--scaled-canvas-width': `${width}px`,
+    width,
+    minWidth: width,
+    maxWidth: 'none',
+  } as CSSProperties;
+
   return (
-    <div ref={hostRef} className="relative w-full overflow-hidden">
-      <div ref={canvasRef}>{children}</div>
+    <div ref={hostRef} className="scaled-canvas-root w-full">
+      <div ref={canvasRef} className="scaled-canvas origin-top-left" style={canvasStyle}>
+        {children}
+      </div>
     </div>
   );
 }

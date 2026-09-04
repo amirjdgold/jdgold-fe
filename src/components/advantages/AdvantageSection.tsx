@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
 import FeatureList from '@/components/advantages/FeatureList';
 import { SideItemIcon } from '@/components/advantages/AdvantageIcons';
 import SafeImage, { PRODUCT_IMAGE_FALLBACK } from '@/components/SafeImage';
+import { cn } from '@/lib/utils';
 
 export type AdvantageSideItem = { title: string; icon?: string };
 
@@ -40,13 +42,35 @@ function resolveSideItems(block: AdvantageBlock) {
   return [];
 }
 
+export function GoldNumberBadge({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex size-14 shrink-0 items-center justify-center rounded-md border border-[#c09038] bg-[#0c0704] font-['Alice:Regular',Georgia,serif] text-[2rem] leading-none shadow-[0_0_14px_rgba(192,144,56,0.35)]",
+        className,
+      )}
+    >
+      <span
+        className="bg-gradient-to-b from-[#E8C872] via-[#C09038] to-[#8B6914] bg-clip-text text-transparent"
+        style={{ WebkitTextFillColor: 'transparent' }}
+      >
+        {children}
+      </span>
+    </span>
+  );
+}
+
 function BlockCopy({ block }: { block: AdvantageBlock }) {
   return (
     <div className="flex h-full min-h-0 min-w-0 flex-col justify-center border-r border-[#c09038]/35 p-6">
-      <div className="flex min-w-0 flex-wrap items-baseline gap-3">
-        <span className="shrink-0 font-['Alice:Regular',Georgia,serif] text-5xl leading-none text-[#c09038]">
-          {block.number}
-        </span>
+      <div className="flex min-w-0 flex-wrap items-center gap-3">
+        <GoldNumberBadge>{block.number}</GoldNumberBadge>
         <h2 className="min-w-0 break-words font-['Alice:Regular',Georgia,serif] text-3xl tracking-[0.06em] text-[#c09038] uppercase">
           {block.title}
         </h2>
@@ -97,12 +121,12 @@ function BlockSideItems({ items }: { items: AdvantageSideItem[] }) {
       {list.map((item) => (
         <div
           key={item.title}
-          className="flex flex-1 flex-col items-center justify-center gap-1.5 px-3 py-2 text-center last:border-b-0"
+          className="flex flex-1 items-center gap-2.5 px-3 py-2 text-left last:border-b-0"
         >
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border-2 border-[#c09038] bg-gradient-to-b from-[#2a1a0a] to-[#120a04] shadow-[0_0_16px_rgba(192,144,56,0.4)]">
             <SideItemIcon icon={item.icon} title={item.title} />
           </div>
-          <p className="max-w-[128px] text-[10px] font-semibold leading-snug tracking-[0.08em] text-[#c09038] uppercase">
+          <p className="min-w-0 flex-1 text-[10px] font-semibold leading-snug tracking-[0.08em] text-[#c09038] uppercase">
             {item.title}
           </p>
         </div>
