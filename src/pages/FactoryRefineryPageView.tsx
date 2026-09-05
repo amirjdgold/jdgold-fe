@@ -3,16 +3,32 @@ import { Link } from 'react-router-dom';
 import PageShell from '@/components/PageShell';
 import ScaledCanvas from '@/components/ScaledCanvas';
 import SafeImage from '@/components/SafeImage';
-import {
-  FACTORY_PRODUCTS,
-  FACTORY_SERVICES,
-  FACTORY_STEPS,
-  FACTORY_TRUST_POINTS,
-  REFINERY_STEPS,
-  type FactoryCard,
-} from '@/data/factoryRefinery';
+import { type FactoryCard } from '@/data/factoryRefinery';
 
-const LOGO_SRC = '/assets/jd-gold/jd-gold-logo.png';
+export type FactoryRefineryContent = {
+  layout: 'factory-refinery';
+  logoSrc?: string;
+  titleLine1?: string;
+  titleLine2?: string;
+  tagline?: string;
+  heroImage?: string;
+  heroImageAlt?: string;
+  refineryHeading?: string;
+  refineryIntro?: string;
+  refineryHeroImage?: string;
+  refineryHeroImageAlt?: string;
+  refinerySteps?: FactoryCard[];
+  factoryHeading?: string;
+  factoryIntro?: string;
+  factoryHeroImage?: string;
+  factoryHeroImageAlt?: string;
+  factorySteps?: FactoryCard[];
+  productsHeading?: string;
+  products?: FactoryCard[];
+  servicesHeading?: string;
+  services?: FactoryCard[];
+  trustPoints?: { value: string; label: string }[];
+};
 
 function GoldBanner({ children }: { children: string }) {
   return (
@@ -52,7 +68,7 @@ function ProcessCard({ item }: { item: FactoryCard }) {
       <div className="aspect-[4/3] overflow-hidden border border-[#c09038]/50">
         <SafeImage
           src={item.image}
-          alt={item.title}
+          alt={item.imageAlt || item.title}
           className="size-full object-cover"
         />
       </div>
@@ -76,9 +92,39 @@ function TrustIcon({ index }: { index: number }) {
   );
 }
 
-export default function FactoryRefineryPageView() {
+export default function FactoryRefineryPageView({
+  content,
+}: {
+  content?: FactoryRefineryContent;
+}) {
+  const logoSrc = content?.logoSrc;
+  const titleLine1 = content?.titleLine1?.trim() || '';
+  const titleLine2 = content?.titleLine2?.trim() || '';
+  const tagline = content?.tagline?.trim() || '';
+  const heroImage = content?.heroImage;
+  const heroImageAlt = content?.heroImageAlt || '';
+  const refineryHeading = content?.refineryHeading?.trim() || '';
+  const refineryIntro = content?.refineryIntro?.trim() || '';
+  const refineryHeroImage = content?.refineryHeroImage;
+  const refinerySteps = content?.refinerySteps || [];
+  const factoryHeading = content?.factoryHeading?.trim() || '';
+  const factoryIntro = content?.factoryIntro?.trim() || '';
+  const factoryHeroImage = content?.factoryHeroImage;
+  const factorySteps = content?.factorySteps || [];
+  const productsHeading = content?.productsHeading?.trim() || '';
+  const products = content?.products || [];
+  const servicesHeading = content?.servicesHeading?.trim() || '';
+  const services = content?.services || [];
+  const trustPoints = content?.trustPoints || [];
+  const showRefinery =
+    Boolean(refineryHeading || refineryIntro || refineryHeroImage || refinerySteps.length);
+  const showFactory =
+    Boolean(factoryHeading || factoryIntro || factoryHeroImage || factorySteps.length);
+  const showProducts = Boolean(productsHeading || products.length);
+  const showServices = Boolean(servicesHeading || services.length);
+
   return (
-    <PageShell logoSrc={LOGO_SRC}>
+    <PageShell logoSrc={logoSrc}>
       <ScaledCanvas width={1152}>
         <section className="relative overflow-hidden border-b border-[#c09038]/30">
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(192,144,56,0.12),transparent_42%)]" />
@@ -92,109 +138,147 @@ export default function FactoryRefineryPageView() {
               Back
             </Link>
             <div className="flex min-w-0 items-center gap-5 pt-8 text-left">
-              <SafeImage
-                src={LOGO_SRC}
-                alt="JD Gold"
-                className="h-32 w-auto shrink-0"
-              />
+              {logoSrc ? (
+                <SafeImage
+                  src={logoSrc}
+                  alt="JD Gold"
+                  className="h-32 w-auto shrink-0"
+                />
+              ) : null}
               <div className="min-w-0">
-                <h1 className="font-['Alice:Regular',Georgia,serif] text-[1.75rem] leading-[1.15] tracking-[0.06em] text-[#c09038] uppercase">
-                  <span className="block whitespace-nowrap">JD GOLD</span>
-                  <span className="block whitespace-nowrap">REFINER & FACTORY</span>
-                </h1>
-                <p className="mt-3 text-sm font-medium tracking-[0.06em] text-white uppercase">
-                  PURE GOLD. PRECISION REFINED. PERFECTION DELIVERED.
-                </p>
+                {titleLine1 || titleLine2 ? (
+                  <h1 className="font-['Alice:Regular',Georgia,serif] text-[1.75rem] leading-[1.15] tracking-[0.06em] text-[#c09038] uppercase">
+                    {titleLine1 ? (
+                      <span className="block whitespace-nowrap">{titleLine1}</span>
+                    ) : null}
+                    {titleLine2 ? (
+                      <span className="block whitespace-nowrap">{titleLine2}</span>
+                    ) : null}
+                  </h1>
+                ) : null}
+                {tagline ? (
+                  <p className="mt-3 text-sm font-medium tracking-[0.06em] text-white uppercase">
+                    {tagline}
+                  </p>
+                ) : null}
               </div>
             </div>
-            <div className="relative flex w-full justify-end">
-              <SafeImage
-                src="/assets/jd-gold/hero-gold.png"
-                alt="JD GOLD Fine Gold bar and coins"
-                className="h-auto max-h-72 w-auto max-w-[360px] object-contain"
-              />
-            </div>
+            {heroImage ? (
+              <div className="relative flex w-full justify-end">
+                <SafeImage
+                  src={heroImage}
+                  alt={heroImageAlt}
+                  className="h-auto max-h-72 w-auto max-w-[360px] object-contain"
+                />
+              </div>
+            ) : null}
           </div>
         </section>
 
         <div className="px-6 py-8">
-          <section>
-            <GoldBanner>A. GOLD REFINERY</GoldBanner>
-            <p className="mb-4 text-center text-sm font-semibold tracking-[0.04em] text-[#f2f2f2] uppercase">
-              EXPLAIN YOUR REFINING OPERATIONS
-            </p>
-            <div className="mb-4 overflow-hidden border border-[#c09038]/70">
-              <SafeImage
-                src="/assets/jd-gold/refinery-hero.png"
-                alt="Gold refinery operations"
-                className="h-64 w-full object-cover"
-              />
-            </div>
-            <div className="grid grid-cols-4 gap-2">
-              {REFINERY_STEPS.map((item) => (
-                <ProcessCard key={item.title} item={item} />
-              ))}
-            </div>
-          </section>
+          {showRefinery ? (
+            <section>
+              {refineryHeading ? <GoldBanner>{refineryHeading}</GoldBanner> : null}
+              {refineryIntro ? (
+                <p className="mb-4 text-center text-sm font-semibold tracking-[0.04em] text-[#f2f2f2] uppercase">
+                  {refineryIntro}
+                </p>
+              ) : null}
+              {refineryHeroImage ? (
+                <div className="mb-4 overflow-hidden border border-[#c09038]/70">
+                  <SafeImage
+                    src={refineryHeroImage}
+                    alt={content?.refineryHeroImageAlt || ''}
+                    className="h-64 w-full object-cover"
+                  />
+                </div>
+              ) : null}
+              {refinerySteps.length ? (
+                <div className="grid grid-cols-4 gap-2">
+                  {refinerySteps.map((item) => (
+                    <ProcessCard key={item.title} item={item} />
+                  ))}
+                </div>
+              ) : null}
+            </section>
+          ) : null}
 
-          <section className="mt-10">
-            <GoldBanner>B. GOLD FACTORY (MANUFACTURING)</GoldBanner>
-            <p className="mb-4 text-center text-sm font-semibold tracking-[0.04em] text-[#f2f2f2] uppercase">
-              EXPLAIN YOUR PRODUCTION
-            </p>
-            <div className="mb-4 overflow-hidden border border-[#c09038]/70">
-              <SafeImage
-                src="/assets/jd-gold/factory-hero.png"
-                alt="Gold manufacturing factory"
-                className="h-64 w-full object-cover"
-              />
-            </div>
-            <div className="grid grid-cols-5 gap-2">
-              {FACTORY_STEPS.map((item) => (
-                <ProcessCard key={item.title} item={item} />
-              ))}
-            </div>
-          </section>
+          {showFactory ? (
+            <section className="mt-10">
+              {factoryHeading ? <GoldBanner>{factoryHeading}</GoldBanner> : null}
+              {factoryIntro ? (
+                <p className="mb-4 text-center text-sm font-semibold tracking-[0.04em] text-[#f2f2f2] uppercase">
+                  {factoryIntro}
+                </p>
+              ) : null}
+              {factoryHeroImage ? (
+                <div className="mb-4 overflow-hidden border border-[#c09038]/70">
+                  <SafeImage
+                    src={factoryHeroImage}
+                    alt={content?.factoryHeroImageAlt || ''}
+                    className="h-64 w-full object-cover"
+                  />
+                </div>
+              ) : null}
+              {factorySteps.length ? (
+                <div className="grid grid-cols-5 gap-2">
+                  {factorySteps.map((item) => (
+                    <ProcessCard key={item.title} item={item} />
+                  ))}
+                </div>
+              ) : null}
+            </section>
+          ) : null}
 
-          <section className="mt-10">
-            <FlourishTitle>PRODUCTS</FlourishTitle>
-            <div className="grid grid-cols-4 gap-3">
-              {FACTORY_PRODUCTS.map((item) => (
-                <ProcessCard key={item.title} item={item} />
-              ))}
-            </div>
-          </section>
+          {showProducts ? (
+            <section className="mt-10">
+              {productsHeading ? <FlourishTitle>{productsHeading}</FlourishTitle> : null}
+              {products.length ? (
+                <div className="grid grid-cols-4 gap-3">
+                  {products.map((item) => (
+                    <ProcessCard key={item.title} item={item} />
+                  ))}
+                </div>
+              ) : null}
+            </section>
+          ) : null}
 
-          <section className="mt-10">
-            <FlourishTitle>SERVICES</FlourishTitle>
-            <div className="grid grid-cols-5 gap-2">
-              {FACTORY_SERVICES.map((item) => (
-                <ProcessCard key={item.title} item={item} />
-              ))}
-            </div>
-          </section>
+          {showServices ? (
+            <section className="mt-10">
+              {servicesHeading ? <FlourishTitle>{servicesHeading}</FlourishTitle> : null}
+              {services.length ? (
+                <div className="grid grid-cols-5 gap-2">
+                  {services.map((item) => (
+                    <ProcessCard key={item.title} item={item} />
+                  ))}
+                </div>
+              ) : null}
+            </section>
+          ) : null}
         </div>
 
-        <section className="border-t border-[#c09038]/40 bg-[#0a0502]">
-          <div className="grid grid-cols-5 items-center gap-4 px-6 py-8">
-            {FACTORY_TRUST_POINTS.map((point, index) => (
-              <div
-                key={point.label}
-                className="flex shrink-0 items-center justify-center gap-3 border-r border-[#c09038]/30 px-2 text-center last:border-r-0"
-              >
-                <TrustIcon index={index} />
-                <div>
-                  <p className="font-['Alice:Regular',Georgia,serif] text-sm font-medium tracking-wide text-[#c09038] uppercase">
-                    {point.value}
-                  </p>
-                  <p className="text-[10px] font-semibold tracking-wide text-[#f2f2f2] uppercase">
-                    {point.label}
-                  </p>
+        {trustPoints.length ? (
+          <section className="border-t border-[#c09038]/40 bg-[#0a0502]">
+            <div className="grid grid-cols-5 items-center gap-4 px-6 py-8">
+              {trustPoints.map((point, index) => (
+                <div
+                  key={point.label}
+                  className="flex shrink-0 items-center justify-center gap-3 border-r border-[#c09038]/30 px-2 text-center last:border-r-0"
+                >
+                  <TrustIcon index={index} />
+                  <div>
+                    <p className="font-['Alice:Regular',Georgia,serif] text-sm font-medium tracking-wide text-[#c09038] uppercase">
+                      {point.value}
+                    </p>
+                    <p className="text-[10px] font-semibold tracking-wide text-[#f2f2f2] uppercase">
+                      {point.label}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <footer className="border-t border-[#c09038]/30 bg-[#100b02]">
           <div className="mx-auto flex w-full flex-col items-center px-6 py-5">

@@ -9,7 +9,7 @@ export default function PageLayout({
   logoSrc,
   children,
 }: {
-  title: string;
+  title?: string;
   intro?: string;
   logoSrc?: string;
   children: ReactNode;
@@ -51,23 +51,27 @@ export default function PageLayout({
       </header>
 
       <main className="flex-1">
-        <div className="mx-auto w-full max-w-[1400px] px-[20px] pt-[32px]">
-          <h1 className="font-['Alice:Regular',sans-serif] text-[40px] leading-tight text-[#c09038]">
-            {title}
-          </h1>
-          {intro ? (
-            <p className="mt-[8px] max-w-[720px] font-['Alice:Regular',sans-serif] text-[18px] text-white/70">
-              {intro}
-            </p>
-          ) : null}
-        </div>
+        {title || intro ? (
+          <div className="mx-auto w-full max-w-[1400px] px-[20px] pt-[32px]">
+            {title ? (
+              <h1 className="font-['Alice:Regular',sans-serif] text-[40px] leading-tight text-[#c09038]">
+                {title}
+              </h1>
+            ) : null}
+            {intro ? (
+              <p className="mt-[8px] max-w-[720px] font-['Alice:Regular',sans-serif] text-[18px] text-white/70">
+                {intro}
+              </p>
+            ) : null}
+          </div>
+        ) : null}
         <div className="mt-[16px] flex flex-col gap-[24px]">{children}</div>
       </main>
 
       <footer className="mt-[24px] border-t-2 border-[#c09038] bg-[#100b02]">
         <div className="flex flex-col items-center py-[20px]">
           <p className="font-['Alice:Regular',sans-serif] text-[18px] text-[#c09038]">
-            © 2026 JD Gold. All Rights Reserved.
+            © {new Date().getFullYear()} JD Gold. All Rights Reserved.
           </p>
         </div>
       </footer>

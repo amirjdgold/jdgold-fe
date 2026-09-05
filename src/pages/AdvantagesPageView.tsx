@@ -21,6 +21,8 @@ export type AdvantagesContent = {
   heroImageAlt?: string;
   blocks?: AdvantageBlock[];
   achievementsHeading?: string;
+  achievementsSubheading?: string;
+  achievementsBadge?: string;
   achievements?: {
     title: string;
     description?: string;
@@ -34,18 +36,13 @@ export type AdvantagesContent = {
 };
 
 export default function AdvantagesPageView({ content }: { content: AdvantagesContent }) {
-  const heading =
-    content.heading || 'JD GOLD MARKET, ADVANTAGES & ACHIEVEMENTS';
-  const headingLines = (() => {
-    const upper = heading.toUpperCase();
-    if (upper.includes('MARKET') && upper.includes('ADVANTAGES')) {
-      return ['JD GOLD', 'MARKET, ADVANTAGES', '& ACHIEVEMENTS'];
-    }
-    return [heading];
-  })();
-
+  const heading = content.heading?.trim() || '';
+  const subtitle = content.subtitle?.trim() || '';
   const blocks = content.blocks || [];
   const achievements = content.achievements || [];
+  const achievementsBadge = content.achievementsBadge?.trim() || '';
+  const achievementsSubheading = content.achievementsSubheading?.trim() || '';
+  const achievementsHeading = content.achievementsHeading?.trim() || '';
   const footerMottos = (content.footerMottos || []).filter(
     (m) => m.title?.trim() || m.subtitle?.trim(),
   );
@@ -83,29 +80,26 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
                 className="h-24 w-auto"
               />
             ) : null}
-            <p className="mt-3 font-['Alice:Regular',Georgia,serif] text-xl tracking-[0.2em] text-[#c09038]">
-              JD GOLD
-            </p>
           </div>
 
           <div className="min-w-0 text-center">
-            <h1 className="break-words font-['Alice:Regular',Georgia,serif] text-[2.65rem] leading-[1.12] tracking-[0.06em] text-[#c09038] uppercase">
-              {headingLines.map((line) => (
-                <span key={line} className="block">
-                  {line}
-                </span>
-              ))}
-            </h1>
-            <p className="mt-4 text-sm tracking-[0.22em] text-[#d4af37] uppercase">
-              {content.subtitle || 'A LEADER IN PURITY. A LEGACY OF TRUST.'}
-            </p>
+            {heading ? (
+              <h1 className="break-words font-['Alice:Regular',Georgia,serif] text-[2.65rem] leading-[1.12] tracking-[0.06em] text-[#c09038] uppercase">
+                {heading}
+              </h1>
+            ) : null}
+            {subtitle ? (
+              <p className="mt-4 text-sm tracking-[0.22em] text-[#d4af37] uppercase">
+                {subtitle}
+              </p>
+            ) : null}
           </div>
 
           {content.heroImage ? (
             <div className="relative h-56 w-full overflow-hidden rounded-2xl border border-[#c09038]/70 shadow-[0_0_28px_rgba(192,144,56,0.22)]">
               <SafeImage
                 src={content.heroImage}
-                alt={content.heroImageAlt || 'JD GOLD Fine Gold bar and coins'}
+                alt={content.heroImageAlt || ''}
                 className="absolute inset-0 size-full object-cover object-center"
               />
             </div>
@@ -126,15 +120,23 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
       {achievements.length ? (
         <section className="mx-auto w-full px-6 pb-12">
           <div className="mb-6 text-center">
-            <div className="flex items-center justify-center gap-3">
-              <GoldNumberBadge className="size-14 text-[2rem]">06</GoldNumberBadge>
-              <h2 className="whitespace-nowrap font-['Alice:Regular',Georgia,serif] text-2xl tracking-[0.08em] text-[#c09038] uppercase">
-                Achievements / Projects
-              </h2>
-            </div>
-            {content.achievementsHeading ? (
+            {achievementsBadge || achievementsSubheading ? (
+              <div className="flex items-center justify-center gap-3">
+                {achievementsBadge ? (
+                  <GoldNumberBadge className="size-14 text-[2rem]">
+                    {achievementsBadge}
+                  </GoldNumberBadge>
+                ) : null}
+                {achievementsSubheading ? (
+                  <h2 className="whitespace-nowrap font-['Alice:Regular',Georgia,serif] text-2xl tracking-[0.08em] text-[#c09038] uppercase">
+                    {achievementsSubheading}
+                  </h2>
+                ) : null}
+              </div>
+            ) : null}
+            {achievementsHeading ? (
               <p className="mx-auto mt-3 max-w-3xl text-sm tracking-[0.08em] text-[#d4af37]/90 uppercase">
-                {content.achievementsHeading}
+                {achievementsHeading}
               </p>
             ) : null}
           </div>

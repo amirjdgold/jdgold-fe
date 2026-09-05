@@ -124,18 +124,22 @@ export default function LicensesPageView({ content }: { content: LicensesContent
               className="mb-5 h-14 w-auto"
             />
           ) : null}
-          <h1 className="break-words font-['Alice:Regular',Georgia,serif] text-4xl leading-snug tracking-[0.04em] text-[#c09038] uppercase">
-            {content.heading || 'JD GOLD LICENSE & OFFICES'}
-          </h1>
-          <p className="mt-3 max-w-xl text-sm tracking-[0.18em] text-white uppercase">
-            {content.subtitle || 'GLOBAL LICENSES. WORLDWIDE OFFICES. TRUSTED EVERYWHERE.'}
-          </p>
+          {content.heading ? (
+            <h1 className="break-words font-['Alice:Regular',Georgia,serif] text-4xl leading-snug tracking-[0.04em] text-[#c09038] uppercase">
+              {content.heading}
+            </h1>
+          ) : null}
+          {content.subtitle ? (
+            <p className="mt-3 max-w-xl text-sm tracking-[0.18em] text-white uppercase">
+              {content.subtitle}
+            </p>
+          ) : null}
         </div>
         {content.heroImage ? (
           <div className="relative h-60 overflow-hidden rounded-2xl border border-[#c09038] shadow-[0_0_24px_rgba(192,144,56,0.18)]">
             <SafeImage
               src={content.heroImage}
-              alt={content.heroImageAlt || 'JD GOLD Fine Gold 999.9 bar'}
+              alt={content.heroImageAlt || ''}
               className="absolute inset-0 size-full object-cover object-center"
             />
           </div>

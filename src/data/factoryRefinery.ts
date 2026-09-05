@@ -2,6 +2,7 @@ export type FactoryCard = {
   title: string;
   subtitle?: string;
   image: string;
+  imageAlt?: string;
   description: string;
 };
 
