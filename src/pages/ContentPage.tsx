@@ -4,6 +4,9 @@ import { usePageContent } from '@/hooks/usePageContent';
 import AboutPageView, { type AboutContent } from '@/pages/AboutPageView';
 import LicensesPageView, { type LicensesContent } from '@/pages/LicensesPageView';
 import AdvantagesPageView, { type AdvantagesContent } from '@/pages/AdvantagesPageView';
+import FactoryRefineryPageView, {
+  type FactoryRefineryContent,
+} from '@/pages/FactoryRefineryPageView';
 
 type ContentPageProps = {
   slug: string;
@@ -38,6 +41,11 @@ export default function ContentPage({ slug }: ContentPageProps) {
   }
   if (layout === 'advantages') {
     return <AdvantagesPageView content={page.content as AdvantagesContent} />;
+  }
+  if (layout === 'factory-refinery') {
+    return (
+      <FactoryRefineryPageView content={page.content as FactoryRefineryContent} />
+    );
   }
 
   return (

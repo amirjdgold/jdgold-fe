@@ -9,8 +9,8 @@ export default function ManagementPage() {
 
   return (
     <PageLayout
-      title="Management Gallery"
-      intro="Meet our leadership team and browse our management gallery."
+      title={content?.teamManagement?.heading}
+      intro={content?.teamManagement?.intro}
     >
       <section className="mx-auto w-full max-w-[1400px] px-[20px]">
         <div className="grid grid-cols-2 gap-[12px] sm:grid-cols-3 lg:grid-cols-4">

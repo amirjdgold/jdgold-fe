@@ -5,7 +5,9 @@ import type {
   LicenseOffice,
   LicensesContent,
 } from '@/pages/LicensesPageView';
+import type { FactoryRefineryContent } from '@/pages/FactoryRefineryPageView';
 import type { PageContentPayload, PageDocument } from '@/types/pageContent';
+import type { FactoryCard } from '@/data/factoryRefinery';
 
 /** Raw Mongo / API page document (Phase 4+). */
 export type ApiPageDocument = {
@@ -33,6 +35,8 @@ type ApiSection = {
   subheading?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
+  icon?: string;
   sortOrder?: number;
   features?: { title: string; description?: string; icon?: string; image?: string }[];
   offices?: LicenseOffice[];
@@ -61,6 +65,7 @@ type ApiSection = {
     icon?: string;
     points?: string[];
   }[];
+  statistics?: { label: string; value: string }[];
 };
 
 function sortedSections(sections: ApiSection[] | undefined): ApiSection[] {
@@ -171,6 +176,7 @@ function mapAboutContent(doc: ApiPageDocument): AboutContent {
     contact: contact
       ? {
           phone: contactCards.find((c) => /phone/i.test(c.title))?.description,
+          whatsapp: contactCards.find((c) => /whatsapp/i.test(c.title))?.description,
           email: contactCards.find((c) => /email/i.test(c.title))?.description,
           website: contactCards.find((c) => /web/i.test(c.title))?.description,
           address: contactCards.find((c) => /address|location/i.test(c.title))?.description,
@@ -215,6 +221,8 @@ function mapAdvantagesContent(doc: ApiPageDocument): AdvantagesContent {
       })),
     })),
     achievementsHeading: achievements?.heading || undefined,
+    achievementsSubheading: achievements?.subheading || undefined,
+    achievementsBadge: achievements?.icon || undefined,
     achievements: (achievements?.achievements || []).map((a) => ({
       title: a.title,
       description: a.description,
@@ -230,6 +238,55 @@ function mapAdvantagesContent(doc: ApiPageDocument): AdvantagesContent {
     // Seed: subheading under logo; heading as closing brand line
     footerLogoTagline: mottos?.subheading || undefined,
     closingLine: mottos?.heading || undefined,
+  };
+}
+
+function mapCards(section?: ApiSection): FactoryCard[] {
+  return (section?.cards || [])
+    .filter((card) => card.title?.trim())
+    .map((card) => ({
+      title: card.title,
+      subtitle: card.subtitle || undefined,
+      image: card.image || '',
+      imageAlt: card.imageAlt || undefined,
+      description: card.description || '',
+    }));
+}
+
+function mapFactoryRefineryContent(doc: ApiPageDocument): FactoryRefineryContent {
+  const sections = sortedSections(doc.sections);
+  const refinery = sectionByKey(sections, 'refinery');
+  const factory = sectionByKey(sections, 'factory');
+  const products = sectionByKey(sections, 'products');
+  const services = sectionByKey(sections, 'services');
+  const trust = sectionByKey(sections, 'trust') || sectionByType(sections, 'statistics');
+
+  return {
+    layout: 'factory-refinery',
+    logoSrc: doc.hero?.logoSrc || undefined,
+    titleLine1: doc.hero?.heading || undefined,
+    titleLine2: doc.hero?.subheading || undefined,
+    tagline: doc.hero?.description || undefined,
+    heroImage: doc.hero?.image || undefined,
+    heroImageAlt: doc.hero?.imageAlt || undefined,
+    refineryHeading: refinery?.heading || undefined,
+    refineryIntro: refinery?.subheading || undefined,
+    refineryHeroImage: refinery?.image || undefined,
+    refineryHeroImageAlt: refinery?.imageAlt || undefined,
+    refinerySteps: mapCards(refinery),
+    factoryHeading: factory?.heading || undefined,
+    factoryIntro: factory?.subheading || undefined,
+    factoryHeroImage: factory?.image || undefined,
+    factoryHeroImageAlt: factory?.imageAlt || undefined,
+    factorySteps: mapCards(factory),
+    productsHeading: products?.heading || undefined,
+    products: mapCards(products),
+    servicesHeading: services?.heading || undefined,
+    services: mapCards(services),
+    trustPoints: (trust?.statistics || []).map((stat) => ({
+      value: stat.value,
+      label: stat.label,
+    })),
   };
 }
 
@@ -258,6 +315,11 @@ export function mapApiPageToDocument(raw: ApiPageDocument): PageDocument {
     raw.sections?.some((s) => s.type === 'market-advantages')
   ) {
     content = mapAdvantagesContent(raw);
+  } else if (
+    pageType === 'factory-refinery' ||
+    raw.slug === 'factories-and-refinery'
+  ) {
+    content = mapFactoryRefineryContent(raw);
   } else {
     // Unknown CMS shape — ContentPage will show "Unknown page layout"
     content = { layout: 'unknown' } as unknown as PageContentPayload;

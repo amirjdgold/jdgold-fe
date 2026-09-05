@@ -24,22 +24,8 @@ export type AdvantageBlock = {
   imageFirst?: boolean;
 };
 
-const PRICING_SIDE_FALLBACK: AdvantageSideItem[] = [
-  { title: 'MARKET-ALIGNED RATES' },
-  { title: 'NO HIDDEN CHARGES' },
-  { title: 'FLEXIBLE SOLUTIONS' },
-  { title: 'TRANSPARENT TRADE' },
-];
-
-function isPricingBlock(block: AdvantageBlock) {
-  return block.title?.toUpperCase().includes('PRICING');
-}
-
 function resolveSideItems(block: AdvantageBlock) {
-  const fromContent = (block.sideItems || []).filter((s) => s.title?.trim());
-  if (fromContent.length) return fromContent;
-  if (isPricingBlock(block)) return PRICING_SIDE_FALLBACK;
-  return [];
+  return (block.sideItems || []).filter((s) => s.title?.trim());
 }
 
 export function GoldNumberBadge({

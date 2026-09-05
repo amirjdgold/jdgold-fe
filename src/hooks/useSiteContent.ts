@@ -176,6 +176,8 @@ export type SiteContent = {
     branding?: Partial<HeroBranding>;
   };
   teamManagement?: {
+    heading?: string;
+    intro?: string;
     members: TeamMember[];
   };
   homeRightGallery?: HomeRightGallery;

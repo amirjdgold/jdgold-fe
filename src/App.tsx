@@ -1,7 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import HomeView from '@/pages/HomeView';
 import ContentPage from '@/pages/ContentPage';
-import FactoryRefineryPageView from '@/pages/FactoryRefineryPageView';
 import ManagementPage from '@/pages/ManagementPage';
 import SalesPage from '@/pages/SalesPage';
 import ContactPage from '@/pages/ContactPage';
@@ -23,7 +22,7 @@ function App() {
             />
             <Route
               path="/factories-and-refinery"
-              element={<FactoryRefineryPageView />}
+              element={<ContentPage slug="factories-and-refinery" />}
             />
             {/* Legacy overlay / alias URLs → canonical redesigned pages */}
             <Route
@@ -44,7 +43,7 @@ function App() {
             />
             <Route
               path="/products"
-              element={<ContentPage slug="factories-and-refinery" />}
+              element={<ContentPage slug="products" />}
             />
             <Route path="/management" element={<ManagementPage />} />
             <Route path="/sales" element={<SalesPage />} />

@@ -6,10 +6,7 @@ import PageLayout from './PageLayout';
 export default function SalesPage() {
   const content = useSiteContent();
   return (
-    <PageLayout
-      title="Sales & Purchase"
-      intro="How we handle global sales, purchase, and secure shipping."
-    >
+    <PageLayout title={content?.globalShippingSection?.heading}>
       <GlobalShippingSectionView content={content?.globalShippingSection} />
       <GetInTouchSectionView content={content?.getInTouchSection} />
     </PageLayout>

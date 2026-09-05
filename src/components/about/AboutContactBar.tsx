@@ -20,7 +20,8 @@ export default function AboutContactBar({ contact }: { contact?: AboutContactInf
 
   if (contact.phone && !isPlaceholder(contact.phone)) {
     items.push({ type: 'phone', value: contact.phone });
-  } else if (contact.whatsapp && !isPlaceholder(contact.whatsapp)) {
+  }
+  if (contact.whatsapp && !isPlaceholder(contact.whatsapp)) {
     items.push({ type: 'whatsapp', value: contact.whatsapp });
   }
   if (contact.email && !isPlaceholder(contact.email)) {

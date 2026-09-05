@@ -57,9 +57,6 @@ export default function AboutHero({
               className="mb-3 h-24 w-auto"
             />
           ) : null}
-          <p className="font-['Alice:Regular',Georgia,serif] text-3xl tracking-[0.18em] text-[#c09038]">
-            JD GOLD
-          </p>
           {brandTagline ? (
             <p className="mt-2 text-base tracking-wide text-[#e8d5a8]/90">
               {brandTagline}
