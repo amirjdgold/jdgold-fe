@@ -17,7 +17,7 @@ export default function AboutJewelleryDepartment({
   body?: string;
   images: GalleryImage[];
 }) {
-  const validImages = images.filter((img) => img?.src?.trim());
+  const validImages = images || [];
   const hasCopy = Boolean(heading || managedBy || body);
 
   if (!hasCopy && !validImages.length) return null;
@@ -50,8 +50,8 @@ export default function AboutJewelleryDepartment({
           <div
             className={`grid min-h-[220px] ${validImages.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}
           >
-            {validImages.map((img) => (
-              <div key={img.src + (img.alt || '')} className="relative min-h-[220px] bg-black">
+            {validImages.map((img, index) => (
+              <div key={(img.src || 'pending') + (img.alt || '') + index} className="relative min-h-[220px] bg-black">
                 <SafeImage
                   src={img.src}
                   alt={img.alt || ''}

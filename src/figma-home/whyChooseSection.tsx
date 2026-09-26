@@ -315,59 +315,40 @@ function TextBlock({ title, body }: { title: string; body: string }) {
   );
 }
 
-/** Bullseye / target mark (Figma target path, centered in 24×24). */
+/** Target mark for Mission. */
 function MissionIcon() {
   return (
-    <svg className="block size-full" fill="none" viewBox="0 0 24 24" aria-hidden>
-      <g transform="translate(6, 6)">
-        <path
-          d={svgPaths.p20303900}
-          stroke="#C09038"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.5"
-        />
-      </g>
+    <svg className="block size-full" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="9" stroke="#C09038" strokeWidth="1.6" />
+      <circle cx="12" cy="12" r="5.5" stroke="#C09038" strokeWidth="1.6" />
+      <circle cx="12" cy="12" r="2.1" fill="#C09038" />
     </svg>
   );
 }
 
-/** Eye mark (Figma paths) when no custom vision icon URL is set. */
+/** Eye mark for Vision. */
 function VisionIconSvg() {
   return (
-    <svg className="block size-full" fill="none" viewBox="0 0 24 24" aria-hidden>
+    <svg className="block size-full" viewBox="0 0 24 24" fill="none" aria-hidden>
       <path
-        d={svgPaths.p2475d280}
+        d="M2.4 12s3.6-6.8 9.6-6.8S21.6 12 21.6 12s-3.6 6.8-9.6 6.8S2.4 12 2.4 12z"
         stroke="#C09038"
+        strokeWidth="1.6"
         strokeLinejoin="round"
-        strokeWidth="1.5"
       />
-      <path d={svgPaths.p202e2800} stroke="#C09038" strokeWidth="1.5" />
+      <circle cx="12" cy="12" r="3.1" stroke="#C09038" strokeWidth="1.6" />
+      <circle cx="12" cy="12" r="1.15" fill="#C09038" />
     </svg>
   );
 }
 
-function CenteredIconBadge({
-  iconSrc,
-  iconAlt,
-  fallback,
-}: {
-  iconSrc?: string;
-  iconAlt?: string;
-  fallback: ReactNode;
-}) {
+function CenteredIconBadge({ icon }: { icon: ReactNode }) {
   return (
     <div
-      className="flex size-[56px] shrink-0 items-center justify-center rounded-[12px] bg-[rgba(186,116,1,0.3)]"
-      aria-hidden={!iconAlt}
+      className="flex size-[72px] shrink-0 items-center justify-center rounded-full border-2 border-[#c09038] bg-[#120a04] shadow-[0_0_22px_rgba(192,144,56,0.38)]"
+      aria-hidden
     >
-      <div className="relative size-[24px]">
-        {iconSrc ? (
-          <SafeImage src={iconSrc} alt={iconAlt || ''} className="size-full object-contain" />
-        ) : (
-          fallback
-        )}
-      </div>
+      <div className="relative size-[32px]">{icon}</div>
     </div>
   );
 }
@@ -377,7 +358,7 @@ function MissionBlock({ title, body }: { title: string; body: string }) {
     <div className="relative flex size-full min-h-[188px] w-full flex-col items-center p-[14px]">
       <TextBlock title={title} body={body} />
       <div className="mt-auto flex w-full flex-1 flex-col items-center justify-center pt-6">
-        <CenteredIconBadge fallback={<MissionIcon />} />
+        <CenteredIconBadge icon={<MissionIcon />} />
       </div>
     </div>
   );
@@ -386,19 +367,15 @@ function MissionBlock({ title, body }: { title: string; body: string }) {
 function VisionBlock({
   title,
   body,
-  iconSrc,
-  iconAlt,
 }: {
   title: string;
   body: string;
-  iconSrc: string;
-  iconAlt?: string;
 }) {
   return (
     <div className="relative flex size-full min-h-[188px] w-full flex-col items-center p-[14px]">
       <TextBlock title={title} body={body} />
       <div className="mt-auto flex w-full flex-1 flex-col items-center justify-center pt-6">
-        <CenteredIconBadge iconSrc={iconSrc} iconAlt={iconAlt} fallback={<VisionIconSvg />} />
+        <CenteredIconBadge icon={<VisionIconSvg />} />
       </div>
     </div>
   );
@@ -428,21 +405,19 @@ export function WhyChooseBrandsSection({ content }: { content?: WhyChooseSection
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]" />
             <MissionBlock title={data.mission.title} body={data.mission.body} />
           </div>
-          {data.missionImage ? <div className="pointer-events-none relative h-[300px] w-[615px] shrink-0 rounded-[16px]">
+          <div className="pointer-events-none relative h-[300px] w-[615px] shrink-0 rounded-[16px]">
             <SafeImage
               alt={data.missionImageAlt || ''}
               className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
               src={data.missionImage}
             />
             <div aria-hidden="true" className="absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]" />
-          </div> : null}
+          </div>
           <div className="relative min-w-px flex-[1_0_0] self-stretch rounded-[20px] bg-[#100b02] drop-shadow-[0px_2px_4px_rgba(0,0,0,0.04)]">
             <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]" />
             <VisionBlock
               title={data.vision.title}
               body={data.vision.body}
-              iconSrc={data.visionIcon}
-              iconAlt={data.visionIconAlt}
             />
           </div>
         </div>

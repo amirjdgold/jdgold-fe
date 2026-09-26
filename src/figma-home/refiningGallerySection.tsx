@@ -1,4 +1,5 @@
 import SafeImage from '@/components/SafeImage';
+import { padCmsSlots } from '@/lib/cmsSlots';
 import type { RefiningGallerySection } from '@/hooks/useSiteContent';
 
 export const REFINING_GALLERY_SLOT_COUNT = 3;
@@ -7,15 +8,14 @@ export function resolveRefiningGallerySection(
   cms?: RefiningGallerySection | null,
 ): RefiningGallerySection {
   const raw = (cms || {}) as Partial<RefiningGallerySection>;
-  const slots = (raw.slots ?? [])
-    .filter((slot) => slot?.image?.trim())
-    .slice(0, REFINING_GALLERY_SLOT_COUNT);
-  return {
-    slots: slots.map((s) => ({
-      image: s.image.trim(),
-      alt: (s.alt || '').trim() || undefined,
-    })),
-  };
+  const slots = padCmsSlots(raw.slots, REFINING_GALLERY_SLOT_COUNT, () => ({
+    image: '',
+    alt: '',
+  })).map((s) => ({
+    image: (s.image || '').trim(),
+    alt: (s.alt || '').trim() || undefined,
+  }));
+  return { slots };
 }
 
 function GalleryImageSlot({ image, alt }: { image: string; alt?: string }) {

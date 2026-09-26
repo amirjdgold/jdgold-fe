@@ -53,13 +53,13 @@ export default function SiteStickyChrome({
     };
   }, []);
 
-  const logo = logoSrc ? (
+  const logo = (
     <SafeImage
       src={logoSrc}
       alt={logoAlt}
-      className="mx-auto h-full w-auto max-w-[min(100%,220px)] object-contain object-center sm:max-w-[260px]"
+      className="mx-auto h-full w-auto max-w-[260px] object-contain object-center"
     />
-  ) : null;
+  );
 
   return (
     <>
@@ -70,24 +70,20 @@ export default function SiteStickyChrome({
         aria-label="JD Gold header and media strip"
       >
         <div className="container-custom min-w-0 overflow-hidden pt-0 pb-1">
-          {logoSrc ? (
-            <>
-              <div className="flex h-11 w-full items-center justify-center px-3 py-0.5 sm:h-12">
-                {logoHref ? (
-                  <Link
-                    to={logoHref}
-                    className="flex h-full items-center"
-                    aria-label="JD Gold home"
-                  >
-                    {logo}
-                  </Link>
-                ) : (
-                  logo
-                )}
-              </div>
-              <GoldLine />
-            </>
-          ) : null}
+          <div className="flex h-12 w-full items-center justify-center px-3 py-0.5">
+            {logoHref ? (
+              <Link
+                to={logoHref}
+                className="flex h-full items-center"
+                aria-label="JD Gold home"
+              >
+                {logo}
+              </Link>
+            ) : (
+              logo
+            )}
+          </div>
+          <GoldLine />
           <GlobalPageBanner embedded />
         </div>
       </div>

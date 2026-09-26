@@ -9,7 +9,7 @@ export default function AboutJewelleryCollection({
   heading?: string;
   images: GalleryImage[];
 }) {
-  const validImages = images.filter((img) => img?.src?.trim());
+  const validImages = images || [];
   if (!validImages.length) return null;
 
   return (
@@ -25,9 +25,9 @@ export default function AboutJewelleryCollection({
       ) : null}
 
       <div className="grid grid-cols-5 gap-3">
-        {validImages.map((img) => (
+        {validImages.map((img, index) => (
           <div
-            key={img.src + (img.alt || '')}
+            key={(img.src || 'pending') + (img.alt || '') + index}
             className="min-w-0 overflow-hidden rounded-sm border border-[#c09038]"
           >
             <div className="relative aspect-square bg-black">

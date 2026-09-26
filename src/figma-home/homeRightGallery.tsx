@@ -1,5 +1,6 @@
 import { useId, type ReactNode } from 'react';
 import SafeImage from '@/components/SafeImage';
+import { padCmsSlots } from '@/lib/cmsSlots';
 import type { HomeGallerySection, HomeGallerySlot, HomeRightGallery } from '@/hooks/useSiteContent';
 import svgPaths from './svg-paths';
 
@@ -50,20 +51,23 @@ function normalizeSection(
 ): HomeGallerySection {
   const d = DEFAULTS[key];
   const count = GALLERY_SLOT_COUNTS[key];
-  const slots: HomeGallerySlot[] = (raw?.slots ?? [])
-    .filter((slot) => slot?.image?.trim())
-    .slice(0, count);
-  const title = (raw?.title || '').trim() || d.title;
+  const slots: HomeGallerySlot[] = padCmsSlots(
+    raw?.slots,
+    count,
+    () => ({ image: '', alt: undefined }),
+  ).map((s) => ({
+    image: (s.image || '').trim(),
+    alt: (s.alt || '').trim() || undefined,
+  }));
   return {
-    title,
-    slots: slots.map((s) => ({
-      image: s.image.trim(),
-      alt: (s.alt || '').trim() || undefined,
-    })),
+    title: (raw?.title || '').trim() || d.title,
+    slots,
   };
 }
 
-export function resolveHomeRightGallery(cms?: HomeRightGallery | null): HomeRightGallery {
+export function resolveHomeRightGallery(
+  cms?: Partial<HomeRightGallery> | null,
+): HomeRightGallery {
   const base = (cms || {}) as Partial<HomeRightGallery>;
   return {
     staff: normalizeSection('staff', base.staff),

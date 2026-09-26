@@ -117,13 +117,11 @@ export default function LicensesPageView({ content }: { content: LicensesContent
           Back
         </Link>
         <div className="flex min-w-0 flex-col items-start pt-8 text-left">
-          {content.logoSrc ? (
-            <SafeImage
-              src={content.logoSrc}
-              alt="JD Gold"
-              className="mb-5 h-14 w-auto"
-            />
-          ) : null}
+          <SafeImage
+            src={content.logoSrc}
+            alt="JD Gold"
+            className="mb-5 h-14 w-auto"
+          />
           {content.heading ? (
             <h1 className="break-words font-['Alice:Regular',Georgia,serif] text-4xl leading-snug tracking-[0.04em] text-[#c09038] uppercase">
               {content.heading}
@@ -135,15 +133,13 @@ export default function LicensesPageView({ content }: { content: LicensesContent
             </p>
           ) : null}
         </div>
-        {content.heroImage ? (
-          <div className="relative h-60 overflow-hidden rounded-2xl border border-[#c09038] shadow-[0_0_24px_rgba(192,144,56,0.18)]">
-            <SafeImage
-              src={content.heroImage}
-              alt={content.heroImageAlt || ''}
-              className="absolute inset-0 size-full object-cover object-center"
-            />
-          </div>
-        ) : null}
+        <div className="relative h-60 overflow-hidden rounded-2xl border border-[#c09038] shadow-[0_0_24px_rgba(192,144,56,0.18)]">
+          <SafeImage
+            src={content.heroImage}
+            alt={content.heroImageAlt || ''}
+            className="absolute inset-0 size-full object-cover object-center"
+          />
+        </div>
       </section>
 
       {offices.length ? (

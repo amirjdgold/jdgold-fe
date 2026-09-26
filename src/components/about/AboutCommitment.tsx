@@ -23,11 +23,7 @@ export default function AboutCommitment({
 
   return (
     <section className="mx-auto w-full px-6 py-10">
-      <div
-        className={`grid items-center gap-8 ${
-          footerImage ? 'grid-cols-[1.15fr_0.95fr]' : ''
-        }`}
-      >
+      <div className="grid items-center gap-8 grid-cols-[1.15fr_0.95fr]">
         <div>
           {heading ? (
             <SectionTitle className="mb-3 !text-3xl uppercase">{heading}</SectionTitle>
@@ -57,15 +53,13 @@ export default function AboutCommitment({
           ) : null}
         </div>
 
-        {footerImage ? (
-          <div className="relative min-h-[260px] overflow-hidden rounded-sm border border-[#c09038]/60">
-            <SafeImage
-              src={footerImage}
-              alt=""
-              className="absolute inset-0 size-full object-cover object-center"
-            />
-          </div>
-        ) : null}
+        <div className="relative min-h-[260px] overflow-hidden rounded-sm border border-[#c09038]/60">
+          <SafeImage
+            src={footerImage}
+            alt=""
+            className="absolute inset-0 size-full object-cover object-center"
+          />
+        </div>
       </div>
     </section>
   );

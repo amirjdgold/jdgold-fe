@@ -39,16 +39,13 @@ function CountryHeading({
       <span className="shrink-0 font-['Alice:Regular',Georgia,serif] text-5xl leading-none text-[#c09038]">
         {number}
       </span>
-      {flagSrc ? (
-        <span className="relative inline-flex h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#c09038] bg-[#1a1008] shadow-[0_0_14px_rgba(192,144,56,0.45)]">
-          <SafeImage
-            src={flagSrc}
-            alt={`${country} flag`}
-            hideIfEmpty
-            className="absolute inset-0 size-full object-cover"
-          />
-        </span>
-      ) : null}
+      <span className="relative inline-flex h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-[#c09038] bg-[#1a1008] shadow-[0_0_14px_rgba(192,144,56,0.45)]">
+        <SafeImage
+          src={flagSrc}
+          alt={`${country} flag`}
+          className="absolute inset-0 size-full object-cover"
+        />
+      </span>
       <h2 className="min-w-0 break-words font-['Alice:Regular',Georgia,serif] text-3xl tracking-[0.08em] text-[#c09038] uppercase">
         {country}
       </h2>

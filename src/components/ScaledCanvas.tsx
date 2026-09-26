@@ -3,9 +3,6 @@ import './scaled-canvas.css';
 
 export const PAGE_DESIGN_WIDTH = 1152;
 
-const supportsZoom =
-  typeof CSS !== 'undefined' && CSS.supports && CSS.supports('zoom', '0.5');
-
 /** Renders children at a fixed design width and scales the canvas to the viewport. */
 export default function ScaledCanvas({
   children,
@@ -29,20 +26,8 @@ export default function ScaledCanvas({
       canvas.style.width = `${width}px`;
       canvas.style.minWidth = `${width}px`;
       canvas.style.maxWidth = 'none';
-      canvas.style.transformOrigin = 'top left';
-
-      if (supportsZoom) {
-        // Zoom re-rasters type at the target size, so small copy stays sharp.
-        canvas.style.zoom = String(scale);
-        canvas.style.transform = '';
-        canvas.style.marginLeft = '0';
-        canvas.style.marginRight = '0';
-        host.style.height = '';
-        host.style.overflow = 'hidden';
-        return;
-      }
-
       canvas.style.zoom = '';
+      canvas.style.transformOrigin = 'top left';
       canvas.style.transform = `scale(${scale})`;
       const scaledWidth = width * scale;
       const marginX = Math.max(0, (available - scaledWidth) / 2);

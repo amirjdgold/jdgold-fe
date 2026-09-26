@@ -76,10 +76,12 @@ export function CommitIcon({ icon }: { icon?: string }) {
 
 export function ContactIcon({
   type,
+  className,
 }: {
   type: 'phone' | 'whatsapp' | 'email' | 'web' | 'pin';
+  className?: string;
 }) {
-  const common = 'h-4 w-4 shrink-0 text-[#c09038]';
+  const common = className || 'h-4 w-4 shrink-0 text-[#c09038]';
   if (type === 'phone') {
     return (
       <svg className={common} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" aria-hidden>

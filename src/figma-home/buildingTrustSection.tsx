@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import SafeImage from '@/components/SafeImage';
+import { padCmsSlots } from '@/lib/cmsSlots';
 import type { BuildingTrustSection } from '@/hooks/useSiteContent';
 import svgPaths from './svg-paths';
 
@@ -14,13 +15,14 @@ export function resolveBuildingTrustSection(
   cms?: BuildingTrustSection | null,
 ): BuildingTrustSection {
   const raw = (cms || {}) as Partial<BuildingTrustSection>;
-  const slots = (raw.slots ?? [])
-    .filter((slot) => slot?.image?.trim())
-    .slice(0, BUILDING_TRUST_SLOT_COUNT);
+  const slots = padCmsSlots(raw.slots, BUILDING_TRUST_SLOT_COUNT, () => ({
+    image: '',
+    alt: '',
+  }));
   return {
     heading: (raw.heading || '').trim() || DEFAULTS.heading,
     slots: slots.map((s) => ({
-      image: s.image.trim(),
+      image: (s.image || '').trim(),
       alt: (s.alt || '').trim() || undefined,
     })),
   };

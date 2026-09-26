@@ -4,9 +4,7 @@ import type { TeamMember } from '@/hooks/useSiteContent';
 export const MAX_TEAM_MEMBERS = 7;
 
 function isValidMember(m: TeamMember): boolean {
-  return Boolean(
-    m?.id?.trim() && m?.name?.trim() && m?.designation?.trim() && m?.image?.trim()
-  );
+  return Boolean(m?.id?.trim() && m?.name?.trim());
 }
 
 export function resolveTeamMembers(cms?: TeamMember[]): TeamMember[] {

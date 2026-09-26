@@ -12,10 +12,8 @@ import { cn } from '@/lib/utils';
 
 const AUTOPLAY_MS = 10000;
 /** Side slides peek; center is dominant. Mobile uses a wider center so frames stay readable. */
-const HERO_SIDE_BASIS =
-  'basis-[16%] max-w-[16%] sm:basis-[13%] sm:max-w-[13%]';
-const HERO_CENTER_BASIS =
-  'basis-[48%] max-w-[48%] sm:basis-[34%] sm:max-w-[34%]';
+const HERO_SIDE_BASIS = 'basis-[13%] max-w-[13%]';
+const HERO_CENTER_BASIS = 'basis-[34%] max-w-[34%]';
 
 type GlobalPageBannerProps = {
   /**
@@ -56,10 +54,10 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
         className="pointer-events-none absolute bottom-0 left-1/2 flex w-full max-w-full -translate-x-1/2 items-center justify-center overflow-hidden"
         aria-hidden
       >
-        <div className="h-40 w-[min(100%,36rem)] rounded-full bg-[#D4AF37]/15 blur-3xl sm:h-72 sm:w-full sm:max-w-4xl md:h-96" />
+        <div className="h-72 w-full max-w-4xl rounded-full bg-[#D4AF37]/15 blur-3xl" />
       </div>
 
-      <div className="relative z-10 w-full min-w-0 overflow-hidden px-0 py-2 sm:px-2">
+      <div className="relative z-10 w-full min-w-0 overflow-hidden px-2 py-2">
         <div className="relative mx-auto w-full min-w-0 max-w-[1512px] overflow-hidden">
           <Carousel
             opts={{ loop: true, align: 'center' }}
@@ -69,7 +67,7 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
           >
             {/* Force both axes clipped — overflow-y:visible on the shared carousel breaks x clipping */}
             <div className="overflow-hidden">
-              <CarouselContent className="-ml-0 items-center gap-1.5 !pl-0 sm:gap-2">
+              <CarouselContent className="-ml-0 items-center gap-2 !pl-0">
                 {slides.map((slide, index) => {
                   const isCenter = index === selectedIndex;
                   const fitClass = isCenter
@@ -100,8 +98,8 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
                         className={cn(
                           'relative w-full overflow-hidden rounded-lg border border-[#D4AF37] bg-black',
                           isCenter
-                            ? 'h-[130px] shadow-[0_0_28px_rgba(212,175,55,0.4)] sm:h-[160px] sm:scale-[1.02]'
-                            : 'h-[100px] opacity-95 sm:h-[130px]',
+                            ? 'h-[160px] scale-[1.02] shadow-[0_0_28px_rgba(212,175,55,0.4)]'
+                            : 'h-[130px] opacity-95',
                         )}
                       >
                         {slide.href && slide.kind === 'image' ? (
@@ -145,13 +143,13 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
 function BannerSkeleton() {
   return (
     <div
-      className="relative w-full min-w-0 overflow-hidden px-0 py-2 sm:px-2"
+      className="relative w-full min-w-0 overflow-hidden px-2 py-2"
       aria-hidden
     >
-      <div className="mx-auto flex h-[130px] w-full max-w-[1512px] items-center justify-center gap-1.5 sm:h-[160px] sm:gap-2">
-        <div className="h-[100px] w-[16%] shrink-0 animate-pulse rounded-lg border border-[#D4AF37]/40 bg-black/80 sm:h-[130px] sm:w-[13%]" />
-        <div className="h-full w-[48%] shrink-0 animate-pulse rounded-lg border border-[#D4AF37]/60 bg-black/80 sm:w-[34%]" />
-        <div className="h-[100px] w-[16%] shrink-0 animate-pulse rounded-lg border border-[#D4AF37]/40 bg-black/80 sm:h-[130px] sm:w-[13%]" />
+      <div className="mx-auto flex h-[160px] w-full max-w-[1512px] items-center justify-center gap-2">
+        <div className="h-[130px] w-[13%] shrink-0 animate-pulse rounded-lg border border-[#D4AF37]/40 bg-black/80" />
+        <div className="h-full w-[34%] shrink-0 animate-pulse rounded-lg border border-[#D4AF37]/60 bg-black/80" />
+        <div className="h-[130px] w-[13%] shrink-0 animate-pulse rounded-lg border border-[#D4AF37]/40 bg-black/80" />
       </div>
     </div>
   );

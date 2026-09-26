@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import SafeImage from '@/components/SafeImage';
+import ScaledCanvas from '@/components/ScaledCanvas';
 import { NAV_ITEMS } from './navItems';
 
 export default function PageLayout({
@@ -15,15 +16,12 @@ export default function PageLayout({
   children: ReactNode;
 }) {
   return (
+    <ScaledCanvas>
     <div className="flex min-h-screen flex-col bg-[#010100]">
       <header className="sticky top-0 z-50 border-b-2 border-[#c09038] bg-black/95 backdrop-blur">
         <div className="mx-auto flex w-full max-w-[1400px] items-center gap-[16px] px-[20px] py-[12px]">
           <Link to="/" className="flex shrink-0 items-center no-underline" aria-label="JD Gold home">
-            {logoSrc ? (
-              <SafeImage src={logoSrc} alt="JD Gold" className="h-[44px] w-auto" />
-            ) : (
-              <span className="text-[#c09038]">JD GOLD</span>
-            )}
+            <SafeImage src={logoSrc} alt="JD Gold" className="h-[44px] w-auto" />
           </Link>
           <nav
             aria-label="Primary"
@@ -76,5 +74,6 @@ export default function PageLayout({
         </div>
       </footer>
     </div>
+    </ScaledCanvas>
   );
 }

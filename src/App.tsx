@@ -1,9 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import HomeView from '@/pages/HomeView';
 import ContentPage from '@/pages/ContentPage';
-import ManagementPage from '@/pages/ManagementPage';
-import SalesPage from '@/pages/SalesPage';
-import ContactPage from '@/pages/ContactPage';
 import ScrollToTop from '@/components/ScrollToTop';
 
 function App() {
@@ -45,9 +42,9 @@ function App() {
               path="/products"
               element={<ContentPage slug="products" />}
             />
-            <Route path="/management" element={<ManagementPage />} />
-            <Route path="/sales" element={<SalesPage />} />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/management" element={<ContentPage slug="management" />} />
+            <Route path="/sales" element={<ContentPage slug="sales" />} />
+            <Route path="/contact" element={<ContentPage slug="contact" />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
