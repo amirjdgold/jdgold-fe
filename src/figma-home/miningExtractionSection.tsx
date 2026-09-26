@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import SafeImage from '@/components/SafeImage';
+import { padCmsSlots } from '@/lib/cmsSlots';
 import type { MiningExtractionSection } from '@/hooks/useSiteContent';
 import svgPaths from './svg-paths';
 
@@ -14,13 +15,14 @@ export function resolveMiningExtractionSection(
   cms?: MiningExtractionSection | null,
 ): MiningExtractionSection {
   const raw = (cms || {}) as Partial<MiningExtractionSection>;
-  const slots = (raw.slots ?? [])
-    .filter((slot) => slot?.image?.trim())
-    .slice(0, MINING_EXTRACTION_SLOT_COUNT);
+  const slots = padCmsSlots(raw.slots, MINING_EXTRACTION_SLOT_COUNT, () => ({
+    image: '',
+    alt: '',
+  }));
   return {
     heading: (raw.heading || '').trim() || DEFAULTS.heading,
     slots: slots.map((s) => ({
-      image: s.image.trim(),
+      image: (s.image || '').trim(),
       alt: (s.alt || '').trim() || undefined,
     })),
   };

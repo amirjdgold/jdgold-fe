@@ -1,5 +1,6 @@
 import { useId } from 'react';
 import SafeImage from '@/components/SafeImage';
+import { padCmsSlots } from '@/lib/cmsSlots';
 import type { GoldProductsSection } from '@/hooks/useSiteContent';
 import svgPaths from './svg-paths';
 
@@ -12,14 +13,16 @@ const DEFAULTS: GoldProductsSection = {
 
 export function resolveGoldProductsSection(cms?: GoldProductsSection | null): GoldProductsSection {
   const raw = (cms || {}) as Partial<GoldProductsSection>;
-  const products = (raw.products ?? [])
-    .filter((product) => product?.image?.trim())
-    .slice(0, GOLD_PRODUCTS_COUNT);
+  const products = padCmsSlots(raw.products, GOLD_PRODUCTS_COUNT, () => ({
+    label: '',
+    image: '',
+    imageAlt: '',
+  }));
   return {
     heading: (raw.heading || '').trim() || DEFAULTS.heading,
     products: products.map((p) => ({
       label: (p.label || '').trim(),
-      image: p.image.trim(),
+      image: (p.image || '').trim(),
       imageAlt: (p.imageAlt || '').trim() || undefined,
     })),
   };

@@ -4,8 +4,7 @@
   width: 100%;
   overflow: hidden;
   position: relative;
-  display: flex;
-  justify-content: center;
+  display: block;
 }
 
 .scaled-canvas {
@@ -14,6 +13,7 @@
   min-width: var(--scaled-canvas-width, 1152px) !important;
   flex-shrink: 0;
   transform-origin: top left;
+  will-change: transform;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

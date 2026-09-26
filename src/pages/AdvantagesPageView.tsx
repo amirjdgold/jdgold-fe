@@ -73,13 +73,11 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
             Back
           </Link>
           <div className="flex flex-col items-start pt-8 text-left">
-            {content.logoSrc ? (
-              <SafeImage
-                src={content.logoSrc}
-                alt="JD Gold"
-                className="h-24 w-auto"
-              />
-            ) : null}
+            <SafeImage
+              src={content.logoSrc}
+              alt="JD Gold"
+              className="h-24 w-auto"
+            />
           </div>
 
           <div className="min-w-0 text-center">
@@ -95,15 +93,13 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
             ) : null}
           </div>
 
-          {content.heroImage ? (
-            <div className="relative h-56 w-full overflow-hidden rounded-2xl border border-[#c09038]/70 shadow-[0_0_28px_rgba(192,144,56,0.22)]">
-              <SafeImage
-                src={content.heroImage}
-                alt={content.heroImageAlt || ''}
-                className="absolute inset-0 size-full object-cover object-center"
-              />
-            </div>
-          ) : null}
+          <div className="relative h-56 w-full overflow-hidden rounded-2xl border border-[#c09038]/70 shadow-[0_0_28px_rgba(192,144,56,0.22)]">
+            <SafeImage
+              src={content.heroImage}
+              alt={content.heroImageAlt || ''}
+              className="absolute inset-0 size-full object-cover object-center"
+            />
+          </div>
         </div>
       </section>
 
@@ -166,13 +162,11 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
             ))}
 
             <div className="flex flex-col items-center pl-4 text-center">
-              {content.logoSrc ? (
-                <SafeImage
-                  src={content.logoSrc}
-                  alt="JD Gold"
-                  className="mb-2 h-14 w-auto"
-                />
-              ) : null}
+              <SafeImage
+                src={content.logoSrc}
+                alt="JD Gold"
+                className="mb-2 h-14 w-auto"
+              />
               {content.footerLogoTagline ? (
                 <p className="max-w-[180px] text-[10px] leading-relaxed tracking-[0.1em] text-[#d4af37]/90 uppercase">
                   {content.footerLogoTagline}

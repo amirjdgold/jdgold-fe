@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react';
 import SafeImage from '@/components/SafeImage';
+import { padCmsSlots } from '@/lib/cmsSlots';
 import type { GetInTouchSection } from '@/hooks/useSiteContent';
 import svgPaths from './svg-paths';
 
@@ -24,18 +25,20 @@ const DEFAULTS: GetInTouchSection = {
 
 export function resolveGetInTouchSection(cms?: GetInTouchSection | null): GetInTouchSection {
   const raw = (cms || {}) as Partial<GetInTouchSection>;
-  const topImages = (raw.topImages ?? [])
-    .filter((slot) => slot?.image?.trim())
-    .slice(0, GET_IN_TOUCH_TOP_IMAGE_COUNT);
+  const topImages = padCmsSlots(raw.topImages, GET_IN_TOUCH_TOP_IMAGE_COUNT, () => ({
+    image: '',
+    alt: '',
+  }))
+    .map((s) => ({
+      image: (s.image || '').trim(),
+      alt: (s.alt || '').trim() || undefined,
+    }));
   return {
     heading: (raw.heading || '').trim() || DEFAULTS.heading,
-    topImages: topImages.map((s) => ({
-      image: s.image.trim(),
-      alt: (s.alt || '').trim() || undefined,
-    })),
-    leftImage: (raw.leftImage || '').trim() || DEFAULTS.leftImage,
+    topImages,
+    leftImage: (raw.leftImage || '').trim(),
     leftImageAlt: (raw.leftImageAlt || '').trim() || DEFAULTS.leftImageAlt,
-    rightImage: (raw.rightImage || '').trim() || DEFAULTS.rightImage,
+    rightImage: (raw.rightImage || '').trim(),
     rightImageAlt: (raw.rightImageAlt || '').trim() || DEFAULTS.rightImageAlt,
     phone: (raw.phone || '').trim() || DEFAULTS.phone,
     whatsapp: (raw.whatsapp || '').trim() || DEFAULTS.whatsapp,
@@ -158,7 +161,7 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
           ))}
         </div>
         <div className="relative flex w-full shrink-0 items-start gap-[12px]">
-          {data.leftImage ? <div className="pointer-events-none relative min-w-px flex-[1_0_0] self-stretch rounded-[16px]">
+          <div className="pointer-events-none relative min-w-px flex-[1_0_0] self-stretch rounded-[16px]">
             <SafeImage
               alt={data.leftImageAlt || ''}
               className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
@@ -168,7 +171,7 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
             />
-          </div> : null}
+          </div>
           <div className="relative min-w-px flex-[1_0_0] rounded-[20px] bg-[#100b02] drop-shadow-[0px_2px_4px_rgba(0,0,0,0.04)]">
             <div
               aria-hidden="true"
@@ -190,11 +193,11 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
               </div>
             </div>
           </div>
-          {data.rightImage ? <div className="pointer-events-none relative min-w-px flex-[1_0_0] self-stretch rounded-[16px]">
+          <div className="pointer-events-none relative min-w-px flex-[1_0_0] self-stretch rounded-[16px]">
             <div className="absolute inset-0 overflow-hidden rounded-[16px]">
               <SafeImage
                 alt={data.rightImageAlt || ''}
-                className="absolute top-[-50.06%] left-[-0.06%] h-[200.12%] w-[196.01%] max-w-none"
+                className="absolute inset-0 size-full max-w-none object-cover"
                 src={data.rightImage}
               />
             </div>
@@ -202,7 +205,7 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
             />
-          </div> : null}
+          </div>
         </div>
       </div>
     </div>

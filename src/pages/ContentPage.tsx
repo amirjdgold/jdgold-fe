@@ -7,6 +7,15 @@ import AdvantagesPageView, { type AdvantagesContent } from '@/pages/AdvantagesPa
 import FactoryRefineryPageView, {
   type FactoryRefineryContent,
 } from '@/pages/FactoryRefineryPageView';
+import ManagementGalleryPageView, {
+  type ManagementGalleryContent,
+} from '@/pages/ManagementGalleryPageView';
+import SalesPurchasePageView, {
+  type SalesPurchaseContent,
+} from '@/pages/SalesPurchasePageView';
+import ContactUsPageView, {
+  type ContactUsContent,
+} from '@/pages/ContactUsPageView';
 
 type ContentPageProps = {
   slug: string;
@@ -46,6 +55,19 @@ export default function ContentPage({ slug }: ContentPageProps) {
     return (
       <FactoryRefineryPageView content={page.content as FactoryRefineryContent} />
     );
+  }
+  if (layout === 'management-gallery') {
+    return (
+      <ManagementGalleryPageView content={page.content as ManagementGalleryContent} />
+    );
+  }
+  if (layout === 'sales-purchase') {
+    return (
+      <SalesPurchasePageView content={page.content as SalesPurchaseContent} />
+    );
+  }
+  if (layout === 'contact-us') {
+    return <ContactUsPageView content={page.content as ContactUsContent} />;
   }
 
   return (

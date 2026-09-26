@@ -138,13 +138,11 @@ export default function FactoryRefineryPageView({
               Back
             </Link>
             <div className="flex min-w-0 items-center gap-5 pt-8 text-left">
-              {logoSrc ? (
-                <SafeImage
+              <SafeImage
                   src={logoSrc}
                   alt="JD Gold"
                   className="h-32 w-auto shrink-0"
                 />
-              ) : null}
               <div className="min-w-0">
                 {titleLine1 || titleLine2 ? (
                   <h1 className="font-['Alice:Regular',Georgia,serif] text-[1.75rem] leading-[1.15] tracking-[0.06em] text-[#c09038] uppercase">
@@ -163,15 +161,13 @@ export default function FactoryRefineryPageView({
                 ) : null}
               </div>
             </div>
-            {heroImage ? (
-              <div className="relative flex w-full justify-end">
-                <SafeImage
-                  src={heroImage}
-                  alt={heroImageAlt}
-                  className="h-auto max-h-72 w-auto max-w-[360px] object-contain"
-                />
-              </div>
-            ) : null}
+            <div className="relative flex w-full justify-end">
+              <SafeImage
+                src={heroImage}
+                alt={heroImageAlt}
+                className="h-auto max-h-72 w-auto max-w-[360px] object-contain"
+              />
+            </div>
           </div>
         </section>
 
@@ -184,15 +180,13 @@ export default function FactoryRefineryPageView({
                   {refineryIntro}
                 </p>
               ) : null}
-              {refineryHeroImage ? (
-                <div className="mb-4 overflow-hidden border border-[#c09038]/70">
-                  <SafeImage
-                    src={refineryHeroImage}
-                    alt={content?.refineryHeroImageAlt || ''}
-                    className="h-64 w-full object-cover"
-                  />
-                </div>
-              ) : null}
+              <div className="mb-4 overflow-hidden border border-[#c09038]/70">
+                <SafeImage
+                  src={refineryHeroImage}
+                  alt={content?.refineryHeroImageAlt || ''}
+                  className="h-64 w-full object-cover"
+                />
+              </div>
               {refinerySteps.length ? (
                 <div className="grid grid-cols-4 gap-2">
                   {refinerySteps.map((item) => (
@@ -211,15 +205,13 @@ export default function FactoryRefineryPageView({
                   {factoryIntro}
                 </p>
               ) : null}
-              {factoryHeroImage ? (
-                <div className="mb-4 overflow-hidden border border-[#c09038]/70">
-                  <SafeImage
-                    src={factoryHeroImage}
-                    alt={content?.factoryHeroImageAlt || ''}
-                    className="h-64 w-full object-cover"
-                  />
-                </div>
-              ) : null}
+              <div className="mb-4 overflow-hidden border border-[#c09038]/70">
+                <SafeImage
+                  src={factoryHeroImage}
+                  alt={content?.factoryHeroImageAlt || ''}
+                  className="h-64 w-full object-cover"
+                />
+              </div>
               {factorySteps.length ? (
                 <div className="grid grid-cols-5 gap-2">
                   {factorySteps.map((item) => (

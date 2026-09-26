@@ -128,7 +128,7 @@ export function IndustriesWeServeSectionView({
       <div className="relative flex size-full flex-col items-start gap-[12px] bg-[#100b02] px-[20px] py-[10px]">
         <IndustriesHeading title={data.heading} />
         <div className="relative flex w-full shrink-0 items-center gap-[12px]">
-          {data.leftImage ? <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
+          <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
             <div className="pointer-events-none relative h-full min-w-px flex-[1_0_0] rounded-[16px]">
               <SafeImage
                 alt={data.leftImageAlt || ''}
@@ -140,18 +140,18 @@ export function IndustriesWeServeSectionView({
                 className="absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
               />
             </div>
-          </div> : null}
+          </div>
           <div className="relative grid w-[768px] shrink-0 grid-cols-[repeat(3,minmax(0,1fr))] grid-rows-[repeat(2,fit-content(100%))] gap-x-[12px] gap-y-[12px]">
             {data.industries.map((industry, i) => (
               <IndustryCard key={i} label={industry.label} index={i} />
             ))}
           </div>
-          {data.rightImage ? <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
+          <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
             <div className="pointer-events-none relative h-full min-w-px flex-[1_0_0] rounded-[16px]">
               <div className="absolute inset-0 overflow-hidden rounded-[16px]">
                 <SafeImage
                   alt={data.rightImageAlt || ''}
-                  className="absolute top-[-114.35%] left-[-153.82%] h-[328.7%] w-[407.65%] max-w-none"
+                  className="absolute inset-0 size-full max-w-none object-cover"
                   src={data.rightImage}
                 />
               </div>
@@ -160,7 +160,7 @@ export function IndustriesWeServeSectionView({
                 className="absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
               />
             </div>
-          </div> : null}
+          </div>
         </div>
       </div>
     </div>

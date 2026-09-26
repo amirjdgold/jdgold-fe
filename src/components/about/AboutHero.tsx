@@ -50,13 +50,11 @@ export default function AboutHero({
           Back
         </Link>
         <div className="flex flex-col items-start text-left">
-          {logoSrc ? (
-            <SafeImage
+          <SafeImage
               src={logoSrc}
               alt="JD Gold"
               className="mb-3 h-24 w-auto"
             />
-          ) : null}
           {brandTagline ? (
             <p className="mt-2 text-base tracking-wide text-[#e8d5a8]/90">
               {brandTagline}
@@ -78,7 +76,6 @@ export default function AboutHero({
           ) : null}
         </div>
 
-        {heroImage ? (
           <div className="relative w-full">
             <div className="relative aspect-[3/4] min-h-[420px] overflow-hidden rounded-sm border border-[#c09038]/80 shadow-[0_0_40px_rgba(192,144,56,0.28)]">
               <SafeImage
@@ -88,7 +85,6 @@ export default function AboutHero({
               />
             </div>
           </div>
-        ) : null}
       </div>
     </section>
   );

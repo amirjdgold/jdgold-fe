@@ -6,6 +6,9 @@ import type {
   LicensesContent,
 } from '@/pages/LicensesPageView';
 import type { FactoryRefineryContent } from '@/pages/FactoryRefineryPageView';
+import type { ManagementGalleryContent } from '@/pages/ManagementGalleryPageView';
+import type { SalesPurchaseContent } from '@/pages/SalesPurchasePageView';
+import type { ContactUsContent } from '@/pages/ContactUsPageView';
 import type { PageContentPayload, PageDocument } from '@/types/pageContent';
 import type { FactoryCard } from '@/data/factoryRefinery';
 
@@ -63,6 +66,7 @@ type ApiSection = {
     image?: string;
     imageAlt?: string;
     icon?: string;
+    link?: string;
     points?: string[];
   }[];
   statistics?: { label: string; value: string }[];
@@ -183,6 +187,113 @@ function mapAboutContent(doc: ApiPageDocument): AboutContent {
         }
       : undefined,
     footerImage: commitment?.image || collection?.image || undefined,
+  };
+}
+
+function mapContactUsContent(doc: ApiPageDocument): ContactUsContent {
+  const sections = sortedSections(doc.sections);
+
+  return {
+    layout: 'contact-us',
+    logoSrc: doc.hero?.logoSrc || undefined,
+    heading: doc.hero?.heading || undefined,
+    subtitle: doc.hero?.subheading || undefined,
+    heroImage: doc.hero?.image || undefined,
+    heroImageAlt: doc.hero?.imageAlt || undefined,
+    bands: sections
+      .filter((s) => s.type === 'cards')
+      .map((s) => ({
+        key: s.key || undefined,
+        heading: s.heading || undefined,
+        items: (s.cards || []).map((card) => ({
+          title: card.title,
+          subtitle: card.subtitle || undefined,
+          description: card.description || undefined,
+          image: card.image || undefined,
+          imageAlt: card.imageAlt || undefined,
+          icon: card.icon || undefined,
+          link: card.link || undefined,
+        })),
+      })),
+    galleries: sections
+      .filter((s) => s.type === 'gallery')
+      .map((s) => ({
+        key: s.key || undefined,
+        heading: s.heading || undefined,
+        images: (s.gallery || []).map((g) => ({
+          src: g.url,
+          alt: g.alt || undefined,
+        })),
+      })),
+  };
+}
+
+function mapSalesPurchaseContent(doc: ApiPageDocument): SalesPurchaseContent {
+  const sections = sortedSections(doc.sections);
+
+  return {
+    layout: 'sales-purchase',
+    logoSrc: doc.hero?.logoSrc || undefined,
+    heading: doc.hero?.heading || undefined,
+    subtitle: doc.hero?.subheading || undefined,
+    heroImage: doc.hero?.image || undefined,
+    heroImageAlt: doc.hero?.imageAlt || undefined,
+    offerings: sections
+      .filter((s) => s.type === 'cards')
+      .map((s) => ({
+        key: s.key || undefined,
+        heading: s.heading || undefined,
+        items: (s.cards || []).map((card) => ({
+          title: card.title,
+          subtitle: card.subtitle || undefined,
+          description: card.description || undefined,
+          image: card.image || '',
+          imageAlt: card.imageAlt || undefined,
+        })),
+      })),
+    galleries: sections
+      .filter((s) => s.type === 'gallery')
+      .map((s) => ({
+        key: s.key || undefined,
+        heading: s.heading || undefined,
+        images: (s.gallery || []).map((g) => ({
+          src: g.url,
+          alt: g.alt || undefined,
+        })),
+      })),
+  };
+}
+
+function mapManagementGalleryContent(doc: ApiPageDocument): ManagementGalleryContent {
+  const sections = sortedSections(doc.sections);
+  const leadership =
+    sectionByKey(sections, 'leadership') || sectionByType(sections, 'leadership');
+
+  return {
+    layout: 'management-gallery',
+    logoSrc: doc.hero?.logoSrc || undefined,
+    heading: doc.hero?.heading || undefined,
+    subtitle: doc.hero?.subheading || undefined,
+    heroImage: doc.hero?.image || undefined,
+    heroImageAlt: doc.hero?.imageAlt || undefined,
+    leadershipHeading: leadership?.heading || undefined,
+    leaders: leadership?.leadership?.map((l) => ({
+      title: l.title,
+      name: l.name,
+      experience: l.experience || '',
+      image: l.image || '',
+      imageAlt: l.imageAlt || undefined,
+    })),
+    galleries: sections
+      .filter((s) => s.type === 'gallery')
+      .map((s) => ({
+        key: s.key || undefined,
+        heading: s.heading || undefined,
+        images: (s.gallery || []).map((g) => ({
+          src: g.url,
+          alt: g.alt || undefined,
+        })),
+      })),
   };
 }
 
@@ -320,6 +431,15 @@ export function mapApiPageToDocument(raw: ApiPageDocument): PageDocument {
     raw.slug === 'factories-and-refinery'
   ) {
     content = mapFactoryRefineryContent(raw);
+  } else if (
+    pageType === 'management-gallery' ||
+    raw.slug === 'management'
+  ) {
+    content = mapManagementGalleryContent(raw);
+  } else if (pageType === 'sales-purchase' || raw.slug === 'sales') {
+    content = mapSalesPurchaseContent(raw);
+  } else if (pageType === 'contact-us' || raw.slug === 'contact') {
+    content = mapContactUsContent(raw);
   } else {
     // Unknown CMS shape — ContentPage will show "Unknown page layout"
     content = { layout: 'unknown' } as unknown as PageContentPayload;

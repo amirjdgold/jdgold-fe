@@ -12,9 +12,9 @@ export const NAV_ITEMS: NavItem[] = [
 export const HOME_NAV_ITEMS: NavItem[] = [
   { to: '/about', label: 'About Us' },
   { to: '/products', label: 'Product & Services' },
-  { to: '/management', label: 'Management Gallery', disabled: true },
+  { to: '/management', label: 'Management Gallery' },
   { to: '/factories-and-refinery', label: 'Factory & Refinery' },
   { to: '/license-and-offices', label: 'License & Office' },
-  { to: '/sales', label: 'Sales & Purchase', disabled: true },
-  { to: '/contact', label: 'Contact Us', disabled: true },
+  { to: '/sales', label: 'Sales & Purchase' },
+  { to: '/contact', label: 'Contact Us' },
 ];
