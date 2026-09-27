@@ -31,6 +31,6 @@ Leave `VITE_API_URL` empty locally (Vite proxies `/api` → backend), or set e.g
 
    `VITE_API_URL` is a Vite build-time variable. Changing it in Vercel does not update an existing static bundle; redeploy the frontend after every change.
 4. Deploy the project.
-5. Add the frontend's Vercel URL to `CORS_ORIGINS` on the backend and redeploy the backend if that value changed.
+5. Add `https://jdgold.llc`, `https://www.jdgold.llc`, and the frontend's Vercel URL to `CORS_ORIGINS` on the backend, then redeploy the backend if that value changed.
 
 `vercel.json` serves existing static files from `dist` first, then falls back to `index.html` for client-side routes.
