@@ -51,7 +51,7 @@ export default function AboutJewelleryDepartment({
             className={`grid min-h-[220px] ${validImages.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}
           >
             {validImages.map((img, index) => (
-              <div key={(img.src || 'pending') + (img.alt || '') + index} className="relative min-h-[220px] bg-black">
+              <div key={(img.src || 'pending') + (img.alt || '') + index} className="relative aspect-[4/3] min-h-[220px] bg-black">
                 <SafeImage
                   src={img.src}
                   alt={img.alt || ''}

@@ -8,33 +8,28 @@ export type AboutContactInfo = {
   address?: string;
 };
 
-function isPlaceholder(value?: string) {
-  if (!value) return true;
-  return value.trim().startsWith('[PLACEHOLDER');
+const FALLBACK_CONTACT: Required<AboutContactInfo> = {
+  phone: '+92 300 1234567',
+  whatsapp: '+86 18340320420',
+  email: 'info@jdgold.com',
+  website: 'www.jdgold.com',
+  address: 'Suite #01, Gold Tower, Main Boulevard, Karachi, Pakistan',
+};
+
+function usableContactText(value?: string) {
+  const text = String(value || '').trim();
+  if (!text || text.startsWith('[PLACEHOLDER')) return '';
+  return text;
 }
 
 export default function AboutContactBar({ contact }: { contact?: AboutContactInfo }) {
-  if (!contact) return null;
-
-  const items: { type: 'phone' | 'whatsapp' | 'email' | 'web' | 'pin'; value: string }[] = [];
-
-  if (contact.phone && !isPlaceholder(contact.phone)) {
-    items.push({ type: 'phone', value: contact.phone });
-  }
-  if (contact.whatsapp && !isPlaceholder(contact.whatsapp)) {
-    items.push({ type: 'whatsapp', value: contact.whatsapp });
-  }
-  if (contact.email && !isPlaceholder(contact.email)) {
-    items.push({ type: 'email', value: contact.email });
-  }
-  if (contact.website && !isPlaceholder(contact.website)) {
-    items.push({ type: 'web', value: contact.website });
-  }
-  if (contact.address && !isPlaceholder(contact.address)) {
-    items.push({ type: 'pin', value: contact.address });
-  }
-
-  if (!items.length) return null;
+  const items: { type: 'phone' | 'whatsapp' | 'email' | 'web' | 'pin'; value: string }[] = [
+    { type: 'phone', value: usableContactText(contact?.phone) || FALLBACK_CONTACT.phone },
+    { type: 'whatsapp', value: usableContactText(contact?.whatsapp) || FALLBACK_CONTACT.whatsapp },
+    { type: 'email', value: usableContactText(contact?.email) || FALLBACK_CONTACT.email },
+    { type: 'web', value: usableContactText(contact?.website) || FALLBACK_CONTACT.website },
+    { type: 'pin', value: usableContactText(contact?.address) || FALLBACK_CONTACT.address },
+  ];
 
   return (
     <section className="border-t border-[#c09038]/40 bg-[#0a0502]">

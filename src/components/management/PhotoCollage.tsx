@@ -56,7 +56,7 @@ export default function PhotoCollage({
             <SafeImage
               src={img.src}
               alt={img.alt || ''}
-              className="absolute inset-0 size-full object-cover"
+              className="absolute inset-0 size-full object-cover object-center"
             />
           </div>
         ))}
@@ -68,7 +68,7 @@ export default function PhotoCollage({
             <SafeImage
               src={img.src}
               alt={img.alt || ''}
-              className="absolute inset-0 size-full object-cover"
+              className="absolute inset-0 size-full object-cover object-center"
             />
           </div>
         ))}

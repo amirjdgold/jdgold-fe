@@ -95,16 +95,14 @@ function ProcessStepCard({
   stepSizeClass?: string;
 }) {
   return (
-    <div className="relative min-w-px flex-[1_0_0] self-stretch rounded-[20px]">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[20px]">
-        <div className="absolute inset-0 rounded-[20px] bg-[#100b02]" />
-        <SafeImage
-          alt={imageAlt || ''}
-          className="absolute size-full max-w-none rounded-[20px] object-cover opacity-24"
-          src={image}
-        />
-      </div>
-      <div className="relative flex size-full flex-col items-center overflow-clip rounded-[inherit]">
+    <div className="relative min-w-px flex-[1_0_0] self-stretch aspect-[3/2] rounded-[20px]">
+      <div className="absolute inset-0 rounded-[20px] bg-[#100b02]" />
+      <SafeImage
+        alt={imageAlt || ''}
+        className="absolute size-full max-w-none rounded-[20px] object-cover object-center opacity-24"
+        src={image}
+      />
+      <div className="pointer-events-none relative flex size-full flex-col items-center overflow-clip rounded-[inherit]">
         <div className="relative flex size-full flex-col items-center gap-[12px] p-[34px] text-center font-['Alice:Regular',sans-serif] not-italic text-[#c09038]">
           <div className={`flex w-full flex-col justify-center ${stepSizeClass ?? 'text-[36px]'} leading-[56px]`}>
             {step}
@@ -131,7 +129,7 @@ export function GoldRefiningProcessSectionView({
     <div className="relative w-full shrink-0 bg-[#100b02]" data-name="section#brands">
       <div className="relative flex size-full flex-col items-start gap-[12px] px-[20px] py-[10px]">
         <ProcessHeading title={data.heading} />
-        <div className="relative flex h-[163px] w-full shrink-0 items-start gap-[12px]">
+        <div className="relative flex w-full shrink-0 items-stretch gap-[12px]">
           {data.steps.map((item, i) => (
             <ProcessStepCard
               key={i}

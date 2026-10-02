@@ -171,7 +171,10 @@ export async function getSiteContent(): Promise<SiteContent> {
 }
 
 /** Resolve API-managed upload paths while preserving absolute/external URLs. */
-export function resolveCmsAssetUrl(value: string): string {
+export function resolveCmsAssetUrl(
+  value: string,
+  assetOrigin: string = ASSET_ORIGIN,
+): string {
   const path = value.trim();
   if (!path) return path;
   if (/^(?:https?:)?\/\//i.test(path) || /^(?:data|blob):/i.test(path)) {
@@ -179,7 +182,18 @@ export function resolveCmsAssetUrl(value: string): string {
   }
   const uploadPath = path.startsWith('uploads/') ? `/${path}` : path;
   if (!uploadPath.startsWith('/uploads')) return path;
-  return ASSET_ORIGIN ? `${ASSET_ORIGIN}${uploadPath}` : uploadPath;
+  if (assetOrigin) {
+    try {
+      const host = new URL(assetOrigin).hostname;
+      // Disk uploads are not served on the Vercel API host; leave empty so
+      // SafeImage can show the branded placeholder instead of a 404.
+      if (host.endsWith('.vercel.app')) return '';
+    } catch {
+      /* keep the local-dev rewrite below */
+    }
+    return `${assetOrigin}${uploadPath}`;
+  }
+  return uploadPath;
 }
 
 /** Rewrite upload strings in CMS JSON so media loads from the API host. */

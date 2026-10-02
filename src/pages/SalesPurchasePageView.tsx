@@ -64,6 +64,7 @@ export default function SalesPurchasePageView({
             <SafeImage
                 src={content.logoSrc}
                 alt="JD Gold"
+                preview={false}
                 className="pointer-events-none mb-3 h-32 w-auto"
               />
             {content.heading ? (
@@ -152,9 +153,9 @@ function OfferGrid({
               <SafeImage
                 src={item.image}
                 alt={item.imageAlt || item.title}
-                className="absolute inset-0 size-full object-cover object-center"
+                className="absolute inset-0 size-full object-cover object-top"
               />
-              <div className="absolute inset-x-0 bottom-0 z-[1] bg-black/50 px-3 py-2 text-center">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] bg-black/50 px-3 py-2 text-center">
                 <h3 className="font-['Alice:Regular',Georgia,serif] text-xl leading-tight text-[#c09038] uppercase">
                   {item.title}
                 </h3>

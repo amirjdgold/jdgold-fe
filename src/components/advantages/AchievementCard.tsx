@@ -19,7 +19,7 @@ export default function AchievementCard({ item }: { item: AchievementCardData })
           fallbackSrc={PRODUCT_IMAGE_FALLBACK}
           className="absolute inset-0 size-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#120a04] via-transparent to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#120a04] via-transparent to-transparent" />
       </div>
       <div className="space-y-2 p-4">
         <h3 className="break-words text-center font-['Alice:Regular',Georgia,serif] text-lg tracking-[0.06em] text-[#c09038] uppercase">

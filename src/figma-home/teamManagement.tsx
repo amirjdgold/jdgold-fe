@@ -20,7 +20,7 @@ function TeamMemberOverlay({
   designation: string;
 }) {
   return (
-    <div className="absolute inset-x-0 bottom-0 z-[1] bg-black/50">
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] bg-black/50">
       <div className="flex flex-col items-center justify-center overflow-clip px-[12px] py-[8px] text-center leading-[normal] not-italic text-[#c09038]">
         <p className="font-['Alice:Regular',sans-serif] relative w-full shrink-0 text-[26px] leading-tight">
           {name}
@@ -39,7 +39,7 @@ export function TeamMemberCard({ member }: { member: TeamMember }) {
     <div className="relative h-full min-h-0 w-full overflow-hidden rounded-[16px] border-2 border-solid border-[#c09038] bg-[#010100]">
       <SafeImage
         alt={alt}
-        className="absolute inset-0 size-full max-w-none object-cover object-center pointer-events-none"
+        className="absolute inset-0 size-full max-w-none object-cover object-top"
         src={member.image}
       />
       <TeamMemberOverlay name={member.name} designation={member.designation} />
@@ -56,14 +56,15 @@ export function TeamMemberColumn({ members }: { members: TeamMember[] }) {
   const count = visible.length;
   return (
     <div
-      className="grid w-[320px] shrink-0 gap-[12px] self-stretch bg-[#010100]"
+      className="grid w-[320px] shrink-0 gap-[12px] self-start bg-[#010100]"
       style={{
-        gridTemplateRows:
-          count > 0 ? `repeat(${count}, minmax(180px, 1fr))` : undefined,
+        gridTemplateRows: count > 0 ? `repeat(${count}, auto)` : undefined,
       }}
     >
       {visible.map((member) => (
-        <TeamMemberCard key={member.id} member={member} />
+        <div key={member.id} className="aspect-[4/3]">
+          <TeamMemberCard member={member} />
+        </div>
       ))}
     </div>
   );

@@ -7,9 +7,9 @@ import svgPaths from './svg-paths';
 export const GET_IN_TOUCH_TOP_IMAGE_COUNT = 3;
 
 const TOP_IMAGE_CLASSES = [
-  'absolute h-[148.14%] left-[-2.3%] max-w-none top-[-33.88%] w-[102.3%]',
-  'absolute inset-0 size-full max-w-none rounded-[16px] object-cover',
-  'absolute top-[-67.89%] left-[-33.34%] h-[188%] w-[166.68%] max-w-none',
+  'absolute inset-0 size-full max-w-none rounded-[16px] object-cover object-center',
+  'absolute inset-0 size-full max-w-none rounded-[16px] object-cover object-center',
+  'absolute inset-0 size-full max-w-none rounded-[16px] object-cover object-center',
 ] as const;
 
 const DEFAULTS: GetInTouchSection = {
@@ -100,16 +100,9 @@ function TopGalleryImage({
   index: number;
 }) {
   const imgClass = TOP_IMAGE_CLASSES[index] ?? TOP_IMAGE_CLASSES[1];
-  const needsOverflow = index !== 1;
   return (
-    <div className="relative h-[200px] min-w-px flex-[1_0_0] rounded-[16px]">
-      {needsOverflow ? (
-        <div className="absolute inset-0 overflow-hidden rounded-[16px]">
-          <SafeImage alt={alt || ''} className={imgClass} src={image} />
-        </div>
-      ) : (
-        <SafeImage alt={alt || ''} className={imgClass} src={image} />
-      )}
+    <div className="relative aspect-[12/5] min-w-px flex-[1_0_0] rounded-[16px]">
+      <SafeImage alt={alt || ''} className={imgClass} src={image} />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
@@ -155,16 +148,16 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
   return (
     <div className="relative w-full shrink-0">
       <div className="relative flex size-full flex-col items-start gap-[12px] px-[20px]">
-        <div className="pointer-events-none relative flex w-full shrink-0 items-center gap-[12px]">
+        <div className="relative flex w-full shrink-0 items-center gap-[12px]">
           {data.topImages.map((slot, i) => (
             <TopGalleryImage key={i} image={slot.image} alt={slot.alt} index={i} />
           ))}
         </div>
-        <div className="relative flex w-full shrink-0 items-start gap-[12px]">
-          <div className="pointer-events-none relative min-w-px flex-[1_0_0] self-stretch rounded-[16px]">
+        <div className="relative flex w-full shrink-0 items-center gap-[12px]">
+          <div className="relative aspect-[4/3] min-w-px flex-[1_0_0] rounded-[16px]">
             <SafeImage
               alt={data.leftImageAlt || ''}
-              className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
+              className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover object-center"
               src={data.leftImage}
             />
             <div
@@ -193,14 +186,12 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
               </div>
             </div>
           </div>
-          <div className="pointer-events-none relative min-w-px flex-[1_0_0] self-stretch rounded-[16px]">
-            <div className="absolute inset-0 overflow-hidden rounded-[16px]">
-              <SafeImage
-                alt={data.rightImageAlt || ''}
-                className="absolute inset-0 size-full max-w-none object-cover"
-                src={data.rightImage}
-              />
-            </div>
+          <div className="relative aspect-[4/3] min-w-px flex-[1_0_0] overflow-hidden rounded-[16px]">
+            <SafeImage
+              alt={data.rightImageAlt || ''}
+              className="absolute inset-0 size-full max-w-none object-cover object-center"
+              src={data.rightImage}
+            />
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"

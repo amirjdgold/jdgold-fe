@@ -88,7 +88,7 @@ function BlockImage({
         src={block.image}
         alt={block.imageAlt || block.title}
         fallbackSrc={PRODUCT_IMAGE_FALLBACK}
-        className={`absolute inset-0 size-full ${fitContain ? 'object-contain p-1' : 'object-cover'}`}
+        className={`absolute inset-0 size-full ${fitContain ? 'object-contain p-1' : 'object-cover object-center'}`}
         style={{ objectPosition: position }}
       />
       {!fitContain ? (

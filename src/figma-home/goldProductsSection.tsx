@@ -92,13 +92,13 @@ function ProductCard({
 }) {
   return (
     <div className="flex min-w-px flex-[1_0_0] flex-row items-center self-stretch">
-      <div className="relative h-full min-w-px flex-[1_0_0] rounded-[16px]">
+      <div className="relative aspect-[5/4] min-w-px flex-[1_0_0] rounded-[16px]">
         <SafeImage
           alt={imageAlt || label}
-          className="pointer-events-none absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
+          className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover object-center"
           src={image}
         />
-        <div className="flex size-full flex-col justify-end overflow-clip rounded-[inherit]">
+        <div className="pointer-events-none flex size-full flex-col justify-end overflow-clip rounded-[inherit]">
           <div className="relative flex size-full flex-col items-start justify-end pt-[140px]">
             <div className="relative w-full shrink-0 bg-[rgba(0,0,0,0.7)]">
               <div className="flex size-full flex-col items-center justify-center overflow-clip rounded-[inherit] px-[12px] py-[8px]">
@@ -126,7 +126,7 @@ export function GoldProductsSectionView({ content }: { content?: GoldProductsSec
       <div className="size-full overflow-clip rounded-[inherit]">
         <div className="relative flex size-full flex-col items-start gap-[12px] bg-black px-[20px] py-[10px]">
           <ProductsHeading title={data.heading} />
-          <div className="relative flex h-[183px] w-full shrink-0 items-center gap-[12px]">
+          <div className="relative flex w-full shrink-0 items-stretch gap-[12px]">
             {data.products.map((product, i) => (
               <ProductCard
                 key={i}

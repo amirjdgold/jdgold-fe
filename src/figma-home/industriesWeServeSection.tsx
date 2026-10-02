@@ -128,16 +128,16 @@ export function IndustriesWeServeSectionView({
       <div className="relative flex size-full flex-col items-start gap-[12px] bg-[#100b02] px-[20px] py-[10px]">
         <IndustriesHeading title={data.heading} />
         <div className="relative flex w-full shrink-0 items-center gap-[12px]">
-          <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
-            <div className="pointer-events-none relative h-full min-w-px flex-[1_0_0] rounded-[16px]">
+          <div className="flex min-w-px flex-[1_0_0] flex-row items-center">
+            <div className="relative aspect-[3/2] w-full min-w-px rounded-[16px]">
               <SafeImage
                 alt={data.leftImageAlt || ''}
-                className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
+                className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover object-center"
                 src={data.leftImage}
               />
               <div
                 aria-hidden="true"
-                className="absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+                className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
               />
             </div>
           </div>
@@ -146,18 +146,16 @@ export function IndustriesWeServeSectionView({
               <IndustryCard key={i} label={industry.label} index={i} />
             ))}
           </div>
-          <div className="flex flex-[1_0_0] flex-row items-center self-stretch">
-            <div className="pointer-events-none relative h-full min-w-px flex-[1_0_0] rounded-[16px]">
-              <div className="absolute inset-0 overflow-hidden rounded-[16px]">
-                <SafeImage
-                  alt={data.rightImageAlt || ''}
-                  className="absolute inset-0 size-full max-w-none object-cover"
-                  src={data.rightImage}
-                />
-              </div>
+          <div className="flex min-w-px flex-[1_0_0] flex-row items-center">
+            <div className="relative aspect-[3/2] w-full min-w-px overflow-hidden rounded-[16px]">
+              <SafeImage
+                alt={data.rightImageAlt || ''}
+                className="absolute inset-0 size-full max-w-none object-cover object-center"
+                src={data.rightImage}
+              />
               <div
                 aria-hidden="true"
-                className="absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+                className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
               />
             </div>
           </div>

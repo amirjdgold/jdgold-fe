@@ -24,4 +24,13 @@ describe('CMS asset URL handling', () => {
     expect(result.media[0].url).toMatch(/\/uploads\/a\.jpg$/);
     expect(result.media[1].poster).toMatch(/\/uploads\/a-poster\.jpg$/);
   });
+
+  it('does not point Vercel production at disk upload paths the API cannot serve', () => {
+    expect(
+      resolveCmsAssetUrl(
+        '/uploads/cms/1779041928249-dh1en045.webp',
+        'https://jdgold-be.vercel.app',
+      ),
+    ).toBe('');
+  });
 });

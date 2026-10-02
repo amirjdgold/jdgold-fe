@@ -69,7 +69,7 @@ function ProcessCard({ item }: { item: FactoryCard }) {
         <SafeImage
           src={item.image}
           alt={item.imageAlt || item.title}
-          className="size-full object-cover"
+          className="size-full object-cover object-center"
         />
       </div>
       <p className="flex-1 px-2 py-3 text-sm leading-6 font-medium text-[#f2f2f2]">
@@ -141,6 +141,7 @@ export default function FactoryRefineryPageView({
               <SafeImage
                   src={logoSrc}
                   alt="JD Gold"
+                  preview={false}
                   className="h-32 w-auto shrink-0"
                 />
               <div className="min-w-0">
@@ -162,11 +163,13 @@ export default function FactoryRefineryPageView({
               </div>
             </div>
             <div className="relative flex w-full justify-end">
+            <div className="relative aspect-[3/4] w-full max-w-[360px] overflow-hidden">
               <SafeImage
                 src={heroImage}
                 alt={heroImageAlt}
-                className="h-auto max-h-72 w-auto max-w-[360px] object-contain"
+                className="absolute inset-0 size-full object-cover object-center"
               />
+            </div>
             </div>
           </div>
         </section>
@@ -180,11 +183,11 @@ export default function FactoryRefineryPageView({
                   {refineryIntro}
                 </p>
               ) : null}
-              <div className="mb-4 overflow-hidden border border-[#c09038]/70">
+              <div className="mb-4 aspect-[4/1] overflow-hidden border border-[#c09038]/70">
                 <SafeImage
                   src={refineryHeroImage}
                   alt={content?.refineryHeroImageAlt || ''}
-                  className="h-64 w-full object-cover"
+                  className="size-full object-cover object-center"
                 />
               </div>
               {refinerySteps.length ? (
@@ -205,11 +208,11 @@ export default function FactoryRefineryPageView({
                   {factoryIntro}
                 </p>
               ) : null}
-              <div className="mb-4 overflow-hidden border border-[#c09038]/70">
+              <div className="mb-4 aspect-[4/1] overflow-hidden border border-[#c09038]/70">
                 <SafeImage
                   src={factoryHeroImage}
                   alt={content?.factoryHeroImageAlt || ''}
-                  className="h-64 w-full object-cover"
+                  className="size-full object-cover object-center"
                 />
               </div>
               {factorySteps.length ? (

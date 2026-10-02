@@ -57,7 +57,8 @@ export default function SiteStickyChrome({
     <SafeImage
       src={logoSrc}
       alt={logoAlt}
-      className="mx-auto h-full w-auto max-w-[260px] object-contain object-center"
+      preview={false}
+      className="mx-auto h-full w-auto max-w-[260px] object-contain object-center md:max-w-[360px] lg:max-w-[480px]"
     />
   );
 
@@ -70,7 +71,7 @@ export default function SiteStickyChrome({
         aria-label="JD Gold header and media strip"
       >
         <div className="container-custom min-w-0 overflow-hidden pt-0 pb-1">
-          <div className="flex h-12 w-full items-center justify-center px-3 py-0.5">
+          <div className="flex h-12 w-full items-center justify-center px-3 py-0.5 md:h-[4.5rem] md:py-1 lg:h-24 lg:py-1.5">
             {logoHref ? (
               <Link
                 to={logoHref}

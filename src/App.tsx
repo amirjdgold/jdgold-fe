@@ -2,10 +2,12 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import HomeView from '@/pages/HomeView';
 import ContentPage from '@/pages/ContentPage';
 import ScrollToTop from '@/components/ScrollToTop';
+import { MediaLightboxProvider } from '@/components/media-lightbox/MediaLightbox';
 
 function App() {
   return (
     <BrowserRouter>
+      <MediaLightboxProvider>
       <ScrollToTop />
       <div className="min-h-screen overflow-x-clip bg-[#0A0A0A] text-white">
         <main>
@@ -49,6 +51,7 @@ function App() {
           </Routes>
         </main>
       </div>
+      </MediaLightboxProvider>
     </BrowserRouter>
   );
 }

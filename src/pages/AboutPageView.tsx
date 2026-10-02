@@ -14,7 +14,6 @@ export type AboutContent = {
   logoSrc?: string;
   heroImage?: string;
   heroImageAlt?: string;
-  heroBackgroundImage?: string;
   aboutHeading?: string;
   aboutBody?: string;
   aboutBodySecondary?: string;
@@ -58,7 +57,6 @@ export default function AboutPageView({ content }: { content: AboutContent }) {
           aboutBodySecondary={content.aboutBodySecondary}
           heroImage={content.heroImage}
           heroImageAlt={content.heroImageAlt}
-          heroBackgroundImage={content.heroBackgroundImage}
         />
 
         <AboutPillars pillars={content.pillars || []} />
