@@ -18,6 +18,8 @@ export default function PageShell({ children, logoSrc }: PageShellProps) {
       <SiteStickyChrome
         logoSrc={headerLogoSrc}
         logoAlt={branding?.logoAlt || branding?.title || 'JD Gold'}
+        title={branding?.title}
+        subtitle={branding?.subtitle}
         logoHref="/"
       />
       {children}
