@@ -27,6 +27,7 @@ export default function PageContentError({
     >
       <SafeImage
         alt="Media unavailable"
+        preview={false}
         className="h-16 w-auto opacity-90"
       />
       <div className="max-w-md space-y-2">

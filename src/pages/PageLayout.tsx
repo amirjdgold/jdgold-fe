@@ -21,7 +21,7 @@ export default function PageLayout({
       <header className="sticky top-0 z-50 border-b-2 border-[#c09038] bg-black/95 backdrop-blur">
         <div className="mx-auto flex w-full max-w-[1400px] items-center gap-[16px] px-[20px] py-[12px]">
           <Link to="/" className="flex shrink-0 items-center no-underline" aria-label="JD Gold home">
-            <SafeImage src={logoSrc} alt="JD Gold" className="h-[44px] w-auto" />
+            <SafeImage src={logoSrc} alt="JD Gold" preview={false} className="h-[44px] w-auto" />
           </Link>
           <nav
             aria-label="Primary"

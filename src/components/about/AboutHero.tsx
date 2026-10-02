@@ -10,7 +10,6 @@ type AboutHeroProps = {
   aboutBodySecondary?: string;
   heroImage?: string;
   heroImageAlt?: string;
-  heroBackgroundImage?: string;
 };
 
 export default function AboutHero({
@@ -21,25 +20,11 @@ export default function AboutHero({
   aboutBodySecondary,
   heroImage,
   heroImageAlt,
-  heroBackgroundImage,
 }: AboutHeroProps) {
   const hasCopy = Boolean(aboutHeading || aboutBody || aboutBodySecondary);
 
   return (
     <section className="relative overflow-hidden">
-      {heroBackgroundImage ? (
-        <div className="pointer-events-none absolute inset-0">
-          <SafeImage
-            src={heroBackgroundImage}
-            alt=""
-            hideIfEmpty
-            className="absolute inset-0 size-full object-cover opacity-[0.22]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0a0502] via-[#0a0502]/92 to-[#0a0502]/55" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0502]/40 via-transparent to-[#0a0502]" />
-        </div>
-      ) : null}
-
       <div className="relative grid w-full grid-cols-[1.15fr_0.95fr] items-center gap-10 px-6 py-14">
         <Link
           to="/"
@@ -53,6 +38,7 @@ export default function AboutHero({
           <SafeImage
               src={logoSrc}
               alt="JD Gold"
+              preview={false}
               className="mb-3 h-24 w-auto"
             />
           {brandTagline ? (
@@ -81,7 +67,7 @@ export default function AboutHero({
               <SafeImage
                 src={heroImage}
                 alt={heroImageAlt || ''}
-                className="absolute inset-0 size-full object-cover object-center"
+                className="absolute inset-0 size-full object-cover object-top"
               />
             </div>
           </div>

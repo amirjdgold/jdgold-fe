@@ -51,6 +51,7 @@ export default function ManagementGalleryPageView({
             <SafeImage
                 src={content.logoSrc}
                 alt="JD Gold"
+                preview={false}
                 className="pointer-events-none mb-3 h-32 w-auto"
               />
             {content.heading ? (

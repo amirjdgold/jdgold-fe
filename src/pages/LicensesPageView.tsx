@@ -120,6 +120,7 @@ export default function LicensesPageView({ content }: { content: LicensesContent
           <SafeImage
             src={content.logoSrc}
             alt="JD Gold"
+            preview={false}
             className="mb-5 h-14 w-auto"
           />
           {content.heading ? (

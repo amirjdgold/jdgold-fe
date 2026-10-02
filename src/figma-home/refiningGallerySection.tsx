@@ -20,10 +20,10 @@ export function resolveRefiningGallerySection(
 
 function GalleryImageSlot({ image, alt }: { image: string; alt?: string }) {
   return (
-    <div className="relative min-w-px flex-[1_0_0] h-[200px] rounded-[16px]">
+    <div className="relative aspect-[12/5] min-w-px flex-[1_0_0] rounded-[16px]">
       <SafeImage
         alt={alt || ''}
-        className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
+        className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover object-center"
         src={image}
       />
       <div
@@ -40,7 +40,7 @@ export function RefiningGallerySectionView({ content }: { content?: RefiningGall
   return (
     <div className="relative w-full shrink-0" data-name="section#brands">
       <div className="relative flex size-full flex-col items-start bg-black px-[20px] py-[10px]">
-        <div className="relative flex w-full shrink-0 items-center gap-[12px] pointer-events-none">
+        <div className="relative flex w-full shrink-0 items-center gap-[12px]">
           {data.slots.map((slot, i) => (
             <GalleryImageSlot key={i} image={slot.image} alt={slot.alt} />
           ))}

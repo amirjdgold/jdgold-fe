@@ -83,10 +83,10 @@ function MiningHeading({ title }: { title: string }) {
 
 function MiningImageSlot({ image, alt }: { image: string; alt?: string }) {
   return (
-    <div className="relative h-[200px] min-w-px flex-[1_0_0] rounded-[16px]">
+    <div className="relative aspect-[3/2] min-w-px flex-[1_0_0] rounded-[16px]">
       <SafeImage
         alt={alt || ''}
-        className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
+        className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover object-center"
         src={image}
       />
       <div
@@ -109,7 +109,7 @@ export function MiningExtractionSectionView({
       <div className="size-full overflow-clip rounded-[inherit]">
         <div className="relative flex size-full flex-col items-center gap-[12px] px-[20px] py-[10px]">
           <MiningHeading title={data.heading} />
-          <div className="pointer-events-none relative flex w-full shrink-0 items-center gap-[12px]">
+          <div className="relative flex w-full shrink-0 items-center gap-[12px]">
             {data.slots.map((slot, i) => (
               <MiningImageSlot key={i} image={slot.image} alt={slot.alt} />
             ))}

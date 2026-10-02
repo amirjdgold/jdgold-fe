@@ -1,4 +1,6 @@
-import { useState, type ImgHTMLAttributes } from 'react';
+import { useState, type ImgHTMLAttributes, type KeyboardEvent } from 'react';
+import { canPreviewMedia } from '@/components/media-lightbox/canPreviewMedia';
+import { useMediaLightbox } from '@/components/media-lightbox/MediaLightbox';
 import { DEFAULT_IMAGE_FALLBACK } from '@/lib/safeImageSrc';
 import { cn } from '@/lib/utils';
 
@@ -20,6 +22,8 @@ type SafeImageProps = Omit<ImgHTMLAttributes<HTMLImageElement>, 'src'> & {
    * instead of the fallback. Used for optional decorative backgrounds.
    */
   hideIfEmpty?: boolean;
+  /** Open the site lightbox on click. Off for logos, chrome, and placeholders. */
+  preview?: boolean;
 };
 
 /**
@@ -31,14 +35,18 @@ export default function SafeImage({
   src,
   fallbackSrc = DEFAULT_IMAGE_FALLBACK,
   hideIfEmpty = false,
+  preview = true,
   alt = '',
   className,
   onError,
+  onClick,
+  onKeyDown,
   ...rest
 }: SafeImageProps) {
   const trimmed = typeof src === 'string' ? src.trim() : '';
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const failed = Boolean(trimmed) && failedSrc === trimmed;
+  const lightbox = useMediaLightbox();
 
   if ((!trimmed || failed) && hideIfEmpty) {
     return null;
@@ -47,6 +55,15 @@ export default function SafeImage({
   const usingPlaceholder = !trimmed || failed;
   const resolved = usingPlaceholder ? fallbackSrc : trimmed;
   const placeholderAlt = alt?.trim() ? alt : 'Image coming soon';
+  const canOpen =
+    preview &&
+    Boolean(lightbox) &&
+    canPreviewMedia(resolved, usingPlaceholder);
+
+  const openPreview = () => {
+    if (!canOpen || !lightbox) return;
+    lightbox.openMedia({ kind: 'image', src: resolved, alt });
+  };
 
   return (
     <img
@@ -54,7 +71,30 @@ export default function SafeImage({
       src={resolved}
       alt={usingPlaceholder ? placeholderAlt : alt}
       data-placeholder={usingPlaceholder ? 'true' : undefined}
-      className={cn('bg-[#100b02]', className)}
+      data-preview={canOpen ? 'true' : 'false'}
+      data-media-preview={canOpen ? 'image' : undefined}
+      className={cn(
+        'bg-[#100b02]',
+        className,
+        canOpen && 'pointer-events-auto cursor-zoom-in',
+      )}
+      role={canOpen ? 'button' : rest.role}
+      tabIndex={canOpen ? 0 : rest.tabIndex}
+      onClick={(event) => {
+        onClick?.(event);
+        if (event.defaultPrevented || !canOpen) return;
+        event.preventDefault();
+        event.stopPropagation();
+        openPreview();
+      }}
+      onKeyDown={(event: KeyboardEvent<HTMLImageElement>) => {
+        onKeyDown?.(event);
+        if (event.defaultPrevented || !canOpen) return;
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openPreview();
+        }
+      }}
       onError={(event) => {
         onError?.(event);
         if (event.currentTarget.src === INLINE_IMAGE_PLACEHOLDER) {

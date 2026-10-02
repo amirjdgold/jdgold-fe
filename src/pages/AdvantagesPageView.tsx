@@ -76,6 +76,7 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
             <SafeImage
               src={content.logoSrc}
               alt="JD Gold"
+              preview={false}
               className="h-24 w-auto"
             />
           </div>
@@ -165,6 +166,7 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
               <SafeImage
                 src={content.logoSrc}
                 alt="JD Gold"
+                preview={false}
                 className="mb-2 h-14 w-auto"
               />
               {content.footerLogoTagline ? (

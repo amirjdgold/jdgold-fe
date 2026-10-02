@@ -121,6 +121,44 @@ function mapLicensesContent(doc: ApiPageDocument): LicensesContent {
   };
 }
 
+function usableContactText(value?: string) {
+  const text = String(value || '').trim();
+  if (!text || text.startsWith('[PLACEHOLDER')) return '';
+  return text;
+}
+
+function cardContactValue(
+  cards: NonNullable<ApiSection['cards']> | undefined,
+  match: RegExp,
+) {
+  const card = (cards || []).find((item) =>
+    match.test(`${item.title || ''} ${item.icon || ''}`),
+  );
+  return usableContactText(card?.description);
+}
+
+function mapAboutContact(doc: ApiPageDocument): AboutContent['contact'] {
+  const sections = sortedSections(doc.sections);
+  const contact = sectionByKey(sections, 'contact');
+  const cards = contact?.cards || [];
+  const stored =
+    doc.content?.layout === 'about' ? doc.content.contact : undefined;
+
+  return {
+    phone:
+      cardContactValue(cards, /phone/i) || usableContactText(stored?.phone),
+    whatsapp:
+      cardContactValue(cards, /whatsapp/i) || usableContactText(stored?.whatsapp),
+    email:
+      cardContactValue(cards, /email/i) || usableContactText(stored?.email),
+    website:
+      cardContactValue(cards, /web|globe/i) || usableContactText(stored?.website),
+    address:
+      cardContactValue(cards, /address|location|pin/i) ||
+      usableContactText(stored?.address),
+  };
+}
+
 function mapAboutContent(doc: ApiPageDocument): AboutContent {
   const sections = sortedSections(doc.sections);
   const intro = sectionByKey(sections, 'about-intro') || sectionByType(sections, 'text');
@@ -132,8 +170,6 @@ function mapAboutContent(doc: ApiPageDocument): AboutContent {
     sectionByKey(sections, 'jewellery-collection') || sectionByKey(sections, 'jewelry-collection');
   const commitment =
     sectionByKey(sections, 'commitment') || sectionByKey(sections, 'our-commitment');
-  const contact = sectionByKey(sections, 'contact');
-  const contactCards = contact?.cards || [];
 
   return {
     layout: 'about',
@@ -141,7 +177,6 @@ function mapAboutContent(doc: ApiPageDocument): AboutContent {
     logoSrc: doc.hero?.logoSrc || undefined,
     heroImage: doc.hero?.image || undefined,
     heroImageAlt: doc.hero?.imageAlt || undefined,
-    heroBackgroundImage: doc.hero?.backgroundImage || undefined,
     aboutHeading: intro?.heading || doc.hero?.heading || undefined,
     aboutBody: intro?.description || doc.hero?.description || undefined,
     aboutBodySecondary: intro?.subheading || undefined,
@@ -177,15 +212,7 @@ function mapAboutContent(doc: ApiPageDocument): AboutContent {
       description: f.description || undefined,
       icon: f.icon || undefined,
     })),
-    contact: contact
-      ? {
-          phone: contactCards.find((c) => /phone/i.test(c.title))?.description,
-          whatsapp: contactCards.find((c) => /whatsapp/i.test(c.title))?.description,
-          email: contactCards.find((c) => /email/i.test(c.title))?.description,
-          website: contactCards.find((c) => /web/i.test(c.title))?.description,
-          address: contactCards.find((c) => /address|location/i.test(c.title))?.description,
-        }
-      : undefined,
+    contact: mapAboutContact(doc),
     footerImage: commitment?.image || collection?.image || undefined,
   };
 }
@@ -406,6 +433,17 @@ function mapFactoryRefineryContent(doc: ApiPageDocument): FactoryRefineryContent
  * Passes through documents that already include `content.layout`.
  */
 export function mapApiPageToDocument(raw: ApiPageDocument): PageDocument {
+  if (raw.content?.layout === 'about') {
+    return {
+      slug: raw.slug,
+      title: raw.title,
+      content: {
+        ...raw.content,
+        contact: mapAboutContact(raw),
+      },
+    };
+  }
+
   if (raw.content?.layout) {
     return {
       slug: raw.slug,

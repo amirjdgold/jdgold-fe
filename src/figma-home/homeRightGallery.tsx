@@ -80,10 +80,10 @@ export function resolveHomeRightGallery(
 
 function GalleryThumb({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="relative h-[160px] min-w-px flex-[1_0_0] rounded-[16px]">
+    <div className="relative aspect-[5/3] min-w-px flex-[1_0_0] rounded-[16px]">
       <SafeImage
         alt={alt}
-        className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover"
+          className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover object-center"
         src={src}
       />
       <div
@@ -96,7 +96,7 @@ function GalleryThumb({ src, alt }: { src: string; alt: string }) {
 
 function GalleryRow({ slots }: { slots: HomeGallerySlot[] }) {
   return (
-    <div className="pointer-events-none relative flex w-full shrink-0 content-stretch items-center gap-[12px]">
+    <div className="relative flex w-full shrink-0 content-stretch items-center gap-[12px]">
       {slots.map((slot, i) => (
         <GalleryThumb key={i} src={slot.image} alt={slot.alt || `Gallery ${i + 1}`} />
       ))}

@@ -43,6 +43,7 @@ function CountryHeading({
         <SafeImage
           src={flagSrc}
           alt={`${country} flag`}
+          preview={false}
           className="absolute inset-0 size-full object-cover"
         />
       </span>
@@ -130,11 +131,11 @@ export default function LicenseOfficeCard({ office, index = 0 }: LicenseOfficeCa
           <SafeImage
             src={office.officeImage}
             alt={office.officeImageAlt || `${office.country} office`}
-            className="absolute inset-0 size-full object-cover"
+            className="absolute inset-0 size-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           {office.officeLocation ? (
-            <p className="absolute right-3 bottom-3 left-3 break-words font-['Alice:Regular',Georgia,serif] text-sm text-[#c09038]">
+            <p className="pointer-events-none absolute right-3 bottom-3 left-3 break-words font-['Alice:Regular',Georgia,serif] text-sm text-[#c09038]">
               {office.officeLocation}
             </p>
           ) : null}

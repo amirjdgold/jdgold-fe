@@ -27,6 +27,7 @@ const Hero = ({ branding: brandingProp }: HeroProps) => {
     <SiteStickyChrome
       logoSrc={branding.logoSrc}
       logoAlt={branding.logoAlt || branding.title || 'JD Gold'}
+      logoHref="/"
     />
   );
 };

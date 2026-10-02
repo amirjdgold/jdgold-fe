@@ -70,9 +70,7 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
               <CarouselContent className="-ml-0 items-center gap-2 !pl-0">
                 {slides.map((slide, index) => {
                   const isCenter = index === selectedIndex;
-                  const fitClass = isCenter
-                    ? 'object-contain'
-                    : 'object-cover object-center';
+                  const fitClass = 'object-cover object-center';
                   const media = (
                     <SafeMedia
                       src={slide.src}
@@ -98,8 +96,8 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
                         className={cn(
                           'relative w-full overflow-hidden rounded-lg border border-[#D4AF37] bg-black',
                           isCenter
-                            ? 'h-[160px] scale-[1.02] shadow-[0_0_28px_rgba(212,175,55,0.4)]'
-                            : 'h-[130px] opacity-95',
+                            ? 'aspect-[12/5] h-auto scale-[1.02] shadow-[0_0_28px_rgba(212,175,55,0.4)]'
+                            : 'aspect-[3/2] h-auto opacity-95',
                         )}
                       >
                         {slide.href && slide.kind === 'image' ? (
