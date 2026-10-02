@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import GlobalPageBanner from '@/components/GlobalPageBanner';
-import SafeImage from '@/components/SafeImage';
+import SiteBrandLockup from '@/components/SiteBrandLockup';
 import { cn } from '@/lib/utils';
 
 function GoldLine({ className }: { className?: string }) {
@@ -19,13 +19,17 @@ function GoldLine({ className }: { className?: string }) {
 type SiteStickyChromeProps = {
   logoSrc?: string;
   logoAlt?: string;
+  title?: string;
+  subtitle?: string;
   logoHref?: string;
 };
 
-/** Shared home header: centered logo, gold rule, and gallery banner. */
+/** Shared home header: logo with title/subtitle, gold rule, and gallery banner. */
 export default function SiteStickyChrome({
   logoSrc,
   logoAlt = 'JD Gold',
+  title,
+  subtitle,
   logoHref,
 }: SiteStickyChromeProps) {
   const fixedTopRef = useRef<HTMLDivElement>(null);
@@ -53,12 +57,12 @@ export default function SiteStickyChrome({
     };
   }, []);
 
-  const logo = (
-    <SafeImage
-      src={logoSrc}
-      alt={logoAlt}
-      preview={false}
-      className="mx-auto h-full w-auto max-w-[260px] object-contain object-center md:max-w-[360px] lg:max-w-[480px]"
+  const brand = (
+    <SiteBrandLockup
+      logoSrc={logoSrc}
+      logoAlt={logoAlt}
+      title={title}
+      subtitle={subtitle}
     />
   );
 
@@ -71,17 +75,17 @@ export default function SiteStickyChrome({
         aria-label="JD Gold header and media strip"
       >
         <div className="container-custom min-w-0 overflow-hidden pt-0 pb-1">
-          <div className="flex h-12 w-full items-center justify-center px-3 py-0.5 md:h-[4.5rem] md:py-1 lg:h-24 lg:py-1.5">
+          <div className="flex w-full items-center justify-center px-3 py-2 md:py-3">
             {logoHref ? (
               <Link
                 to={logoHref}
-                className="flex h-full items-center"
-                aria-label="JD Gold home"
+                className="flex h-full max-w-full items-center no-underline"
+                aria-label={title?.trim() || 'JD Gold home'}
               >
-                {logo}
+                {brand}
               </Link>
             ) : (
-              logo
+              brand
             )}
           </div>
           <GoldLine />

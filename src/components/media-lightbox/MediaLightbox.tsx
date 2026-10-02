@@ -1,12 +1,14 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { XIcon } from 'lucide-react';
 import { findPreviewableMediaFromEvent } from '@/components/media-lightbox/findPreviewableMedia';
+import SiteBrandLockup from '@/components/SiteBrandLockup';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { useSiteContent } from '@/hooks/useSiteContent';
 
 export type LightboxMedia = {
   kind: 'image' | 'video';
@@ -26,6 +28,8 @@ export function useMediaLightbox() {
 
 export function MediaLightboxProvider({ children }: { children: ReactNode }) {
   const [media, setMedia] = useState<LightboxMedia | null>(null);
+  const siteContent = useSiteContent();
+  const branding = siteContent?.hero?.branding;
   const openMedia = useCallback((next: LightboxMedia) => {
     setMedia(next);
   }, []);
@@ -56,6 +60,17 @@ export function MediaLightboxProvider({ children }: { children: ReactNode }) {
           data-media-lightbox="true"
           showCloseButton={false}
           overlayClassName="bg-black/80"
+          overlayChildren={
+            <div className="pointer-events-none absolute top-4 left-4 z-10 max-w-[min(72vw,36rem)] pr-16">
+              <SiteBrandLockup
+                compact
+                logoSrc={branding?.logoSrc}
+                logoAlt={branding?.logoAlt || branding?.title || 'JD Gold'}
+                title={branding?.title}
+                subtitle={branding?.subtitle}
+              />
+            </div>
+          }
           className="fixed top-1/2 left-1/2 z-50 flex h-auto max-h-[90dvh] w-auto max-w-[92dvw] translate-x-[-50%] translate-y-[-50%] items-center justify-center gap-0 overflow-visible rounded-none border-0 bg-transparent p-0 shadow-none data-[state=open]:zoom-in-100 sm:max-w-[92dvw]"
           style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
         >
