@@ -47,10 +47,10 @@ function DashboardSquare() {
     <div className="relative shrink-0 size-[44px]" data-name="dashboard-square-02">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
         <g id="dashboard-square-02">
-          <path d={svgPaths.p25e57400} id="Vector" stroke="var(--stroke-0, #902B33)" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d={svgPaths.p4bb1c71} id="Vector_2" stroke="var(--stroke-0, #902B33)" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d={svgPaths.p1d2bca00} id="Vector_3" stroke="var(--stroke-0, #902B33)" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d={svgPaths.p11af6200} id="Vector_4" stroke="var(--stroke-0, #902B33)" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p25e57400} id="Vector" stroke="var(--stroke-0, #FFFFFF)" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p4bb1c71} id="Vector_2" stroke="var(--stroke-0, #FFFFFF)" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p1d2bca00} id="Vector_3" stroke="var(--stroke-0, #FFFFFF)" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p11af6200} id="Vector_4" stroke="var(--stroke-0, #FFFFFF)" strokeLinejoin="round" strokeWidth="2.75" />
         </g>
       </svg>
     </div>
@@ -69,9 +69,9 @@ function SideNavDivider() {
             <path d={svgPaths.p3af20d00} fill={`url(#${g1})`} />
             <defs>
               <linearGradient id={g1} gradientUnits="userSpaceOnUse" x1="0" x2="339" y1="6.7735" y2="6.7735">
-                <stop stopColor="#902B33" />
-                <stop offset="0.5" stopColor="#6B1F26" />
-                <stop offset="1" stopColor="#902B33" />
+                <stop stopColor="#FFFFFF" />
+                <stop offset="0.5" stopColor="#E8D5A8" />
+                <stop offset="1" stopColor="#FFFFFF" />
               </linearGradient>
             </defs>
           </svg>
@@ -83,9 +83,9 @@ function SideNavDivider() {
             <path d={svgPaths.p1cb0fd00} fill={`url(#${g2})`} />
             <defs>
               <linearGradient id={g2} gradientUnits="userSpaceOnUse" x1="5.7735" x2="344.774" y1="7.2735" y2="7.2735">
-                <stop stopColor="#902B33" />
-                <stop offset="0.5" stopColor="#6B1F26" />
-                <stop offset="1" stopColor="#902B33" />
+                <stop stopColor="#FFFFFF" />
+                <stop offset="0.5" stopColor="#E8D5A8" />
+                <stop offset="1" stopColor="#FFFFFF" />
               </linearGradient>
             </defs>
           </svg>
@@ -109,7 +109,7 @@ function SideNavItem({
   const { pathname } = useLocation();
   const active = !disabled && pathname === to;
   const className = [
-    'content-stretch relative flex shrink-0 flex-col items-center gap-[6px] no-underline',
+    'content-stretch relative flex w-full shrink-0 flex-col items-center gap-[6px] rounded-[12px] bg-[#39121B] px-[10px] py-[8px] no-underline',
     disabled
       ? 'cursor-not-allowed opacity-40'
       : active
@@ -123,8 +123,8 @@ function SideNavItem({
       <SideNavDivider />
       <span
         className={[
-          "relative shrink-0 whitespace-nowrap text-center font-['Alice:Regular',sans-serif] text-[30px] leading-[normal] not-italic text-[#902B33]",
-          active ? 'underline decoration-[#902B33] underline-offset-4' : '',
+          "relative shrink-0 whitespace-nowrap text-center font-['Alice:Regular',sans-serif] text-[30px] leading-[normal] not-italic text-white",
+          active ? 'underline decoration-white underline-offset-4' : '',
         ].join(' ')}
       >
         {label}
@@ -156,8 +156,8 @@ function Copy() {
     <div className="relative shrink-0 size-[44px]" data-name="copy-01">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
         <g id="copy-01">
-          <path d={svgPaths.p1991c400} id="Vector" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d={svgPaths.pa1ed300} id="Vector_2" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p1991c400} id="Vector" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.pa1ed300} id="Vector_2" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
         </g>
       </svg>
     </div>
@@ -169,9 +169,9 @@ function Image() {
     <div className="relative shrink-0 size-[44px]" data-name="image-01">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
         <g id="image-01">
-          <path d={svgPaths.pb9df880} id="Vector" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d={svgPaths.p6509a00} id="Vector_2" stroke="var(--stroke-0, #902B33)" strokeWidth="2.75" />
-          <path d={svgPaths.p2aa03840} id="Vector_3" stroke="var(--stroke-0, #902B33)" strokeWidth="2.75" />
+          <path d={svgPaths.pb9df880} id="Vector" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p6509a00} id="Vector_2" stroke="var(--stroke-0, #FFFFFF)" strokeWidth="2.75" />
+          <path d={svgPaths.p2aa03840} id="Vector_3" stroke="var(--stroke-0, #FFFFFF)" strokeWidth="2.75" />
         </g>
       </svg>
     </div>
@@ -183,11 +183,11 @@ function Factory() {
     <div className="relative shrink-0 size-[44px]" data-name="factory-02">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
         <g id="factory-02">
-          <path d={svgPaths.p1e9290f0} id="Vector" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d={svgPaths.p775d200} id="Vector_2" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d="M7.33333 11H14.6667" id="Vector_3" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d="M22 27.5H25.6667" id="Vector_4" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d="M31.1667 27.5H34.8333" id="Vector_5" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p1e9290f0} id="Vector" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p775d200} id="Vector_2" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d="M7.33333 11H14.6667" id="Vector_3" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d="M22 27.5H25.6667" id="Vector_4" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d="M31.1667 27.5H34.8333" id="Vector_5" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
         </g>
       </svg>
     </div>
@@ -199,10 +199,10 @@ function Office() {
     <div className="relative shrink-0 size-[44px]" data-name="office">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
         <g id="office">
-          <path d={svgPaths.p1c659480} id="Vector" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeWidth="2.75" />
-          <path d={svgPaths.p2ed0f680} id="Vector_2" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeWidth="2.75" />
-          <path d={svgPaths.p301f3d80} id="Vector_3" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeWidth="2.75" />
-          <path d={svgPaths.p1411ec00} id="Vector_4" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeWidth="2.75" />
+          <path d={svgPaths.p1c659480} id="Vector" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeWidth="2.75" />
+          <path d={svgPaths.p2ed0f680} id="Vector_2" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeWidth="2.75" />
+          <path d={svgPaths.p301f3d80} id="Vector_3" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeWidth="2.75" />
+          <path d={svgPaths.p1411ec00} id="Vector_4" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeWidth="2.75" />
         </g>
       </svg>
     </div>
@@ -214,9 +214,9 @@ function SaleTag() {
     <div className="relative shrink-0 size-[44px]" data-name="sale-tag-02">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
         <g id="sale-tag-02">
-          <path d={svgPaths.p3ed82d00} id="Vector" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d={svgPaths.pef34d40} id="Vector_2" stroke="var(--stroke-0, #902B33)" strokeWidth="2.75" />
-          <path d={svgPaths.p21ee5280} id="Vector_3" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p3ed82d00} id="Vector" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.pef34d40} id="Vector_2" stroke="var(--stroke-0, #FFFFFF)" strokeWidth="2.75" />
+          <path d={svgPaths.p21ee5280} id="Vector_3" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
         </g>
       </svg>
     </div>
@@ -228,11 +228,11 @@ function Contact() {
     <div className="relative shrink-0 size-[44px]" data-name="contact">
       <svg className="absolute block inset-0 size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 44 44">
         <g id="contact">
-          <path d={svgPaths.p38978400} id="Vector" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d="M14.6667 7.33333V3.66667" id="Vector_2" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeWidth="2.75" />
-          <path d="M29.3333 7.33333V3.66667" id="Vector_3" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeWidth="2.75" />
-          <path d={svgPaths.p3b0a99c0} id="Vector_4" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
-          <path d={svgPaths.p3ba07c00} id="Vector_5" stroke="var(--stroke-0, #902B33)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p38978400} id="Vector" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d="M14.6667 7.33333V3.66667" id="Vector_2" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeWidth="2.75" />
+          <path d="M29.3333 7.33333V3.66667" id="Vector_3" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeWidth="2.75" />
+          <path d={svgPaths.p3b0a99c0} id="Vector_4" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
+          <path d={svgPaths.p3ba07c00} id="Vector_5" stroke="var(--stroke-0, #FFFFFF)" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.75" />
         </g>
       </svg>
     </div>

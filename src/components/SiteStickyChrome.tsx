@@ -1,8 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import GlobalPageBanner from '@/components/GlobalPageBanner';
 import SiteBrandLockup from '@/components/SiteBrandLockup';
 import { cn } from '@/lib/utils';
+
+const DESKTOP_MQ = '(min-width: 1024px)';
+const DOCK_BRAND_AFTER_PX = 24;
+const BRAND_EASE = 'duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] motion-reduce:transition-none';
 
 function GoldLine({ className }: { className?: string }) {
   return (
@@ -24,7 +28,7 @@ type SiteStickyChromeProps = {
   logoHref?: string;
 };
 
-/** Shared home header: logo with title/subtitle, gold rule, and gallery banner. */
+/** Shared home header: centered brand above the banner; docks beside it on desktop scroll. */
 export default function SiteStickyChrome({
   logoSrc,
   logoAlt = 'JD Gold',
@@ -33,19 +37,38 @@ export default function SiteStickyChrome({
   logoHref,
 }: SiteStickyChromeProps) {
   const fixedTopRef = useRef<HTMLDivElement>(null);
+  const [dockBrandOnDesktop, setDockBrandOnDesktop] = useState(false);
+  const [spacerPx, setSpacerPx] = useState(280);
 
   useEffect(() => {
-    const el = fixedTopRef.current;
-    if (!el) return;
+    const mq = window.matchMedia(DESKTOP_MQ);
+    const sync = () => {
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
+      setDockBrandOnDesktop(mq.matches && y > DOCK_BRAND_AFTER_PX);
+    };
+
+    sync();
+    window.addEventListener('scroll', sync, { passive: true });
+    mq.addEventListener('change', sync);
+    return () => {
+      window.removeEventListener('scroll', sync);
+      mq.removeEventListener('change', sync);
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const header = fixedTopRef.current;
+    if (!header) return;
 
     const update = () => {
-      const h = Math.ceil(el.getBoundingClientRect().height);
+      const h = Math.ceil(header.getBoundingClientRect().height);
+      setSpacerPx(h);
       document.documentElement.style.setProperty('--home-sticky-h', `${h}px`);
     };
 
     update();
     const observer = new ResizeObserver(update);
-    observer.observe(el);
+    observer.observe(header);
     window.addEventListener('resize', update);
     window.addEventListener('orientationchange', update);
 
@@ -55,7 +78,7 @@ export default function SiteStickyChrome({
       window.removeEventListener('orientationchange', update);
       document.documentElement.style.removeProperty('--home-sticky-h');
     };
-  }, []);
+  }, [dockBrandOnDesktop, logoSrc, title, subtitle]);
 
   const brand = (
     <SiteBrandLockup
@@ -63,6 +86,7 @@ export default function SiteStickyChrome({
       logoAlt={logoAlt}
       title={title}
       subtitle={subtitle}
+      compact={dockBrandOnDesktop}
     />
   );
 
@@ -74,8 +98,20 @@ export default function SiteStickyChrome({
         role="banner"
         aria-label="JD Gold header and media strip"
       >
-        <div className="container-custom min-w-0 overflow-hidden pt-0 pb-1">
-          <div className="flex w-full items-center justify-center px-3 py-2 md:py-3">
+        <div
+          className={cn(
+            'flex w-full min-w-0 flex-col overflow-hidden px-4 pt-0 pb-1 sm:px-6 lg:px-0',
+            BRAND_EASE,
+            dockBrandOnDesktop && 'lg:flex-row lg:items-center lg:gap-4 lg:px-4',
+          )}
+        >
+          <div
+            className={cn(
+              'flex w-full items-center justify-center px-3 py-2 md:py-3',
+              BRAND_EASE,
+              dockBrandOnDesktop && 'lg:w-auto lg:shrink-0 lg:justify-start lg:px-0 lg:py-2',
+            )}
+          >
             {logoHref ? (
               <Link
                 to={logoHref}
@@ -88,14 +124,30 @@ export default function SiteStickyChrome({
               brand
             )}
           </div>
-          <GoldLine />
-          <GlobalPageBanner embedded />
+          <GoldLine
+            className={cn(
+              'transition-opacity',
+              BRAND_EASE,
+              dockBrandOnDesktop ? 'lg:hidden' : 'opacity-100',
+            )}
+          />
+          <div
+            aria-hidden
+            className={cn(
+              'hidden h-16 w-px shrink-0 bg-gradient-to-b from-[#C09038] via-[#975E00] to-[#C09038]',
+              dockBrandOnDesktop && 'lg:block',
+            )}
+          />
+          <GlobalPageBanner
+            embedded
+            className={cn('min-w-0 w-full', dockBrandOnDesktop && 'lg:flex-1')}
+          />
         </div>
       </div>
       <div
         aria-hidden
-        className="pointer-events-none w-full shrink-0"
-        style={{ height: 'var(--home-sticky-h, 280px)' }}
+        className={cn('pointer-events-none w-full shrink-0 transition-[height]', BRAND_EASE)}
+        style={{ height: spacerPx }}
       />
     </>
   );
