@@ -71,7 +71,7 @@ export function MediaLightboxProvider({ children }: { children: ReactNode }) {
               />
             </div>
           }
-          className="fixed top-1/2 left-1/2 z-50 flex h-auto max-h-[90dvh] w-auto max-w-[92dvw] translate-x-[-50%] translate-y-[-50%] items-center justify-center gap-0 overflow-visible rounded-none border-0 bg-transparent p-0 shadow-none data-[state=open]:zoom-in-100 sm:max-w-[92dvw]"
+          className="fixed top-1/2 left-1/2 z-50 flex h-[min(90dvh,820px)] w-[min(92dvw,1200px)] max-w-[92dvw] translate-x-[-50%] translate-y-[-50%] items-center justify-center gap-0 overflow-hidden rounded-none border-0 bg-transparent p-0 shadow-none data-[state=open]:zoom-in-100 sm:max-w-[92dvw]"
           style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
         >
           <DialogTitle className="sr-only">
@@ -95,16 +95,17 @@ export function MediaLightboxProvider({ children }: { children: ReactNode }) {
               controls
               autoPlay
               playsInline
-              className="block h-auto max-h-[90dvh] w-auto max-w-[92dvw] bg-black object-contain"
+              className="block max-h-full max-w-full bg-black object-contain transition-opacity duration-500"
               onClick={(event) => event.stopPropagation()}
             >
               {media.alt}
             </video>
           ) : media ? (
             <img
+              key={media.src}
               src={media.src}
               alt={media.alt || ''}
-              className="block h-auto max-h-[90dvh] w-auto max-w-[92dvw] object-contain"
+              className="block max-h-full max-w-full object-contain transition-opacity duration-500"
               onClick={(event) => event.stopPropagation()}
             />
           ) : null}

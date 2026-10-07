@@ -10,10 +10,9 @@ import SafeMedia from '@/components/SafeMedia';
 import { useGlobalBanner, type BannerSlide } from '@/hooks/useGlobalBanner';
 import { cn } from '@/lib/utils';
 
-const AUTOPLAY_MS = 10000;
-/** Side slides peek; center is dominant. Mobile uses a wider center so frames stay readable. */
-const HERO_SIDE_BASIS = 'basis-[13%] max-w-[13%]';
-const HERO_CENTER_BASIS = 'basis-[34%] max-w-[34%]';
+const AUTOPLAY_MS = 3000;
+/** Equal slide width so Embla can scroll without resizing the track. */
+const HERO_SLIDE_BASIS = 'basis-[22%] max-w-[22%]';
 
 type GlobalPageBannerProps = {
   /**
@@ -58,9 +57,9 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
       </div>
 
       <div className="relative z-10 w-full min-w-0 overflow-hidden px-2 py-2">
-        <div className="relative mx-auto w-full min-w-0 max-w-[1512px] overflow-hidden">
+        <div className="relative w-full min-w-0 overflow-hidden">
           <Carousel
-            opts={{ loop: true, align: 'center' }}
+            opts={{ loop: true, align: 'center', duration: 30, skipSnaps: false }}
             plugins={[autoplayPlugin]}
             setApi={setCarouselApi}
             className="w-full min-w-0 overflow-hidden"
@@ -88,16 +87,16 @@ function BannerCarousel({ slides }: { slides: BannerSlide[] }) {
                     <CarouselItem
                       key={`${index}-${slide.src}`}
                       className={cn(
-                        '!pl-0 min-w-0 shrink-0 transition-[flex-basis,max-width,transform] duration-300 ease-out',
-                        isCenter ? HERO_CENTER_BASIS : HERO_SIDE_BASIS,
+                        '!pl-0 min-w-0 shrink-0',
+                        HERO_SLIDE_BASIS,
                       )}
                     >
                       <div
                         className={cn(
-                          'relative w-full overflow-hidden rounded-lg border border-[#D4AF37] bg-black',
+                          'relative aspect-[12/5] h-auto w-full overflow-hidden rounded-lg border border-[#D4AF37] bg-black transition-[transform,opacity,box-shadow] duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]',
                           isCenter
-                            ? 'aspect-[12/5] h-auto scale-[1.02] shadow-[0_0_28px_rgba(212,175,55,0.4)]'
-                            : 'aspect-[3/2] h-auto opacity-95',
+                            ? 'z-10 scale-[1.04] shadow-[0_0_28px_rgba(212,175,55,0.4)]'
+                            : 'scale-[0.94] opacity-80',
                         )}
                       >
                         {slide.href && slide.kind === 'image' ? (
@@ -144,7 +143,7 @@ function BannerSkeleton() {
       className="relative w-full min-w-0 overflow-hidden px-2 py-2"
       aria-hidden
     >
-      <div className="mx-auto flex h-[160px] w-full max-w-[1512px] items-center justify-center gap-2">
+      <div className="flex h-[160px] w-full items-center justify-center gap-2">
         <div className="h-[130px] w-[13%] shrink-0 animate-pulse rounded-lg border border-[#D4AF37]/40 bg-black/80" />
         <div className="h-full w-[34%] shrink-0 animate-pulse rounded-lg border border-[#D4AF37]/60 bg-black/80" />
         <div className="h-[130px] w-[13%] shrink-0 animate-pulse rounded-lg border border-[#D4AF37]/40 bg-black/80" />
