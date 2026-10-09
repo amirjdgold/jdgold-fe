@@ -20,7 +20,7 @@ export default function PageContentError({
   return (
     <div
       className={cn(
-        'flex min-h-screen flex-col items-center justify-center gap-6 bg-[#0a0502] px-4 text-center',
+        'gold-void flex min-h-screen flex-col items-center justify-center gap-6 px-4 text-center',
         className,
       )}
       role="alert"

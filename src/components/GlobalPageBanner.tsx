@@ -209,7 +209,7 @@ export default function GlobalPageBanner({
   return (
     <div
       className={cn(
-        'w-full min-w-0 overflow-hidden border-b border-[#D4AF37]/40 bg-[#0A0A0A]',
+        'gold-void w-full min-w-0 overflow-hidden border-b border-[#D4AF37]/40',
         className,
       )}
       role="region"

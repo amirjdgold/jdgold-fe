@@ -110,7 +110,7 @@ function IndustryCard({ label, index }: { label: string; index: number }) {
       </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.04)]"
+        className="gold-glow pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]"
       />
     </div>
   );
@@ -137,7 +137,7 @@ export function IndustriesWeServeSectionView({
               />
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+                className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
               />
             </div>
           </div>
@@ -155,7 +155,7 @@ export function IndustriesWeServeSectionView({
               />
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+                className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
               />
             </div>
           </div>

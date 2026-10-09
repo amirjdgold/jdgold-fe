@@ -36,7 +36,7 @@ function TeamMemberOverlay({
 export function TeamMemberCard({ member }: { member: TeamMember }) {
   const alt = member.imageAlt?.trim() || member.name;
   return (
-    <div className="relative h-full min-h-0 w-full overflow-hidden rounded-[16px] border-2 border-solid border-[#c09038] bg-[#010100]">
+    <div className="gold-glow relative h-full min-h-0 w-full overflow-hidden rounded-[16px] border-2 border-solid border-[#c09038] bg-[#100b02]">
       <SafeImage
         alt={alt}
         className="absolute inset-0 size-full max-w-none object-cover object-top"
@@ -45,7 +45,7 @@ export function TeamMemberCard({ member }: { member: TeamMember }) {
       <TeamMemberOverlay name={member.name} designation={member.designation} />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-[2] rounded-[16px] border-2 border-solid border-[#c09038]"
+        className="gold-glow pointer-events-none absolute inset-0 z-[2] rounded-[16px] border-2 border-solid border-[#c09038]"
       />
     </div>
   );
@@ -56,7 +56,7 @@ export function TeamMemberColumn({ members }: { members: TeamMember[] }) {
   const count = visible.length;
   return (
     <div
-      className="grid w-[320px] shrink-0 gap-[12px] self-start bg-[#010100]"
+      className="gold-void grid w-[320px] shrink-0 gap-[12px] self-start"
       style={{
         gridTemplateRows: count > 0 ? `repeat(${count}, auto)` : undefined,
       }}

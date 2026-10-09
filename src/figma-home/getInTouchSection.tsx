@@ -105,7 +105,7 @@ function TopGalleryImage({
       <SafeImage alt={alt || ''} className={imgClass} src={image} />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+        className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
       />
     </div>
   );
@@ -162,13 +162,13 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+              className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
             />
           </div>
           <div className="relative min-w-px flex-[1_0_0] rounded-[20px] bg-[#100b02] drop-shadow-[0px_2px_4px_rgba(0,0,0,0.04)]">
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]"
+              className="gold-glow pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]"
             />
             <div className="relative flex size-full flex-col items-start gap-[24px] p-[14px]">
               <div className="relative flex w-full shrink-0 flex-col justify-center font-['Alice:Regular',sans-serif] text-[24px] leading-[0] tracking-[-0.4px] not-italic text-[#c09038]">
@@ -194,7 +194,7 @@ export function GetInTouchSectionView({ content }: { content?: GetInTouchSection
             />
             <div
               aria-hidden="true"
-              className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+              className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
             />
           </div>
         </div>

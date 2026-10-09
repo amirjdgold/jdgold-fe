@@ -91,7 +91,7 @@ function TrustImageSlot({ image, alt }: { image: string; alt?: string }) {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+        className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
       />
     </div>
   );
@@ -101,7 +101,7 @@ export function BuildingTrustGoldSection({ content }: { content?: BuildingTrustS
   const data = resolveBuildingTrustSection(content);
 
   return (
-    <div className="relative w-full shrink-0 bg-[#010100]">
+    <div className="gold-void relative w-full shrink-0">
       <div className="size-full overflow-clip rounded-[inherit]">
         <div className="relative flex size-full flex-col items-center gap-[12px] px-[20px] py-[10px]">
           <TrustHeading title={data.heading} />

@@ -88,7 +88,7 @@ function GalleryThumb({ src, alt }: { src: string; alt: string }) {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+        className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
       />
     </div>
   );
@@ -323,7 +323,7 @@ function GallerySectionBlock({
     GALLERY_SLOT_COUNTS[sectionKey] > 3 ? section.slots.slice(3, 6) : null;
 
   return (
-    <div className="relative flex w-full shrink-0 flex-col content-stretch items-center gap-[12px] overflow-clip bg-[#010100]">
+    <div className="gold-void relative flex w-full shrink-0 flex-col content-stretch items-center gap-[12px] overflow-clip">
       {header}
       <GalleryRow slots={row1} />
       {row2 ? <GalleryRow slots={row2} /> : null}

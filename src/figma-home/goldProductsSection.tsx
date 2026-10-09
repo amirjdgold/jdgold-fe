@@ -111,7 +111,7 @@ function ProductCard({
         </div>
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+          className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
         />
       </div>
     </div>
@@ -124,7 +124,7 @@ export function GoldProductsSectionView({ content }: { content?: GoldProductsSec
   return (
     <div className="relative w-full shrink-0">
       <div className="size-full overflow-clip rounded-[inherit]">
-        <div className="relative flex size-full flex-col items-start gap-[12px] bg-black px-[20px] py-[10px]">
+        <div className="gold-void relative flex size-full flex-col items-start gap-[12px] px-[20px] py-[10px]">
           <ProductsHeading title={data.heading} />
           <div className="relative flex w-full shrink-0 items-stretch gap-[12px]">
             {data.products.map((product, i) => (

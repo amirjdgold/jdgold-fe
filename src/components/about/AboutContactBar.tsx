@@ -32,7 +32,7 @@ export default function AboutContactBar({ contact }: { contact?: AboutContactInf
   ];
 
   return (
-    <section className="border-t border-[#c09038]/40 bg-[#0a0502]">
+    <section className="gold-void border-t border-[#c09038]/40">
       <div className="mx-auto grid w-full grid-cols-4 gap-4 px-6 py-6 text-sm text-[#e5e5e5]">
         {items.map((item) => (
           <div

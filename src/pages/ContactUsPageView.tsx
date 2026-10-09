@@ -235,7 +235,7 @@ function ContactCardGrid({
           );
 
           const className =
-            'overflow-hidden rounded-[16px] border-2 border-solid border-[#c09038] bg-[#010100] transition hover:border-[#c09038] hover:bg-[#c09038]/10';
+            'gold-glow overflow-hidden rounded-[16px] border-2 border-solid border-[#c09038] bg-[#100b02] transition hover:border-[#c09038] hover:bg-[#c09038]/10';
 
           if (href) {
             const isExternal = /^https?:\/\//i.test(href);

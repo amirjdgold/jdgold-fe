@@ -147,7 +147,7 @@ function OfferGrid({
         {valid.map((item, index) => (
           <article
             key={`${item.title}-${index}`}
-            className="overflow-hidden rounded-[16px] border-2 border-solid border-[#c09038] bg-[#010100]"
+            className="gold-glow overflow-hidden rounded-[16px] border-2 border-solid border-[#c09038] bg-[#100b02]"
           >
             <div className="relative aspect-[3/4]">
               <SafeImage

@@ -162,7 +162,7 @@ export default function LicensesPageView({ content }: { content: LicensesContent
       ) : null}
 
       {footerPoints.length ? (
-        <section className="border-t border-[#c09038]/40 bg-[#0a0502]">
+        <section className="gold-void border-t border-[#c09038]/40">
           <div className="mx-auto grid w-full grid-cols-4 gap-6 px-6 py-10">
             {footerPoints.map((point) => (
               <div key={point.title} className="flex flex-col items-center text-center">
