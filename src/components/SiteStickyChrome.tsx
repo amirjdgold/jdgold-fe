@@ -94,7 +94,7 @@ export default function SiteStickyChrome({
     <>
       <div
         ref={fixedTopRef}
-        className="fixed top-0 right-0 left-0 z-40 overflow-x-clip border-b border-[#D4AF37]/40 bg-[#0A0A0A] pt-[max(0.25rem,env(safe-area-inset-top))] shadow-[0_12px_40px_rgba(0,0,0,0.55)]"
+        className="gold-void fixed top-0 right-0 left-0 z-40 overflow-x-clip border-b border-[#D4AF37]/40 pt-[max(0.25rem,env(safe-area-inset-top))] shadow-[0_12px_40px_rgba(0,0,0,0.55)]"
         role="banner"
         aria-label="JD Gold header and media strip"
       >

@@ -109,7 +109,7 @@ function SideNavItem({
   const { pathname } = useLocation();
   const active = !disabled && pathname === to;
   const className = [
-    'content-stretch relative flex w-full shrink-0 flex-col items-center gap-[6px] rounded-[12px] bg-[#39121B] px-[10px] py-[8px] no-underline',
+    'content-stretch relative flex w-full shrink-0 flex-col items-center gap-[6px] rounded-[12px] bg-[#39121B] px-[10px] py-[16px] no-underline',
     disabled
       ? 'cursor-not-allowed opacity-40'
       : active
@@ -129,6 +129,10 @@ function SideNavItem({
       >
         {label}
       </span>
+      <div
+        aria-hidden="true"
+        className="gold-glow pointer-events-none absolute inset-0 rounded-[12px] border-2 border-solid border-[#c09038]"
+      />
     </>
   );
 
@@ -251,7 +255,7 @@ const NAV_ICONS: Record<string, ReactNode> = {
 
 function Frame11() {
   return (
-    <div className="relative shrink-0 self-stretch rounded-[16px] bg-[#010100]">
+    <div className="gold-void relative shrink-0 self-stretch rounded-[16px]">
       <div className="flex size-full flex-col items-center justify-center overflow-clip rounded-[inherit]">
         <nav className="relative flex size-full flex-col content-stretch items-center justify-evenly gap-[12px] px-[12px] py-[24px]">
           {HOME_NAV_ITEMS.map((item) => (
@@ -267,7 +271,7 @@ function Frame11() {
       </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+        className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
       />
     </div>
   );
@@ -290,7 +294,7 @@ function Frame8({
 }) {
   return (
     <div id="home-main-panel" className="relative w-full shrink-0">
-      <div className="relative w-full bg-[#000000] px-[20px] py-[10px]">
+      <div className="gold-void relative w-full px-[20px] py-[10px]">
         <div className="relative flex w-full content-stretch items-stretch gap-[12px]">
           <Frame9 members={members} />
           <Frame11 />
@@ -368,7 +372,7 @@ export default function HomePage({
 
   return (
     <div
-      className="relative flex w-[1512px] min-w-[1512px] flex-col content-stretch items-start bg-[#010100]"
+      className="gold-void relative flex w-[1512px] min-w-[1512px] flex-col content-stretch items-start"
       data-name="Home"
     >
       <Frame8

@@ -148,7 +148,7 @@ export default function AdvantagesPageView({ content }: { content: AdvantagesCon
 
       {/* Footer mottos */}
       {showFooter ? (
-        <section className="border-t border-[#c09038]/40 bg-[#0a0502]">
+        <section className="gold-void border-t border-[#c09038]/40">
           <div className="mx-auto grid w-full grid-cols-[repeat(4,1fr)_auto] items-center gap-6 px-6 py-10">
             {footerMottos.map((m) => (
               <div key={m.title} className="flex flex-col items-center text-center">

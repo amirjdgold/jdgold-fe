@@ -253,7 +253,7 @@ export default function FactoryRefineryPageView({
         </div>
 
         {trustPoints.length ? (
-          <section className="border-t border-[#c09038]/40 bg-[#0a0502]">
+          <section className="gold-void border-t border-[#c09038]/40">
             <div className="grid grid-cols-5 items-center gap-4 px-6 py-8">
               {trustPoints.map((point, index) => (
                 <div

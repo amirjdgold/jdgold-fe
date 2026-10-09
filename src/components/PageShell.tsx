@@ -14,7 +14,7 @@ export default function PageShell({ children, logoSrc }: PageShellProps) {
   const headerLogoSrc = branding?.logoSrc?.trim() || logoSrc;
 
   return (
-    <div className="min-h-screen overflow-x-clip bg-[#0a0502] text-white">
+    <div className="gold-void min-h-screen overflow-x-clip text-white">
       <SiteStickyChrome
         logoSrc={headerLogoSrc}
         logoAlt={branding?.logoAlt || branding?.title || 'JD Gold'}
@@ -43,7 +43,7 @@ export function SectionTitle({
   return (
     <h2
       className={cn(
-        "font-['Alice:Regular',Georgia,serif] text-3xl tracking-wide text-[#c09038]",
+        "gradient-text-gold font-['Alice:Regular',Georgia,serif] text-3xl tracking-wide text-[#c09038]",
         className,
       )}
     >

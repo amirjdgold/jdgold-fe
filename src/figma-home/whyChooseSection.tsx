@@ -246,7 +246,7 @@ function FeatureCard({
       </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.04)]"
+        className="gold-glow pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]"
       />
     </div>
   );
@@ -294,7 +294,7 @@ function StatCard({
       </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.04)]"
+        className="gold-glow pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]"
       />
     </div>
   );
@@ -402,7 +402,7 @@ export function WhyChooseBrandsSection({ content }: { content?: WhyChooseSection
         </div>
         <div className="relative flex w-full shrink-0 content-stretch items-stretch gap-[12px]">
           <div className="relative min-w-px flex-[1_0_0] self-stretch rounded-[20px] bg-[#100b02] drop-shadow-[0px_2px_4px_rgba(0,0,0,0.04)]">
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]" />
+            <div aria-hidden="true" className="gold-glow pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]" />
             <MissionBlock title={data.mission.title} body={data.mission.body} />
           </div>
           <div className="relative aspect-[2/1] h-auto w-[615px] max-w-full shrink-0 rounded-[16px]">
@@ -411,10 +411,10 @@ export function WhyChooseBrandsSection({ content }: { content?: WhyChooseSection
               className="absolute inset-0 size-full max-w-none rounded-[16px] object-cover object-center"
               src={data.missionImage}
             />
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]" />
+            <div aria-hidden="true" className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]" />
           </div>
           <div className="relative min-w-px flex-[1_0_0] self-stretch rounded-[20px] bg-[#100b02] drop-shadow-[0px_2px_4px_rgba(0,0,0,0.04)]">
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]" />
+            <div aria-hidden="true" className="gold-glow pointer-events-none absolute inset-0 rounded-[20px] border-2 border-solid border-[#c09038]" />
             <VisionBlock
               title={data.vision.title}
               body={data.vision.body}

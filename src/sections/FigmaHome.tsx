@@ -101,7 +101,7 @@ export default function FigmaHome({
   }, [pathname]);
 
   return (
-    <div ref={hostRef} className="figma-home-root w-full bg-[#010100]">
+    <div ref={hostRef} className="figma-home-root gold-void w-full">
       <div ref={canvasRef} className="figma-home-canvas" style={{ width: DESIGN_WIDTH }}>
         <HomePage
           teamMembers={teamMembers}

@@ -28,7 +28,7 @@ function GalleryImageSlot({ image, alt }: { image: string; alt?: string }) {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
+        className="gold-glow pointer-events-none absolute inset-0 rounded-[16px] border-2 border-solid border-[#c09038]"
       />
     </div>
   );
@@ -39,7 +39,7 @@ export function RefiningGallerySectionView({ content }: { content?: RefiningGall
 
   return (
     <div className="relative w-full shrink-0" data-name="section#brands">
-      <div className="relative flex size-full flex-col items-start bg-black px-[20px] py-[10px]">
+      <div className="gold-void relative flex size-full flex-col items-start px-[20px] py-[10px]">
         <div className="relative flex w-full shrink-0 items-center gap-[12px]">
           {data.slots.map((slot, i) => (
             <GalleryImageSlot key={i} image={slot.image} alt={slot.alt} />

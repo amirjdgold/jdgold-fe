@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <MediaLightboxProvider>
       <ScrollToTop />
-      <div className="min-h-screen overflow-x-clip bg-[#0A0A0A] text-white">
+      <div className="gold-void min-h-screen overflow-x-clip text-white">
         <main>
           <Routes>
             <Route path="/" element={<HomeView />} />

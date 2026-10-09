@@ -19,7 +19,7 @@ export default function PageContentLoader({ className }: { className?: string })
   return (
     <div
       className={cn(
-        'flex min-h-screen flex-col bg-[#0a0502] text-[#c09038]',
+        'gold-void flex min-h-screen flex-col text-[#c09038]',
         className,
       )}
       role="status"
